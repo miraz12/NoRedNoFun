@@ -3,10 +3,7 @@
 #include <iostream>
 #include <glad/glad.h>
 
-Rendering::Rendering():
-    m_canvas(m_shaderProgram),
-    m_quad(m_shaderProgram),
-    m_pen(m_shaderProgram) {
+Rendering::Rendering(): m_quad(m_shaderProgram) {
     initGL();
 }
 
@@ -14,26 +11,14 @@ Rendering::~Rendering() {
 
 }
 
-Canvas& Rendering::getCanvas() {
-    return m_canvas;
-}
-
-Pen& Rendering::getPen() {
-    return m_pen;
-}
-
 void Rendering::draw() {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     m_shaderProgram.use();
-
-    m_canvas.clear();
-    m_canvas.applyCanvasMatrix();
-
     m_quad.draw();
-    m_pen.draw();
 }
 
 void Rendering::initGL() {
-    m_canvas.setClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
     // Back-face culling
 //     glEnable(GL_CULL_FACE);

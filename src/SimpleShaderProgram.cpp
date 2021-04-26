@@ -8,11 +8,10 @@ SimpleShaderProgram::SimpleShaderProgram():
     ShaderProgram("../src/Shaders/vertex.glsl", "../src/Shaders/fragment.glsl") {
 
     // Change if uniforms change in shaders
-    m_nrOfUniforms = 3;
+    m_nrOfUniforms = 2;
     m_uniformBindings = new std::pair<std::string, unsigned int>[m_nrOfUniforms];
     m_uniformBindings[0] = std::pair<std::string, unsigned int>("modelMatrix", glGetUniformLocation(p_shaderProgram, "modelMatrix"));
-    m_uniformBindings[1] = std::pair<std::string, unsigned int>("canvasMatrix", glGetUniformLocation(p_shaderProgram, "canvasMatrix"));
-    m_uniformBindings[2] = std::pair<std::string, unsigned int>("useTexture", glGetUniformLocation(p_shaderProgram, "useTexture"));
+    m_uniformBindings[1] = std::pair<std::string, unsigned int>("useTexture", glGetUniformLocation(p_shaderProgram, "useTexture"));
 }
 
 SimpleShaderProgram::~SimpleShaderProgram() {

@@ -7,13 +7,12 @@ layout (location = 2) in vec2 inTexCoords;
 
 // If uniforms change, also update SimpleShaderProgram::setupUniforms to match
 uniform mat4 modelMatrix;
-uniform mat4 canvasMatrix;
 
 out vec3 color;
 out vec2 texCoords;
 
 void main() {
-    gl_Position = canvasMatrix * modelMatrix * vec4(inPosition, 1.0);
+    gl_Position = modelMatrix * vec4(inPosition, 1.0);
     color = inColor;
     texCoords = inTexCoords;
 }
