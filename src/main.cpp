@@ -7,6 +7,8 @@ int main() {
 	std::cout << "Hello world!\n";
 
 	Test test;
+
+	if (!glfwInit()) return false;
 	
 	std::getchar();
 	return 0;
