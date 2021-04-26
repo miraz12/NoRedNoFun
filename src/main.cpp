@@ -1,8 +1,10 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "TestDir/Test.hpp"
+
 #include <glm/glm.hpp>
+
+#include "Rendering.hpp"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
@@ -12,9 +14,6 @@ const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
 int main() {
-	std::cout << "Hello world!\n";
-
-	Test test;
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -34,7 +33,9 @@ int main() {
     {
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
-    }    
+    }
+
+    Rendering rendering;
 
     // render loop
     // -----------
@@ -43,10 +44,10 @@ int main() {
         // input
         // -----
         processInput(window);
+
         // render
         // ------
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        rendering.draw();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
