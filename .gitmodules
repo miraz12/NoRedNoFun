@@ -4,3 +4,6 @@
 [submodule "exts/glew"]
 	path = exts/glew
 	url = https://github.com/Perlmint/glew-cmake.git
+[submodule "exts/glad"]
+	path = exts/glad
+	url = https://github.com/Dav1dde/glad.git
