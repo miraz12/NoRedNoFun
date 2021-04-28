@@ -1,0 +1,44 @@
+#include "Camera.hpp"
+
+#include <glad/glad.h>
+
+Camera::Camera():
+    m_viewMatrix(1.0f),
+    m_matrixNeedsUpdate(false),
+    m_position{0.0f, 0.0f},
+    m_zoom(1.0f),
+    m_rotation(0.0f) {
+
+}
+
+Camera::~Camera() {
+
+}
+
+void Camera::setPosition(float positionX, float positionY) {
+    m_position[0] = positionX;
+    m_position[1] = positionY;
+    m_matrixNeedsUpdate = true;
+}
+
+void Camera::setZoom(float zoomAmount) {
+    m_zoom = zoomAmount;
+    m_matrixNeedsUpdate = true;
+}
+
+void Camera::setRotation(float rotation) {
+    m_rotation = rotation;
+    m_matrixNeedsUpdate = true;
+}
+
+void Camera::bindViewMatrix(unsigned int shaderLocation) {
+    if (m_matrixNeedsUpdate) {
+        m_viewMatrix = glm::mat4(1.0f);
+        m_viewMatrix = glm::scale(m_viewMatrix, glm::vec3(m_zoom, m_zoom, 1.0f));
+        m_viewMatrix = glm::rotate(m_viewMatrix, m_rotation, glm::vec3(0.0f, 0.0f, 1.0f));
+        m_viewMatrix = glm::translate(m_viewMatrix, glm::vec3(-m_position[0], -m_position[1], 0.0f));
+        m_matrixNeedsUpdate = false;
+    }
+
+    glUniformMatrix4fv(shaderLocation, 1, GL_FALSE, glm::value_ptr(m_viewMatrix));
+}

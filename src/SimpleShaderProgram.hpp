@@ -9,7 +9,7 @@ public:
     ~SimpleShaderProgram();
 
     void setupVertexAttributePointers();
-    bool getUniformLocation(std::string uniformName, unsigned int &loc);
+    unsigned int getUniformLocation(std::string uniformName);
 private:
     std::pair<std::string, unsigned int>* m_uniformBindings;
     unsigned int m_nrOfUniforms;

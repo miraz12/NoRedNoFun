@@ -5,6 +5,9 @@
 
 Rendering::Rendering(): m_quad(m_shaderProgram) {
     initGL();
+    m_camera.setPosition(0.0f, 0.0f);
+    m_camera.setZoom(0.2f);
+    m_camera.setRotation(0.0f);
 }
 
 Rendering::~Rendering() {
@@ -14,6 +17,7 @@ Rendering::~Rendering() {
 void Rendering::draw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     m_shaderProgram.use();
+    m_camera.bindViewMatrix(m_shaderProgram.getUniformLocation("viewMatrix"));
     m_quad.draw();
 }
 

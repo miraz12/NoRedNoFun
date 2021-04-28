@@ -28,13 +28,8 @@ void GraphicsObject::prepareDraw() {
     glBindVertexArray(m_VAO);
     p_texture.bind();
 
-    if (p_shaderProgram.getUniformLocation("useTexture", m_useTextureLoc)) {
-        glUniform1i(m_useTextureLoc, p_texture.getTextureEnabled());
-    }
-
-    if (p_shaderProgram.getUniformLocation("modelMatrix", m_modelMatrixLoc)) {
-        glUniformMatrix4fv(m_modelMatrixLoc, 1, GL_FALSE, glm::value_ptr(m_modelMatrix));
-    }
+    glUniform1i(p_shaderProgram.getUniformLocation("useTexture"), p_texture.getTextureEnabled());
+    glUniformMatrix4fv(p_shaderProgram.getUniformLocation("modelMatrix"), 1, GL_FALSE, glm::value_ptr(m_modelMatrix));
 }
 
 void GraphicsObject::setVertexData(std::size_t dataSize, const void* data) {

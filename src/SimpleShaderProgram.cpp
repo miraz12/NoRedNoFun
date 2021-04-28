@@ -8,14 +8,15 @@ SimpleShaderProgram::SimpleShaderProgram():
     ShaderProgram("../src/Shaders/vertex.glsl", "../src/Shaders/fragment.glsl") {
 
     // Change if uniforms change in shaders
-    m_nrOfUniforms = 2;
+    m_nrOfUniforms = 3;
     m_uniformBindings = new std::pair<std::string, unsigned int>[m_nrOfUniforms];
     m_uniformBindings[0] = std::pair<std::string, unsigned int>("modelMatrix", glGetUniformLocation(p_shaderProgram, "modelMatrix"));
-    m_uniformBindings[1] = std::pair<std::string, unsigned int>("useTexture", glGetUniformLocation(p_shaderProgram, "useTexture"));
+    m_uniformBindings[1] = std::pair<std::string, unsigned int>("viewMatrix", glGetUniformLocation(p_shaderProgram, "viewMatrix"));
+    m_uniformBindings[2] = std::pair<std::string, unsigned int>("useTexture", glGetUniformLocation(p_shaderProgram, "useTexture"));
 }
 
 SimpleShaderProgram::~SimpleShaderProgram() {
-
+    delete[] m_uniformBindings;
 }
 
 void SimpleShaderProgram::setupVertexAttributePointers() {
@@ -33,14 +34,13 @@ void SimpleShaderProgram::setupVertexAttributePointers() {
     glEnableVertexAttribArray(2);
 }
 
-bool SimpleShaderProgram::getUniformLocation(std::string uniformName, unsigned int &loc) {
+unsigned int SimpleShaderProgram::getUniformLocation(std::string uniformName) {
     for (unsigned int i = 0; i < m_nrOfUniforms; i++) {
         if (m_uniformBindings[i].first == uniformName) {
-            loc = m_uniformBindings[i].second;
-            return true;
+            return m_uniformBindings[i].second;
         }
     }
 
     std::cout << "No uniform with name " << uniformName << "\n";
-    return false;
+    return NULL;
 }

@@ -11,7 +11,7 @@ public:
     void use();
 
     virtual void setupVertexAttributePointers() = 0;
-    virtual bool getUniformLocation(std::string uniformName, unsigned int &loc) = 0;
+    virtual unsigned int getUniformLocation(std::string uniformName) = 0;
 
 protected:
     unsigned int p_shaderProgram;
