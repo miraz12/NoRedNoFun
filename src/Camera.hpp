@@ -12,7 +12,7 @@ public:
     void setZoom(float zoomAmount);
     void setRotation(float rotation); // Set rotation clockwise
 
-    void bindViewMatrix(unsigned int shaderLocation);
+    void bindViewMatrix(unsigned int uniformLocation);
 private:
     glm::mat4 m_viewMatrix;
     bool m_matrixNeedsUpdate;

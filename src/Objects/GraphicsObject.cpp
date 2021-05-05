@@ -27,9 +27,13 @@ void GraphicsObject::setModelMatrix(glm::mat4 modelMatrix) {
 
 void GraphicsObject::prepareDraw() {
     glBindVertexArray(m_VAO);
-    p_texture.bind();
 
     glUniform1i(p_shaderProgram.getUniformLocation("useTexture"), p_texture.getTextureEnabled());
+
+	if (p_texture.getTextureEnabled()) {
+		p_texture.bind();
+	}
+
     glUniformMatrix4fv(p_shaderProgram.getUniformLocation("modelMatrix"), 1, GL_FALSE, glm::value_ptr(m_modelMatrix));
 }
 

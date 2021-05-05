@@ -6,7 +6,7 @@ git submodule update<br/>
 <br/>
 make a folder where you wan't build files to end up, for example "build"<br/>
 cd build<br/>
-cmake ../<br/>
+cmake ../ (This needs to be done every time a file is created/renamed/moved) <br/>
 cmake --build .<br/>
 
 ## Notes:

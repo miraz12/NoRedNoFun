@@ -31,7 +31,7 @@ void Camera::setRotation(float rotation) {
     m_matrixNeedsUpdate = true;
 }
 
-void Camera::bindViewMatrix(unsigned int shaderLocation) {
+void Camera::bindViewMatrix(unsigned int uniformLocation) {
     if (m_matrixNeedsUpdate) {
         m_viewMatrix = glm::mat4(1.0f);
         m_viewMatrix = glm::scale(m_viewMatrix, glm::vec3(m_zoom, m_zoom, 1.0f));
@@ -40,5 +40,5 @@ void Camera::bindViewMatrix(unsigned int shaderLocation) {
         m_matrixNeedsUpdate = false;
     }
 
-    glUniformMatrix4fv(shaderLocation, 1, GL_FALSE, glm::value_ptr(m_viewMatrix));
+    glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(m_viewMatrix));
 }

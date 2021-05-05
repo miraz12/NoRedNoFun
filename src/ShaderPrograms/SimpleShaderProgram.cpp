@@ -10,8 +10,9 @@ SimpleShaderProgram::SimpleShaderProgram():
     // Change if uniforms change in shaders, the map's values are set to match layout(location = x) in shaders.
     m_uniformBindings["modelMatrix"] = 0;
     m_uniformBindings["viewMatrix"] = 1;
-	m_uniformBindings["texture0"] = 2;
-    m_uniformBindings["useTexture"] = 3;
+	m_uniformBindings["textureMatrix"] = 2;
+	m_uniformBindings["texture0"] = 3;
+    m_uniformBindings["useTexture"] = 4;
 
 	use(); // Start using the shader
 
