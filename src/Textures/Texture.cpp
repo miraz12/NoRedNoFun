@@ -2,9 +2,13 @@
 
 #include <glad/glad.h>
 
-Texture::Texture() {
+Texture::Texture(unsigned int textureIndex) {
+	m_useTexture = false;
+	m_textureIndex = textureIndex;
+
     // Generate texture
     glGenTextures(1, &m_texture);
+	glActiveTexture(GL_TEXTURE0 + m_textureIndex);
     glBindTexture(GL_TEXTURE_2D, m_texture);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -36,5 +40,7 @@ void Texture::setTextureData(unsigned char* data, unsigned int width, unsigned i
 }
 
 void Texture::bind() {
+	glActiveTexture(GL_TEXTURE0);
+	glActiveTexture(GL_TEXTURE0 + m_textureIndex);
     glBindTexture(GL_TEXTURE_2D, m_texture);
 }

@@ -3,13 +3,12 @@
 #include <glad/glad.h>
 
 #include "GraphicsObject.hpp"
-#include "ShaderProgram.hpp"
+#include "../ShaderPrograms/ShaderProgram.hpp"
 
 Quad::Quad(ShaderProgram& shaderProgram):
     GraphicsObject(shaderProgram) {
     setVertexData(sizeof(m_vertices), m_vertices);
     setIndexData(sizeof(m_indices), m_indices);
-
 
     p_texture.setTextureData(m_texData, 2, 2);
     p_texture.enableTexture(true);

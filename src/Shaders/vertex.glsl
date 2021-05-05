@@ -5,9 +5,9 @@ layout (location = 0) in vec3 inPosition;
 layout (location = 1) in vec3 inColor;
 layout (location = 2) in vec2 inTexCoords;
 
-// If uniforms change, also update SimpleShaderProgram::setupUniforms to match
-uniform mat4 modelMatrix;
-uniform mat4 viewMatrix;
+// If uniforms change, also update SimpleShaderProgram to match
+layout(location = 0) uniform mat4 modelMatrix;
+layout(location = 1) uniform mat4 viewMatrix;
 
 out vec3 color;
 out vec2 texCoords;

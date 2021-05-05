@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 
-#include "Texture.hpp"
+#include "../Textures/Texture.hpp"
 
 class ShaderProgram;
 
@@ -30,9 +30,6 @@ private:
     unsigned int m_EBO; // Optional
 
     glm::mat4 m_modelMatrix;
-    unsigned int m_modelMatrixLoc;
-
-    unsigned int m_useTextureLoc;
 
     void init();
 };

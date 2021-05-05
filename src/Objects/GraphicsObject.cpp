@@ -1,12 +1,13 @@
 #include "GraphicsObject.hpp"
 
-#include "ShaderProgram.hpp"
+#include "../ShaderPrograms/ShaderProgram.hpp"
 
 #include <glad/glad.h>
 
 GraphicsObject::GraphicsObject(ShaderProgram& shaderProgram):
     p_shaderProgram(shaderProgram),
-    m_modelMatrix(1.0f) {
+    m_modelMatrix(1.0f),
+	p_texture(0) {
     init();
 }
 

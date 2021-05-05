@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Camera.hpp"
-#include "SimpleShaderProgram.hpp"
-#include "Quad.hpp"
+#include "ShaderPrograms/SimpleShaderProgram.hpp"
+#include "Objects/Quad.hpp"
 
 class Rendering {
 public:
