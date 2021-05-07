@@ -41,11 +41,12 @@ void SpriteMap::advanceSpriteBy(float x, float y) {
 }
 
 void SpriteMap::notifyChange() {
+	// Call this if you update data through the references returned by getNrOfSprites and getCurrentSprite
 	m_matrixNeedsUpdate = true;
 }
 
 void SpriteMap::bindSprite(unsigned int uniformLocation) {
-	bind(); // Bind underlaying texture
+	bind(); // Bind underlying texture
 	if (m_matrixNeedsUpdate) {
 		m_textureMatrix = glm::mat4(1.0f);
 		glm::vec2 spriteSize = glm::vec2(1.0f / glm::max(m_nrOfSprites.x, 1.0f), 1.0f / glm::max(m_nrOfSprites.y, 1.0f));

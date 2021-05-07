@@ -2,7 +2,6 @@
 
 #include <glad/glad.h>
 
-#include "GraphicsObject.hpp"
 #include "../ShaderPrograms/ShaderProgram.hpp"
 
 Quad::Quad(ShaderProgram& shaderProgram):
@@ -28,5 +27,5 @@ void Quad::draw() {
 	m_spriteMap.bindSprite(p_shaderProgram.getUniformLocation("textureMatrix"));
     prepareDraw();
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0); // Using indices, call setIndexData().
-//     glDrawArrays(GL_TRIANGLES, 0, 6); // Not using indices, don't call setIndexData().
+	//glDrawArrays(GL_TRIANGLES, 0, 6); // Not using indices, don't call setIndexData().
 }

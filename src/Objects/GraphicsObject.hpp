@@ -12,6 +12,7 @@ public:
 
     void changeShaderProgram(ShaderProgram &shaderProgram);
     void setModelMatrix(glm::mat4 modelMatrix);
+	void bindIdentityTextureMatrix();
 	void setUseTexture(bool enable);
     void prepareDraw();
     virtual void draw() = 0;

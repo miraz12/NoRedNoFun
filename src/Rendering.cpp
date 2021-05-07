@@ -3,7 +3,8 @@
 #include <iostream>
 #include <glad/glad.h>
 
-Rendering::Rendering(): m_quad(m_shaderProgram) {
+Rendering::Rendering():
+	m_quad(m_shaderProgram) {
     initGL();
     m_camera.setPosition(0.0f, 0.0f);
     m_camera.setZoom(0.5f);
