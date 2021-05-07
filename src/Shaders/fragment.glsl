@@ -1,7 +1,7 @@
 #version 460 core
 precision highp float;
 
-in vec3 color;
+in vec4 color;
 in vec2 texCoords;
 
 // If uniforms change, also update SimpleShaderProgram to match
@@ -16,7 +16,7 @@ void main()
         FragColor = texture(texture0, texCoords);
     }
     else {
-       FragColor = vec4(color, 1.0f);
+       FragColor = color;
     }
 
 }

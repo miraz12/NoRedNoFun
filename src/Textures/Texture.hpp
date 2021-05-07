@@ -5,14 +5,15 @@ public:
     Texture(unsigned int textureIndex);
     virtual ~Texture();
 
-    virtual bool getTextureEnabled();
-
-    virtual void enableTexture(bool use);
     virtual void setTextureData(unsigned char* data, unsigned int width, unsigned int height);
     virtual void bind();
 private:
     unsigned int m_texture;
-    bool m_useTexture;
 
 	unsigned int m_textureIndex;
+
+	unsigned char m_missingTextureData[16] = {
+		255, 255, 255, 255, 0, 0, 0, 255,
+		0, 0, 0, 255, 255, 255, 255, 255
+	};
 };

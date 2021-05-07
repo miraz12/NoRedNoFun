@@ -6,12 +6,16 @@
 Rendering::Rendering(): m_quad(m_shaderProgram) {
     initGL();
     m_camera.setPosition(0.0f, 0.0f);
-    m_camera.setZoom(0.2f);
+    m_camera.setZoom(0.5f);
     m_camera.setRotation(0.0f);
 }
 
 Rendering::~Rendering() {
 
+}
+
+void Rendering::update(float dt) {
+	m_quad.update(dt);
 }
 
 void Rendering::draw() {

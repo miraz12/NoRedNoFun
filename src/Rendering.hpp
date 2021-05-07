@@ -9,6 +9,7 @@ public:
     Rendering();
     ~Rendering();
 
+	void update(float dt);
     void draw();
 private:
     Camera m_camera;

@@ -10,12 +10,18 @@ public:
 	SpriteMap(unsigned int textureIndex);
 	~SpriteMap();
 
-	void setNrOfSprites(int x, int y);
-	void setCurrentSprite(int x, int y);
+	glm::vec2& getNrOfSprites();
+	glm::vec2& getCurrentSprite();
 
-	void bindTextureMatrix(unsigned int uniformLocation);
+	void setNrOfSprites(float x, float y);
+	void setCurrentSprite(float x, float y);
+	void advanceSpriteBy(float x, float y);
+
+	void notifyChange();
+
+	void bindSprite(unsigned int uniformLocation);
 private:
-	glm::vec2 m_numSprites;
+	glm::vec2 m_nrOfSprites;
 	glm::vec2 m_currentSprite;
 	bool m_matrixNeedsUpdate;
 

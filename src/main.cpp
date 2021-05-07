@@ -38,6 +38,10 @@ int main() {
 
     Rendering rendering;
 
+	double currentTime = glfwGetTime();
+	double previousTime = currentTime;
+	double dt = 0.0;
+
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -45,6 +49,13 @@ int main() {
         // input
         // -----
         processInput(window);
+
+		// update
+		// -----
+		currentTime = glfwGetTime();
+		dt = previousTime - currentTime;
+		previousTime = currentTime;
+		rendering.update((float) dt);
 
         // render
         // ------

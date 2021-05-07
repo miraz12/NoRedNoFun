@@ -7,7 +7,7 @@
 GraphicsObject::GraphicsObject(ShaderProgram& shaderProgram):
     p_shaderProgram(shaderProgram),
     m_modelMatrix(1.0f),
-	p_texture(0) {
+	m_useTexture(false) {
     init();
 }
 
@@ -25,16 +25,16 @@ void GraphicsObject::setModelMatrix(glm::mat4 modelMatrix) {
     m_modelMatrix = modelMatrix;
 }
 
+void GraphicsObject::setUseTexture(bool useTexture) {
+	m_useTexture = useTexture;
+}
+
 void GraphicsObject::prepareDraw() {
     glBindVertexArray(m_VAO);
 
-    glUniform1i(p_shaderProgram.getUniformLocation("useTexture"), p_texture.getTextureEnabled());
-
-	if (p_texture.getTextureEnabled()) {
-		p_texture.bind();
-	}
-
     glUniformMatrix4fv(p_shaderProgram.getUniformLocation("modelMatrix"), 1, GL_FALSE, glm::value_ptr(m_modelMatrix));
+
+	glUniform1i(p_shaderProgram.getUniformLocation("useTexture"), m_useTexture);
 }
 
 void GraphicsObject::setVertexData(std::size_t dataSize, const void* data) {

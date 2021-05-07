@@ -3,7 +3,6 @@
 #include <glad/glad.h>
 
 Texture::Texture(unsigned int textureIndex) {
-	m_useTexture = false;
 	m_textureIndex = textureIndex;
 
     // Generate texture
@@ -16,21 +15,13 @@ Texture::Texture(unsigned int textureIndex) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 0, 0, 0, GL_RGB, GL_UNSIGNED_BYTE, 0);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 2, 2, 0, GL_RGBA, GL_UNSIGNED_BYTE, m_missingTextureData);
 
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 Texture::~Texture() {
 
-}
-
-bool Texture::getTextureEnabled() {
-    return m_useTexture;
-}
-
-void Texture::enableTexture(bool use) {
-    m_useTexture = use;
 }
 
 void Texture::setTextureData(unsigned char* data, unsigned int width, unsigned int height) {

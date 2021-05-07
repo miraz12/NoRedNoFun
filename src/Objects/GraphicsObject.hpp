@@ -3,8 +3,6 @@
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 
-#include "../Textures/Texture.hpp"
-
 class ShaderProgram;
 
 class GraphicsObject {
@@ -14,13 +12,12 @@ public:
 
     void changeShaderProgram(ShaderProgram &shaderProgram);
     void setModelMatrix(glm::mat4 modelMatrix);
+	void setUseTexture(bool enable);
     void prepareDraw();
     virtual void draw() = 0;
 
 protected:
     ShaderProgram& p_shaderProgram;
-
-    Texture p_texture;
 
     virtual void setVertexData(std::size_t dataSize, const void* data);
     virtual void setIndexData(std::size_t dataSize, const void* data);
@@ -30,6 +27,7 @@ private:
     unsigned int m_EBO; // Optional
 
     glm::mat4 m_modelMatrix;
+	bool m_useTexture;
 
     void init();
 };
