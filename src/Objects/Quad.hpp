@@ -16,6 +16,7 @@ public:
 
 private:
 	SpriteMap m_spriteMap;
+	float m_updateTextureTimer;
 
     float m_vertices[36] = {
 //		Position				Color						Texture coords

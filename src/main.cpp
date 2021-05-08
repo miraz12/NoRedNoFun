@@ -53,7 +53,7 @@ int main() {
 		// update
 		// -----
 		currentTime = glfwGetTime();
-		dt = previousTime - currentTime;
+		dt = currentTime - previousTime;
 		previousTime = currentTime;
 		rendering.update((float) dt);
 
