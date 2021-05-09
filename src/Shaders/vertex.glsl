@@ -1,4 +1,4 @@
-#version 460 core
+#version 450 core
 
 // If inputs change, also update SimpleShaderProgram::setupVertexAttributePointers to match
 layout (location = 0) in vec3 inPosition;

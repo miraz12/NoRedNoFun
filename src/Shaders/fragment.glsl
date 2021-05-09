@@ -1,4 +1,4 @@
-#version 460 core
+#version 450 core
 precision highp float;
 
 in vec4 color;

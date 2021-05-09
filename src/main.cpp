@@ -1,13 +1,14 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
 #include <glm/glm.hpp>
+#include <cstdio>
 
 #include "Rendering.hpp"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
+void errorCallback(int error, const char* description) { printf("Error: %s\n", description); };
 
 GLFWwindow* window;
 const unsigned int SCR_WIDTH = 800;
@@ -19,6 +20,7 @@ int main() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+    glfwSetErrorCallback(errorCallback);
     window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
     if (window == NULL)
     {
@@ -50,7 +52,7 @@ int main() {
         // -----
         processInput(window);
 
-		// update
+		// Update
 		// -----
 		currentTime = glfwGetTime();
 		dt = currentTime - previousTime;
