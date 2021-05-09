@@ -6,6 +6,8 @@ project(NoRedNoFun)
 # Generate compile_commands.json for LSP
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+
+
 # Add source files
 file(GLOB_RECURSE SOURCE_FILES 
 	${CMAKE_SOURCE_DIR}/src/*.c
@@ -16,10 +18,15 @@ file(GLOB_RECURSE HEADER_FILES
 	${CMAKE_SOURCE_DIR}/src/*.h
 	${CMAKE_SOURCE_DIR}/src/*.hpp)
 
-file(COPY ${CMAKE_SOURCE_DIR}/src/Shaders DESTINATION  ${CMAKE_BINARY_DIR})
+
 
 ADD_SUBDIRECTORY(exts)
 add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCE_FILES})
+
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_SOURCE_DIR}/src/Shaders"
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>/Shaders)
 
 
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} exts)
