@@ -11,6 +11,7 @@ public:
     void use();
 
     virtual void setupVertexAttributePointers() = 0;
+	virtual void setupInstancedVertexAttributePointers();
     virtual unsigned int getUniformLocation(std::string uniformName) = 0;
 
 protected:

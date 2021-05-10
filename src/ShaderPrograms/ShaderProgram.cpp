@@ -70,6 +70,8 @@ void ShaderProgram::use() {
     glUseProgram(p_shaderProgram);
 }
 
+void ShaderProgram::setupInstancedVertexAttributePointers() {}
+
 void ShaderProgram::readFile(std::string filePath, std::string* result) {
     std::string line;
     std::ifstream theFile(filePath);

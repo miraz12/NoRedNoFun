@@ -26,7 +26,7 @@ void Quad::update(float dt) {
 
 	if (m_updateTextureTimer <= 0.0f) {
 		unsigned char updateTextureData[4] = {
-		rand() % 256, rand() % 256, rand() % 256, 255
+		(unsigned char) (rand() % 256), (unsigned char)(rand() % 256), (unsigned char)(rand() % 256), 255
 		};
 		m_spriteMap.updateTextureSubData(updateTextureData, 0, 0, 1, 1);
 		m_updateTextureTimer += 0.5f;

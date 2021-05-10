@@ -47,8 +47,6 @@ void GraphicsObject::setVertexData(std::size_t dataSize, const void* data) {
     glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
     glBufferData(GL_ARRAY_BUFFER, dataSize, data, GL_STATIC_DRAW);
 
-    p_shaderProgram.setupVertexAttributePointers();
-
     glBindVertexArray(0);
 }
 
@@ -66,4 +64,10 @@ void GraphicsObject::init() {
     glGenBuffers(1, &m_VBO);
     glGenBuffers(1, &m_EBO);
 
+	glBindVertexArray(m_VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+
+	p_shaderProgram.setupVertexAttributePointers();
+
+	glBindVertexArray(0);
 }
