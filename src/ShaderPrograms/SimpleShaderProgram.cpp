@@ -5,7 +5,7 @@
 #include <glad/glad.h>
 
 SimpleShaderProgram::SimpleShaderProgram():
-    ShaderProgram("../../src/Shaders/vertex.glsl", "../../src/Shaders/fragment.glsl") {
+    ShaderProgram("../src/Shaders/vertex.glsl", "../src/Shaders/fragment.glsl") {
 
     // Change if uniforms change in shaders, the map's values are set to match layout(location = x) in shaders.
     m_uniformBindings["modelMatrix"] = 0;

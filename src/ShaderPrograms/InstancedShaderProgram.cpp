@@ -5,7 +5,7 @@
 #include <glad/glad.h>
 
 InstancedShaderProgram::InstancedShaderProgram() :
-	ShaderProgram("../../src/Shaders/vertex_instanced.glsl", "../../src/Shaders/fragment_instanced.glsl") {
+	ShaderProgram("../src/Shaders/vertex_instanced.glsl", "../src/Shaders/fragment_instanced.glsl") {
 
 	// Change if uniforms change in shaders, the map's values are set to match layout(location = x) in shaders.
 	m_uniformBindings["viewMatrix"] = 0;
@@ -32,23 +32,21 @@ void InstancedShaderProgram::setupVertexAttributePointers() {
 }
 
 void InstancedShaderProgram::setupInstancedVertexAttributePointers() {
-	unsigned int totalFloats = 4 * 4 + 4 * 4; // Mat4 + Mat4
+	unsigned int totalFloats = 4 * 4 * 2; // Mat4 * 2
 
 	// Model Matrix
 	for (unsigned int i = 0; i < 4; i++) {
-		glVertexAttribPointer(2 + i, 4, GL_FLOAT, GL_FALSE, totalFloats * sizeof(float), (void*) 4 * i);
+		glVertexAttribPointer(2 + i, 4, GL_FLOAT, GL_FALSE, totalFloats * sizeof(float), (void*) (4 * i * sizeof(float)));
 		glEnableVertexAttribArray(2 + i);
 		glVertexAttribDivisor(2 + i, 1);
 	}
 
 	// Texture Matrix
 	for (unsigned int i = 0; i < 4; i++) {
-		glVertexAttribPointer(6 + i, 4, GL_FLOAT, GL_FALSE, totalFloats * sizeof(float), (void*) 16 + 4 * i);
+		glVertexAttribPointer(6 + i, 4, GL_FLOAT, GL_FALSE, totalFloats * sizeof(float), (void*) ((16 + 4 * i) * sizeof(float)));
 		glEnableVertexAttribArray(6 + i);
 		glVertexAttribDivisor(6 + i, 1);
 	}
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 unsigned int InstancedShaderProgram::getUniformLocation(std::string uniformName) {

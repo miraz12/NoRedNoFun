@@ -11,10 +11,8 @@ public:
     virtual ~GraphicsObject();
 
     void changeShaderProgram(ShaderProgram &shaderProgram);
-    void setModelMatrix(glm::mat4 modelMatrix);
-	void bindIdentityTextureMatrix();
-	void setUseTexture(bool enable);
-    void prepareDraw();
+    void bindVAO();
+    void unbindVAO();
     virtual void draw() = 0;
 
 protected:
@@ -23,12 +21,9 @@ protected:
     virtual void setVertexData(std::size_t dataSize, const void* data);
     virtual void setIndexData(std::size_t dataSize, const void* data);
 private:
-    unsigned int m_VBO;
     unsigned int m_VAO;
+    unsigned int m_VBO;
     unsigned int m_EBO; // Optional
-
-    glm::mat4 m_modelMatrix;
-	bool m_useTexture;
 
     void init();
 };
