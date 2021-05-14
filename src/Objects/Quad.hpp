@@ -15,6 +15,9 @@ public:
     virtual void draw();
 
 private:
+    unsigned int m_useTexture;
+    glm::mat4 m_modelMatrix;
+
 	SpriteMap m_spriteMap;
 	float m_updateTextureTimer;
 

@@ -22,6 +22,18 @@ glm::vec2 &SpriteMap::getCurrentSprite() {
 	return m_currentSprite;
 }
 
+glm::mat4 &SpriteMap::getTextureMatrix() {
+    if (m_matrixNeedsUpdate) {
+		m_textureMatrix = glm::mat4(1.0f);
+		glm::vec2 spriteSize = glm::vec2(1.0f / glm::max(m_nrOfSprites.x, 0.000001f), 1.0f / glm::max(m_nrOfSprites.y, 0.000001f));
+		m_textureMatrix = glm::translate(m_textureMatrix, glm::vec3(m_currentSprite * spriteSize, 0.0f));
+		m_textureMatrix = glm::scale(m_textureMatrix, glm::vec3(spriteSize, 1.0f));
+		m_matrixNeedsUpdate = false;
+	}
+
+	return m_textureMatrix;
+}
+
 void SpriteMap::setNrOfSprites(float x, float y) {
 	m_nrOfSprites.x = x;
 	m_nrOfSprites.y = y;
@@ -45,15 +57,6 @@ void SpriteMap::notifyChange() {
 	m_matrixNeedsUpdate = true;
 }
 
-void SpriteMap::bindSprite(unsigned int uniformLocation) {
+void SpriteMap::bindSprite() {
 	bind(); // Bind underlying texture
-	if (m_matrixNeedsUpdate) {
-		m_textureMatrix = glm::mat4(1.0f);
-		glm::vec2 spriteSize = glm::vec2(1.0f / glm::max(m_nrOfSprites.x, 0.000001f), 1.0f / glm::max(m_nrOfSprites.y, 0.000001f));
-		m_textureMatrix = glm::translate(m_textureMatrix, glm::vec3(m_currentSprite * spriteSize, 0.0f));
-		m_textureMatrix = glm::scale(m_textureMatrix, glm::vec3(spriteSize, 1.0f));
-		m_matrixNeedsUpdate = false;
-	}
-
-	glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(m_textureMatrix));
 }

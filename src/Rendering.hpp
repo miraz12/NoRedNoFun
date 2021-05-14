@@ -3,6 +3,8 @@
 #include "Camera.hpp"
 #include "Objects/Quad.hpp"
 #include "ShaderPrograms/SimpleShaderProgram.hpp"
+#include "ShaderPrograms/InstancedShaderProgram.hpp"
+#include "Objects/InstancedQuadManager.hpp"
 
 class Rendering {
 public:
@@ -13,9 +15,12 @@ public:
     void draw();
 private:
     Camera m_camera;
-    SimpleShaderProgram m_shaderProgram;
 
-	Quad m_quad;
+    InstancedShaderProgram m_shaderProgram;
+    InstancedQuadManager m_quadManager;
+
+//     SimpleShaderProgram m_shaderProgram;
+// 	Quad m_quad;
 
     void initGL();
 };
