@@ -12,13 +12,14 @@ Rendering::Rendering():
 
 
     for (unsigned int i = 0; i < 100; i++) {
-        unsigned int index = m_quadManager.getNewQuadIndex(); // Add quad
-        glm::mat4 modelMatrix(1.0f);
-        modelMatrix = glm::translate(modelMatrix, glm::vec3(-0.9f + 0.2f * (i % 10), -0.9f + 0.2f * std::floor(i / 10), 0.0f));
-		modelMatrix = glm::scale(modelMatrix, glm::vec3(0.1f, 0.1f, 1.0f));
-
-        m_quadManager.setModelMatrix(index, modelMatrix);
+        Quad* tempQuad = m_quadManager.getNewQuad(); // Add quad
+		// Transform it
+		tempQuad->getModelMatrix() = glm::translate(tempQuad->getModelMatrix(), glm::vec3(-0.9f + 0.2f * (i % 10), -0.9f + 0.2f * std::floor(i / 10), 0.0f));
+		tempQuad->getModelMatrix() = glm::scale(tempQuad->getModelMatrix(), glm::vec3(0.1f, 0.1f, 1.0f));
     }
+
+	// Alert quad manager that buffer needs update since some quad moved (not actually necessary in this case since this will done when a quad is created)
+	m_quadManager.notifyUpdate();
 }
 
 Rendering::~Rendering() {
@@ -26,15 +27,14 @@ Rendering::~Rendering() {
 }
 
 void Rendering::update(float dt) {
-// 	m_quad.update(dt);
+
 }
 
 void Rendering::draw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     m_shaderProgram.use();
     m_camera.bindViewMatrix(m_shaderProgram.getUniformLocation("viewMatrix"));
-    m_quadManager.draw();
-//     m_quad.draw();
+	m_quadManager.draw();
 }
 
 void Rendering::initGL() {

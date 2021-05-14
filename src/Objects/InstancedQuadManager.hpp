@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "GraphicsObject.hpp"
+#include "Quad.hpp"
 #include "../Textures/Texture.hpp"
 
 class ShaderProgram;
@@ -13,16 +14,17 @@ public:
 	InstancedQuadManager(ShaderProgram &shaderProgram);
 	~InstancedQuadManager();
 
-    unsigned int getNewQuadIndex();
+    Quad* getNewQuad();
+	std::vector<Quad>& getQuads();
 
-    void setModelMatrix(unsigned int quadIndex, glm::mat4 matrix);
-    void setTextureMatrix(unsigned int quadIndex, glm::mat4 matrix);
+	void notifyUpdate();
 
     void draw();
 private:
 	unsigned int m_instanceVBO;
 
     std::vector<glm::mat4> m_quadMatrices;
+	std::vector<Quad> m_quads;
 
     Texture m_texture;
     bool m_bufferNeedsUpdate;

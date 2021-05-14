@@ -1,12 +1,10 @@
 #include "SpriteMap.hpp"
 
-#include <glad/glad.h>
-
-SpriteMap::SpriteMap(unsigned int textureIndex) : Texture(textureIndex),
-m_nrOfSprites(1.0f),
+SpriteMap::SpriteMap(glm::mat4 &textureMatrix):
+	m_nrOfSprites(1.0f),
 	m_currentSprite(0.0f),
-	m_textureMatrix(1.0f),
-	m_matrixNeedsUpdate(false) {
+	m_matrixNeedsUpdate(false),
+	m_textureMatrix(textureMatrix) {
 
 }
 
@@ -55,8 +53,4 @@ void SpriteMap::advanceSpriteBy(float x, float y) {
 void SpriteMap::notifyChange() {
 	// Call this if you update data through the references returned by getNrOfSprites and getCurrentSprite
 	m_matrixNeedsUpdate = true;
-}
-
-void SpriteMap::bindSprite() {
-	bind(); // Bind underlying texture
 }

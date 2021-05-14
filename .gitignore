@@ -35,3 +35,4 @@
 build/*
 CMakeFiles/*
 src/.ccls-cache/*
+/.vs/slnx.sqlite

@@ -19,8 +19,5 @@ private:
     InstancedShaderProgram m_shaderProgram;
     InstancedQuadManager m_quadManager;
 
-//     SimpleShaderProgram m_shaderProgram;
-// 	Quad m_quad;
-
     void initGL();
 };

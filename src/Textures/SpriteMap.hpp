@@ -5,9 +5,9 @@
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 
-class SpriteMap : public Texture {
+class SpriteMap {
 public:
-	SpriteMap(unsigned int textureIndex);
+	SpriteMap(glm::mat4& textureMatrix);
 	~SpriteMap();
 
 	glm::vec2& getNrOfSprites();
@@ -19,12 +19,10 @@ public:
 	void advanceSpriteBy(float x, float y);
 
 	void notifyChange(); // Call this if you update data through the references returned by getNrOfSprites and getCurrentSprite
-
-	void bindSprite(); // Binds texture matrix and underlying texture
 private:
 	glm::vec2 m_nrOfSprites;
 	glm::vec2 m_currentSprite;
 	bool m_matrixNeedsUpdate;
 
-	glm::mat4 m_textureMatrix;
+	glm::mat4 &m_textureMatrix;
 };

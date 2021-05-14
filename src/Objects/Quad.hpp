@@ -4,33 +4,21 @@
 #include "../Textures/SpriteMap.hpp"
 
 class ShaderProgram;
+class InstancedQuadManager;
 
-class Quad: protected GraphicsObject {
+class Quad{
 public:
-    Quad(ShaderProgram &shaderProgram);
+    Quad(glm::mat4 &modelMatrix, glm::mat4& textureMatrix, InstancedQuadManager* owner);
     virtual ~Quad();
 
+	glm::mat4& getModelMatrix();
+	SpriteMap& getSpriteMap();
 
-	void update(float dt);
-    virtual void draw();
+	// TODO: Add functions for updating model matrix and sprite map that automatically calls owner->notifyUpdate()
 
 private:
-    unsigned int m_useTexture;
-    glm::mat4 m_modelMatrix;
-
+    glm::mat4 &m_modelMatrix;
 	SpriteMap m_spriteMap;
-	float m_updateTextureTimer;
 
-    float m_vertices[36] = {
-//		Position				Color						Texture coords
-        -0.5f, -0.5f, 0.0f,     1.0f, 0.0f, 0.0f, 1.0f,		0.0f, 1.0f,
-         0.5f, -0.5f, 0.0f,     0.0f, 1.0f, 0.0f, 1.0f,		1.0f, 1.0f,
-        -0.5f,  0.5f, 0.0f,     0.0f, 0.0f, 1.0f, 1.0f,		0.0f, 0.0f,
-         0.5f,  0.5f, 0.0f,     1.0f, 0.0f, 0.0f, 1.0f,		1.0f, 0.0f,
-    };
-
-    unsigned int m_indices[6] = {
-        0, 1, 2,
-        2, 1, 3,
-    };
+	InstancedQuadManager* m_owner;
 };

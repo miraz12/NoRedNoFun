@@ -26,25 +26,22 @@ InstancedQuadManager::~InstancedQuadManager() {
 }
 
 
-unsigned int InstancedQuadManager::getNewQuadIndex() {
+Quad* InstancedQuadManager::getNewQuad() {
     m_quadMatrices.emplace_back(1.0f);
     m_quadMatrices.emplace_back(1.0f);
+
+	m_quads.emplace_back(m_quadMatrices[m_quadMatrices.size() - 2], m_quadMatrices.back(), this);
     m_bufferNeedsUpdate = true;
-    return (unsigned int) (m_quadMatrices.size() - 2);
+
+    return &(m_quads.back());
 }
 
-void InstancedQuadManager::setModelMatrix(unsigned int quadIndex, glm::mat4 matrix) {
-    if (quadIndex < m_quadMatrices.size()) {
-        m_quadMatrices[quadIndex] = matrix;
-        m_bufferNeedsUpdate = true;
-    }
+std::vector<Quad>& InstancedQuadManager::getQuads() {
+	return m_quads;
 }
 
-void InstancedQuadManager::setTextureMatrix(unsigned int quadIndex, glm::mat4 matrix) {
-    if (quadIndex < m_quadMatrices.size()) {
-        m_quadMatrices[(size_t) quadIndex + 1] = matrix;
-        m_bufferNeedsUpdate = true;
-    }
+void InstancedQuadManager::notifyUpdate() {
+	m_bufferNeedsUpdate = true;
 }
 
 void InstancedQuadManager::draw() {
