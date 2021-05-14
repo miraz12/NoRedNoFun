@@ -11,14 +11,13 @@ Rendering::Rendering():
     m_camera.setRotation(0.0f);
 
 
-    for (unsigned int i = 0; i < 5; i++) {
+    for (unsigned int i = 0; i < 100; i++) {
         unsigned int index = m_quadManager.getNewQuadIndex(); // Add quad
         glm::mat4 modelMatrix(1.0f);
-//         glm::translate(modelMatrix, glm::vec3(-1.0f + 0.01f * (i % 100), -1.0f + 0.01f * (i / 100), 0.0f));
-        glm::scale(modelMatrix, glm::vec3(0.01f, 0.01f, 1.0f));
+        modelMatrix = glm::translate(modelMatrix, glm::vec3(-0.9f + 0.2f * (i % 10), -0.9f + 0.2f * std::floor(i / 10), 0.0f));
+		modelMatrix = glm::scale(modelMatrix, glm::vec3(0.1f, 0.1f, 1.0f));
 
         m_quadManager.setModelMatrix(index, modelMatrix);
-        m_quadManager.setTextureMatrix(index, glm::mat4(1.0f));
     }
 }
 

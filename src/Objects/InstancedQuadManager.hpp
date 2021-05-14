@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "GraphicsObject.hpp"
-#include "../Textures/SpriteMap.hpp"
+#include "../Textures/Texture.hpp"
 
 class ShaderProgram;
 
@@ -22,13 +22,9 @@ public:
 private:
 	unsigned int m_instanceVBO;
 
-    struct QuadInstance{
-        glm::mat4 modelMatrix = glm::mat4(1.0f);
-        glm::mat4 textureMatrix = glm::mat4(1.0f);
-    };
-    std::vector<glm::mat4> m_quadInstances;
+    std::vector<glm::mat4> m_quadMatrices;
 
-    SpriteMap m_spriteMap;
+    Texture m_texture;
     bool m_bufferNeedsUpdate;
 
     float m_vertices[20] = {
