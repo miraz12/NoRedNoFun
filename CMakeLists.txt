@@ -6,8 +6,6 @@ project(NoRedNoFun)
 # Generate compile_commands.json for LSP
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-
-
 # Add source files
 file(GLOB_RECURSE SOURCE_FILES 
 	${CMAKE_SOURCE_DIR}/src/*.c
@@ -27,6 +25,10 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${CMAKE_SOURCE_DIR}/src/Shaders"
         $<TARGET_FILE_DIR:${PROJECT_NAME}>/Shaders)
+
+if (MSVC)
+	set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "$<TARGET_FILE_DIR:${PROJECT_NAME}>")
+endif(MSVC)
 
 
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} exts)

@@ -5,7 +5,7 @@
 #include <glad/glad.h>
 
 InstancedShaderProgram::InstancedShaderProgram() :
-	ShaderProgram("../../src/Shaders/vertex_instanced.glsl", "../../src/Shaders/fragment_instanced.glsl") {
+	ShaderProgram("Shaders/vertex_instanced.glsl", "Shaders/fragment_instanced.glsl") {
 
 	// Change if uniforms change in shaders, the map's values are set to match layout(location = x) in shaders.
 	m_uniformBindings["viewMatrix"] = 0;
