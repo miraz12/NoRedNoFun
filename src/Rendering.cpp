@@ -16,10 +16,9 @@ Rendering::Rendering():
 		// Transform it
 		tempQuad->getModelMatrix() = glm::translate(tempQuad->getModelMatrix(), glm::vec3(-0.9f + 0.2f * (i % 10), -0.9f + 0.2f * std::floor(i / 10), 0.0f));
 		tempQuad->getModelMatrix() = glm::scale(tempQuad->getModelMatrix(), glm::vec3(0.1f, 0.1f, 1.0f));
-    }
 
-	// Alert quad manager that buffer needs update since some quad moved (not actually necessary in this case since this will done when a quad is created)
-	m_quadManager.notifyUpdate();
+		tempQuad->setNrOfSprites(0.2f * (i % 10), 0.2f * (i / 10));
+    }
 }
 
 Rendering::~Rendering() {

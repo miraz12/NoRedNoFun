@@ -17,8 +17,6 @@ public:
     Quad* getNewQuad();
 	std::vector<Quad>& getQuads();
 
-	void notifyUpdate();
-
     void draw();
 private:
 	unsigned int m_instanceVBO;
@@ -27,7 +25,6 @@ private:
 	std::vector<Quad> m_quads;
 
     Texture m_texture;
-    bool m_bufferNeedsUpdate;
 
     float m_vertices[20] = {
 //		Position				Texture coords

@@ -10,7 +10,6 @@ InstancedShaderProgram::InstancedShaderProgram() :
 	// Change if uniforms change in shaders, the map's values are set to match layout(location = x) in shaders.
 	m_uniformBindings["viewMatrix"] = 0;
 	m_uniformBindings["texture0"] = 1;
-	m_uniformBindings["useTexture"] = 2;
 
 	use(); // Start using the shader
 

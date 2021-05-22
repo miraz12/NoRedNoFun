@@ -44,6 +44,12 @@ int main() {
 	double previousTime = currentTime;
 	double dt = 0.0;
 
+	float fps = 0.0f;
+	float tempFps = 0.0f;
+	int counter = 0;
+	float fpsUpdate = 1.0f;
+	float fpsUpdateTimer = 0.0f;
+
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -57,6 +63,21 @@ int main() {
 		currentTime = glfwGetTime();
 		dt = currentTime - previousTime;
 		previousTime = currentTime;
+
+		if (fpsUpdateTimer <= fpsUpdate) {
+			fpsUpdateTimer += dt;
+			tempFps += (1 / dt);
+			counter++;
+		}
+		else {
+			fps = tempFps / counter;
+			tempFps = 0.0f;
+			counter = 0;
+			fpsUpdateTimer = 0.0f;
+			//std::cout << fps;
+			glfwSetWindowTitle(window, ("OpenGL FPS: " + std::to_string((int)fps)).c_str());
+		}
+
 		rendering.update((float) dt);
 
         // render
