@@ -7,9 +7,10 @@ class Entity
 public:
 	int ID;
 
-	Entity();
+	Entity(int ID);
 
 	//Adds component
+	//Can't have more than one type of component!
 	void addComponent(Component *component);
 
 	//Returns component based on enum ComponentTypeEnum

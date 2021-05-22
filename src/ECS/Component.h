@@ -12,10 +12,8 @@ class Component {
 
 public:
 
-	virtual void update() = 0;
+	virtual ComponentTypeEnum getComponentType() = 0;
 
-	virtual void getComponentType() = 0;
-private:
-
+protected:
 	ComponentTypeEnum m_componentType;
 };
