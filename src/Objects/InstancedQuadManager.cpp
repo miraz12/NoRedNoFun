@@ -8,7 +8,6 @@
 
 InstancedQuadManager::InstancedQuadManager(ShaderProgram &shaderProgram):
 	GraphicsObject(shaderProgram),
-	m_updateBuffer(true),
 	m_texture(0) {
 	
     bindVAO();
