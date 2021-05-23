@@ -14,7 +14,7 @@ public:
 	void addComponent(Component *component);
 
 	//Returns component based on enum ComponentTypeEnum
-	Component& getComponent(ComponentTypeEnum type);
+	Component* getComponent(ComponentTypeEnum type);
 
 	//Check if component exists
 	bool hasComponent(ComponentTypeEnum type);

@@ -11,15 +11,14 @@ bool System::addEntity(Entity* entity) {
 	for (int i = 0; i < m_requiredComponents.size(); ++i) {
 
 		if (!entity->hasComponent(m_requiredComponents[i])) {
-			return entityAdded; //Component does not exist!
+			return false; //Component does not exist!
 		}
 	}
 
 	//the right components exists in entity
 	m_entities.push_back(entity);
-	entityAdded = true;
 
-	return entityAdded;
+	return true;
 }
 
 void System::removeEntity(int ID)
@@ -29,11 +28,10 @@ void System::removeEntity(int ID)
 void InputSystem::update(){
 	//Handle input
 
-	for (auto &e: m_entities) {
-		//Get component
-		//Component& component = e->getComponent(ComponentTypeEnum::INPUT);
 
-		//cast component
+	for (auto &e: m_entities) {
+		//Get component(s)
+		InputComponent *input = static_cast<InputComponent *>(e->getComponent(ComponentTypeEnum::INPUT));
 
 		//call on component-specific stuff
 	}
