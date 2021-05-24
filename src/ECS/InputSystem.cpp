@@ -1,7 +1,7 @@
 #include "InputSystem.h"
 
-InputSystem::InputSystem(){
-	m_requiredComponents.push_back(ComponentTypeEnum::INPUT);
+InputSystem::InputSystem() 
+	: System(ComponentTypeEnum::INPUT){
 }
 
 bool System::addEntity(Entity* entity) {
