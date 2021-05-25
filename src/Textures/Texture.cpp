@@ -43,7 +43,7 @@ void Texture::setTextureData(unsigned char* data, unsigned int width, unsigned i
 }
 
 bool Texture::updateTextureSubData(unsigned char* data, unsigned int xOffset, unsigned int yOffset, unsigned int width, unsigned int height) {
-	if (xOffset + width < m_width && yOffset + height < m_height) {
+	if (xOffset + width <= m_width && yOffset + height <= m_height) {
 		glBindTexture(GL_TEXTURE_2D, m_texture);
 		glTexSubImage2D(GL_TEXTURE_2D, 0, xOffset, yOffset, width, height, GL_RGBA, GL_UNSIGNED_BYTE, data);
 		glBindTexture(GL_TEXTURE_2D, 0);

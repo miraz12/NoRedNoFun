@@ -17,6 +17,8 @@ public:
     Quad* getNewQuad();
 	std::vector<Quad>& getQuads();
 
+    Texture& getTexture();
+
     void draw();
 private:
 	unsigned int m_instanceVBO;

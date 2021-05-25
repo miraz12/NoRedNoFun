@@ -19,5 +19,8 @@ private:
     InstancedShaderProgram m_shaderProgram;
     InstancedQuadManager m_quadManager;
 
+    unsigned char m_pixelData[4] = {255, 255, 255, 255};
+    float m_opacity;
+
     void initGL();
 };

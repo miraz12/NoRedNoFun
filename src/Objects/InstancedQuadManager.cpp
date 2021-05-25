@@ -38,11 +38,15 @@ std::vector<Quad>& InstancedQuadManager::getQuads() {
 	return m_quads;
 }
 
+Texture& InstancedQuadManager::getTexture() {
+    return m_texture;
+}
+
 void InstancedQuadManager::draw() {
     bindVAO();
 
 	glBindBuffer(GL_ARRAY_BUFFER, m_instanceVBO);
-	glBufferData(GL_ARRAY_BUFFER, m_quadMatrices.size() * sizeof(glm::mat4), m_quadMatrices.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, m_quadMatrices.size() * sizeof(glm::mat4), m_quadMatrices.data(), GL_DYNAMIC_DRAW);
 
 	m_texture.bind();
 
