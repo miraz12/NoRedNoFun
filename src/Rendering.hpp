@@ -5,6 +5,7 @@
 #include "ShaderPrograms/SimpleShaderProgram.hpp"
 #include "ShaderPrograms/InstancedShaderProgram.hpp"
 #include "Objects/InstancedQuadManager.hpp"
+#include "Objects/LowPolyLiquid.hpp"
 
 class Rendering {
 public:
@@ -16,8 +17,11 @@ public:
 private:
     Camera m_camera;
 
-    InstancedShaderProgram m_shaderProgram;
+    InstancedShaderProgram m_instancedShaderProgram;
     InstancedQuadManager m_quadManager;
+
+    SimpleShaderProgram m_simpleShaderProgram;
+    LowPolyLiquid m_lowPolyLiquid;
 
     unsigned char m_pixelData[4] = {255, 255, 255, 255};
     float m_opacity;
