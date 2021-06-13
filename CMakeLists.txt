@@ -4,8 +4,9 @@ cmake_minimum_required(VERSION 3.10)
 project(NoRedNoFun)
 
 # Generate compile_commands.json for LSP
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
+if (UNIX)
+	set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+endif(UNIX)
 # Add source files
 file(GLOB_RECURSE SOURCE_FILES 
 	${CMAKE_SOURCE_DIR}/src/*.c
