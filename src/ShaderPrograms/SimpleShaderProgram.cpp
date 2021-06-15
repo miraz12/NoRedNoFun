@@ -44,5 +44,5 @@ unsigned int SimpleShaderProgram::getUniformLocation(std::string uniformName) {
 		return m_uniformBindings[uniformName];
 	}
 
-    return NULL;
+    return 0;
 }

@@ -8,7 +8,8 @@ class InstancedQuadManager;
 
 class Quad: public SpriteMap {
 public:
-    Quad(glm::mat4 &modelMatrix, glm::mat4& textureMatrix, InstancedQuadManager* owner);
+    Quad(glm::mat4& modelMatrix, glm::mat4& textureMatrix, InstancedQuadManager* owner);
+    Quad(glm::mat4& modelMatrix, glm::mat4& textureMatrix);
     virtual ~Quad();
 
 	glm::mat4& getModelMatrix();

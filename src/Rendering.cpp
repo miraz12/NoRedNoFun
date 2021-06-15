@@ -7,6 +7,7 @@
 Rendering::Rendering():
 	m_quadManager(m_instancedShaderProgram),
 	m_lowPolyLiquid(m_simpleShaderProgram),
+    m_mapLoader(m_simpleShaderProgram),
 	m_opacity(255.0f) {
     initGL();
     m_camera.setPosition(0.0f, 0.0f);
@@ -41,6 +42,7 @@ void Rendering::draw() {
 	m_quadManager.draw();
     m_simpleShaderProgram.use();
     m_lowPolyLiquid.draw();
+    //m_mapLoader.draw();
 }
 
 void Rendering::initGL() {

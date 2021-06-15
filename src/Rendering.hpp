@@ -6,6 +6,7 @@
 #include "ShaderPrograms/InstancedShaderProgram.hpp"
 #include "Objects/InstancedQuadManager.hpp"
 #include "Objects/LowPolyLiquid.hpp"
+#include "MapLoader/MapLoader.hpp"
 
 class Rendering {
 public:
@@ -22,6 +23,7 @@ private:
 
     SimpleShaderProgram m_simpleShaderProgram;
     LowPolyLiquid m_lowPolyLiquid;
+    MapLoader m_mapLoader;
 
     unsigned char m_pixelData[4] = {255, 255, 255, 255};
     float m_opacity;
