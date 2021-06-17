@@ -38,11 +38,12 @@ void Rendering::update(float dt) {
 void Rendering::draw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     m_camera.bindViewMatrix(m_instancedShaderProgram.getUniformLocation("viewMatrix"));
+    m_simpleShaderProgram.use();
+    m_mapLoader.draw();
     m_instancedShaderProgram.use();
 	m_quadManager.draw();
     m_simpleShaderProgram.use();
     m_lowPolyLiquid.draw();
-    //m_mapLoader.draw();
 }
 
 void Rendering::initGL() {

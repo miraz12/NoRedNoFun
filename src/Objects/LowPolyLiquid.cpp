@@ -36,5 +36,6 @@ void LowPolyLiquid::addStop(glm::vec3 position) {
 
 void LowPolyLiquid::draw() {
     bindVAO();
+    glUniform1i(p_shaderProgram.getUniformLocation("useTexture"), 0);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, m_vertices.size()/9);
 }

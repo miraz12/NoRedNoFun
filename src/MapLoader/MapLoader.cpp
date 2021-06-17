@@ -3,10 +3,8 @@
 
 MapLoader::MapLoader(ShaderProgram &shader) : m_modelMat(1.0f), m_textureMat(1.0f),
                          m_quad(m_modelMat, m_textureMat),
-                         m_texture(1), GraphicsObject(shader) { //TODO: Maybe have a texture mgr?
+                         m_texture(0), GraphicsObject(shader), m_width(30), m_height(30) { 
 
-    m_width = 10;
-    m_height = 10;
     parseMap();
     setVertexData(sizeof(m_vertices), m_vertices);
     setIndexData(sizeof(m_indices), m_indices);
@@ -16,25 +14,32 @@ MapLoader::~MapLoader() {}
 
 
 void MapLoader::draw() {
-    m_shader.use();
+    p_shaderProgram.use();
     bindVAO();
-    glUniform1i(m_shader.getUniformLocation("useTexture"), 1);
+    glUniform1i(p_shaderProgram.getUniformLocation("useTexture"), 1);
     m_texture.bind();
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
 void MapLoader::parseMap() {
     unsigned char* texData;
-    texData = (unsigned char *) malloc(sizeof(unsigned char) * m_width * m_width);
-    for (size_t i = 0; i < m_width*m_width; i++) {
+    texData = (unsigned char *) malloc(sizeof(unsigned char) * m_width * m_height * 4);
+    for (size_t i = 0; i < m_width*m_height; i++) {
         switch (m_mapData[i]) {
         case tileType::ground:
-            texData[i] = 0;
+            texData[i*4]   = 200;
+            texData[i*4+1] = 200;
+            texData[i*4+2] = 200;
+            texData[i*4+3] = 255;
             break;
         case tileType::wall:
-            texData[i] = 255;
+            texData[i*4]   = 0;
+            texData[i*4+1] = 0;
+            texData[i*4+2] = 0;
+            texData[i*4+3] = 255;
             break;
         }
     }
-    m_texture.setTextureData(texData, 10, 10); 
+    m_texture.setTextureData(texData, m_width, m_height); 
+    delete texData;
 }
