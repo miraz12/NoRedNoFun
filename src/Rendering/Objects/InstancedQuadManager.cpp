@@ -29,7 +29,7 @@ Quad* InstancedQuadManager::getNewQuad() {
     m_quadMatrices.emplace_back(1.0f);
     m_quadMatrices.emplace_back(1.0f);
 
-	m_quads.emplace_back(m_quadMatrices[m_quadMatrices.size() - 2], m_quadMatrices.back(), this);
+	m_quads.emplace_back(m_quadMatrices[m_quadMatrices.size() - 2], m_quadMatrices.back());
 
     return &(m_quads.back());
 }

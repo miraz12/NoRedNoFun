@@ -4,7 +4,8 @@
 #include <glm/glm.hpp>
 #include <cstdio>
 
-#include "Rendering.hpp"
+#include "Rendering/Rendering.hpp"
+#include "Game/Game.hpp"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
@@ -40,6 +41,7 @@ int main() {
 
 
     Rendering rendering;
+	Game game(rendering);
 
 	double currentTime = glfwGetTime();
 	double previousTime = currentTime;
@@ -66,8 +68,8 @@ int main() {
 		previousTime = currentTime;
 
 		if (fpsUpdateTimer <= fpsUpdate) {
-			fpsUpdateTimer += dt;
-			tempFps += (1 / dt);
+			fpsUpdateTimer += (float) dt;
+			tempFps += (1 / (float) dt);
 			counter++;
 		}
 		else {
@@ -79,6 +81,7 @@ int main() {
 			glfwSetWindowTitle(window, ("OpenGL FPS: " + std::to_string((int)fps)).c_str());
 		}
 
+		game.update((float)dt);
 		rendering.update((float) dt);
 
         // render

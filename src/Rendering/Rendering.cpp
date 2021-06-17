@@ -7,32 +7,23 @@
 Rendering::Rendering():
 	m_quadManager(m_instancedShaderProgram),
 	m_lowPolyLiquid(m_simpleShaderProgram),
-    m_mapLoader(m_simpleShaderProgram),
-	m_opacity(255.0f) {
+    m_mapLoader(m_simpleShaderProgram) {
     initGL();
     m_camera.setPosition(0.0f, 0.0f);
     m_camera.setZoom(1.0f);
     m_camera.setRotation(0.0f);
-
-    Quad* tempQuad = m_quadManager.getNewQuad(); // Add quad
-
-    std::srand(std::time(NULL));
-    for (unsigned int i = 0; i < 100; i++) {
-        m_lowPolyLiquid.addStop(glm::vec3(std::rand() % 100 * 0.01f - 0.5f, std::rand() % 100 * 0.01f - 0.5f, 0.0f));
-    }
 }
 
 Rendering::~Rendering() {
 
 }
 
+Quad* Rendering::getNewQuad() {
+	return m_quadManager.getNewQuad();
+}
+
 void Rendering::update(float dt) {
-    m_opacity -= 150.0f * dt;
-    if (m_opacity < 0) {
-        m_opacity = 255.0f;
-    }
-    m_pixelData[3] = (unsigned char) std::floor(m_opacity);
-    m_quadManager.getTexture().updateTextureSubData(m_pixelData, 0, 0, 1, 1);
+	// Updates to texture matrices for animations etc goes here for example
 }
 
 void Rendering::draw() {
@@ -42,8 +33,6 @@ void Rendering::draw() {
     m_mapLoader.draw();
     m_instancedShaderProgram.use();
 	m_quadManager.draw();
-    m_simpleShaderProgram.use();
-    m_lowPolyLiquid.draw();
 }
 
 void Rendering::initGL() {
