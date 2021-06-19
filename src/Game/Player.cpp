@@ -10,7 +10,7 @@ Player::Player(Quad* playerQuad) :
 	m_acceleration(20.0f),
 	m_drag(10.0f),
 	m_maxSpeed(5.0f),
-	m_position(0.0f),
+	m_position(4.0f, 0.0f, -0.1f),
 	m_rotation(0.0f),
 	m_scale(1.0f),
 	m_matrix(m_playerQuad->getModelMatrix()) {
