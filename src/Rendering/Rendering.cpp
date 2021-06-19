@@ -1,4 +1,5 @@
 #include "Rendering.hpp"
+#include "MapLoader/MapLoader.hpp"
 
 #include <iostream>
 #include <glad/glad.h>
@@ -6,8 +7,8 @@
 
 Rendering::Rendering():
 	m_quadManager(m_instancedShaderProgram),
-	m_lowPolyLiquid(m_simpleShaderProgram),
-    m_mapLoader(m_simpleShaderProgram, "resources/Maps/simple.map") {
+	m_lowPolyLiquid(m_simpleShaderProgram) {
+    mapInstance = new MapLoader(m_simpleShaderProgram, "resources/Maps/simple.map");
     initGL();
     m_camera.setPosition(0.0f, 0.0f);
     m_camera.setZoom(1.0f);
@@ -30,7 +31,7 @@ void Rendering::draw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     m_camera.bindViewMatrix(m_instancedShaderProgram.getUniformLocation("viewMatrix"));
     m_simpleShaderProgram.use();
-    m_mapLoader.draw();
+    mapInstance->draw();
     m_instancedShaderProgram.use();
 	m_quadManager.draw();
 }

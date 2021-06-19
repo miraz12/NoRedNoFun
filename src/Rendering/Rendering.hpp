@@ -6,7 +6,6 @@
 #include "ShaderPrograms/InstancedShaderProgram.hpp"
 #include "Objects/InstancedQuadManager.hpp"
 #include "Objects/LowPolyLiquid.hpp"
-#include "MapLoader/MapLoader.hpp"
 
 class Rendering {
 public:
@@ -25,7 +24,5 @@ private:
 
     SimpleShaderProgram m_simpleShaderProgram;
     LowPolyLiquid m_lowPolyLiquid;
-    MapLoader m_mapLoader;
-
     void initGL();
 };

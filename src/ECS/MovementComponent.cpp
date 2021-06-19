@@ -1,4 +1,5 @@
 #include "MovementComponent.h"
+#include "../Rendering/MapLoader/MapLoader.hpp"
 
 MovementComponent::MovementComponent() :
 	m_velocity(0.0f) {
@@ -8,8 +9,12 @@ MovementComponent::MovementComponent() :
 void MovementComponent::move(float dt, float &x, float &y) {
 	m_velocity = m_velocity * dt;
 
-	x = x + m_velocity.x;
-	y = y + m_velocity.y;
+	float newPosX = x + m_velocity.x;
+	float newPosY = y + m_velocity.y;
+	if(mapInstance->allowMovement(newPosX, newPosY)) {
+		x = newPosX;
+		y = newPosY;
+	}
 }
 
 void MovementComponent::setVelocity(glm::vec2 v) {

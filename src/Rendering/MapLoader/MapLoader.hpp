@@ -6,11 +6,15 @@
 
 #include <glm/glm.hpp>
 
+
 class MapLoader : protected GraphicsObject {
 public:
     MapLoader(ShaderProgram &shader, std::string mapName);
     ~MapLoader();
     void draw();
+
+    bool allowMovement(int x, int y);
+
 private:
 
     void loadMap(std::string mapName);
@@ -40,3 +44,5 @@ private:
     };
    
 };
+
+static MapLoader* mapInstance;

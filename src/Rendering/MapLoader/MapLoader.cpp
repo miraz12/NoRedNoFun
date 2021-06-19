@@ -23,6 +23,15 @@ void MapLoader::draw() {
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
+bool MapLoader::allowMovement(int x, int y) {
+    tileType tile = static_cast<tileType>(m_mapData[m_width * x + y]);
+    if (tile == tileType::wall)
+    {
+        return false;
+    }
+    return true;
+}
+
 void MapLoader::parseMap() {
     unsigned char* texData;
     texData = static_cast<unsigned char*>(malloc(sizeof(unsigned char) * m_width * m_height * 4));
