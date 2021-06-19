@@ -8,7 +8,7 @@
 
 class MapLoader : protected GraphicsObject {
 public:
-    MapLoader(ShaderProgram &shader);
+    MapLoader(ShaderProgram &shader, std::string mapName);
     ~MapLoader();
     void draw();
 private:

@@ -3,9 +3,9 @@
 #include <fstream>
 #include <iostream>
 
-MapLoader::MapLoader(ShaderProgram &shader) : GraphicsObject(shader), m_texture(0), m_width(30), m_height(30) { 
+MapLoader::MapLoader(ShaderProgram &shader, std::string mapName) : GraphicsObject(shader), m_texture(0), m_width(30), m_height(30) { 
 
-    loadMap("resources/Maps/simple.map");
+    loadMap(mapName);
     parseMap();
     setVertexData(sizeof(m_vertices), m_vertices);
     setIndexData(sizeof(m_indices), m_indices);
@@ -25,7 +25,7 @@ void MapLoader::draw() {
 
 void MapLoader::parseMap() {
     unsigned char* texData;
-    texData = (unsigned char*) malloc(sizeof(unsigned char) * m_width * m_height * 4);
+    texData = static_cast<unsigned char*>(malloc(sizeof(unsigned char) * m_width * m_height * 4));
     for (size_t i = 0; i < m_width*m_height; i++) {
         switch (m_mapData[i]) {
         case tileType::ground:

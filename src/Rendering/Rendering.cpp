@@ -7,7 +7,7 @@
 Rendering::Rendering():
 	m_quadManager(m_instancedShaderProgram),
 	m_lowPolyLiquid(m_simpleShaderProgram),
-    m_mapLoader(m_simpleShaderProgram) {
+    m_mapLoader(m_simpleShaderProgram, "resources/Maps/simple.map") {
     initGL();
     m_camera.setPosition(0.0f, 0.0f);
     m_camera.setZoom(1.0f);
