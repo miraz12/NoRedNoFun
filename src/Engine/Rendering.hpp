@@ -14,6 +14,8 @@ public:
     ~Rendering();
 
 	Quad* getNewQuad();
+	Camera* getCamera();
+	MapLoader* getMapLoader();
 
 	void update(float dt);
     void draw();

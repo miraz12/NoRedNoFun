@@ -2,7 +2,6 @@
 #include <glad/glad.h>
 
 MapLoader::MapLoader(ShaderProgram &shader) : m_modelMat(1.0f), m_textureMat(1.0f),
-                         m_quad(m_modelMat, m_textureMat),
                          m_texture(0), GraphicsObject(shader), m_width(30), m_height(30) { 
 
     parseMap();
@@ -10,13 +9,19 @@ MapLoader::MapLoader(ShaderProgram &shader) : m_modelMat(1.0f), m_textureMat(1.0
     setIndexData(sizeof(m_indices), m_indices);
 }
 
-MapLoader::~MapLoader() {}
+MapLoader::~MapLoader() {
 
+}
+
+glm::mat4& MapLoader::getModelMatrix() {
+	return m_modelMat;
+}
 
 void MapLoader::draw() {
     p_shaderProgram.use();
     bindVAO();
     glUniform1i(p_shaderProgram.getUniformLocation("useTexture"), 1);
+	glUniformMatrix4fv(p_shaderProgram.getUniformLocation("modelMatrix"), 1, GL_FALSE, glm::value_ptr(m_modelMat));
     m_texture.bind();
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }

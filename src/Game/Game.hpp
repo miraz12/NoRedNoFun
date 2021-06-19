@@ -1,15 +1,20 @@
 #pragma once
 
-#include "../Rendering/Rendering.hpp"
-#include "../Rendering/Objects/Quad.hpp"
+#include <GLFW/glfw3.h>
+
+#include "../Engine/Rendering.hpp"
+#include "../Engine/Objects/Quad.hpp"
+
+#include "Player.hpp"
 
 class Game {
 public:
 	Game(Rendering &rendering);
 	~Game();
 
+	void processInput(GLFWwindow* window);
 	void update(float dt);
 private:
 	Rendering& m_rendering;
-	Quad* m_testQuad;
+	Player m_player;
 };

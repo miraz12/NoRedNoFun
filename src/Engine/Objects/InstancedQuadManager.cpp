@@ -50,6 +50,6 @@ void InstancedQuadManager::draw() {
 
 	m_texture.bind();
 
-    glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, m_quadMatrices.size() / 2);
+    glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, (GLsizei) (m_quadMatrices.size() / 2));
 //     glDrawArraysInstanced(GL_TRIANGLES, 0, 6, m_quadMatrices.size());
 }

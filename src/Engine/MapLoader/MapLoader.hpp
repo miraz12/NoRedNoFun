@@ -10,12 +10,12 @@ class MapLoader : protected GraphicsObject {
 public:
     MapLoader(ShaderProgram &shader);
     ~MapLoader();
+
+	glm::mat4& getModelMatrix();
     void draw();
 private:
 
     void parseMap();
-    unsigned int m_VBO;
-    Quad m_quad;
     Texture m_texture;
     glm::mat4 m_modelMat;
     glm::mat4 m_textureMat;
@@ -62,10 +62,10 @@ private:
     };
     float m_vertices[36] = {
         //Position              Color                       Texture coords
-        -1.0f, -1.0f, 0.0f,     1.0f, 0.0f, 0.0f, 1.0f,     0.0f, 1.0f,
-        1.0f, -1.0f, 0.0f,      0.0f, 1.0f, 0.0f, 1.0f,     1.0f, 1.0f,
-        -1.0f,  1.0f, 0.0f,     0.0f, 0.0f, 1.0f, 1.0f,     0.0f, 0.0f,
-        1.0f,  1.0f, 0.0f,      1.0f, 0.0f, 1.0f, 1.0f,     1.0f, 0.0f
+        -0.5f, -0.5f, 0.0f,     1.0f, 0.0f, 0.0f, 1.0f,     0.0f, 1.0f,
+        0.5f, -0.5f, 0.0f,      0.0f, 1.0f, 0.0f, 1.0f,     1.0f, 1.0f,
+        -0.5f,  0.5f, 0.0f,     0.0f, 0.0f, 1.0f, 1.0f,     0.0f, 0.0f,
+        0.5f,  0.5f, 0.0f,      1.0f, 0.0f, 1.0f, 1.0f,     1.0f, 0.0f
     };
     unsigned int m_indices[6] = {
         0, 1, 2,

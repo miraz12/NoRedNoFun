@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 #include <cstdio>
 
-#include "Rendering/Rendering.hpp"
+#include "Engine/Rendering.hpp"
 #include "Game/Game.hpp"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -13,7 +13,7 @@ void errorCallback(int error, const char* description) { printf("Error: %s\n", d
 
 GLFWwindow* window;
 const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+const unsigned int SCR_HEIGHT = 800;
 
 int main() {
     glfwInit();
@@ -60,6 +60,7 @@ int main() {
         // input
         // -----
         processInput(window);
+		game.processInput(window);
 
 		// Update
 		// -----
@@ -105,5 +106,5 @@ void processInput(GLFWwindow *window)
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-//     glViewport(0, 0, width, height);
+     glViewport(0, 0, width, height);
 }
