@@ -29,13 +29,15 @@ void Player::setAccelerationDirection(const glm::vec2& direction) {
 
 void Player::update(float dt) {
 	glm::vec3 normalizedAccelerationDirection(0.0f);
-
-	if (glm::length2(m_accelerationDirection) > 1.0f) {
-		m_accelerationDirection = glm::normalize(m_accelerationDirection);
-	} 
+	bool accelerating = false;
 
 	if (glm::length2(m_accelerationDirection) > 0.0001f) {
 		normalizedAccelerationDirection = glm::normalize(m_accelerationDirection);
+		accelerating = true;
+	}
+
+	if (glm::length2(m_accelerationDirection) > 1.0f) {
+		m_accelerationDirection = normalizedAccelerationDirection;
 	}
 
 	glm::vec3 oldVelocity = m_velocity;
@@ -53,9 +55,9 @@ void Player::update(float dt) {
 	}
 
 	// Stop player if velocity is small enough
-	/*if (glm::length2(m_velocity) < 0.01f) {
+	if (!accelerating && glm::length2(m_velocity) < 0.01f) {
 		m_velocity = { 0.0f, 0.0f, 0.0f };
-	}*/
+	}
 
 	m_position += (oldVelocity + m_velocity) * 0.5f * dt; // This works for any update rate
 
