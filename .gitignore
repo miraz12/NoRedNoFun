@@ -32,7 +32,10 @@
 *.app
 
 # Folders
+.vs/*
 build/*
+out/*
+exts/*
 CMakeFiles/*
 src/.ccls-cache/*
 /.vs/slnx.sqlite
