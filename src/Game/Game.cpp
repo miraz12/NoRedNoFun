@@ -1,5 +1,7 @@
 #include "Game.hpp"
 
+#include "../Engine/MapLoader/MapLoader.hpp"
+
 Game::Game(Rendering& rendering):
 	m_rendering(rendering),
 	m_player(m_rendering.getNewQuad()) {
