@@ -3,10 +3,12 @@ cmake_minimum_required(VERSION 3.10)
 # set the project name
 project(NoRedNoFun)
 
+set (CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_FLAGS  "-Wall")
+
 # Generate compile_commands.json for LSP
 if (UNIX)
 	set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-	set(CMAKE_CXX_COMPILER /usr/bin/g++ CACHE PATH "" FORCE)
 endif(UNIX)
 # Add source files
 file(GLOB_RECURSE SOURCE_FILES 
@@ -17,8 +19,6 @@ file(GLOB_RECURSE SOURCE_FILES
 file(GLOB_RECURSE HEADER_FILES 
 	${CMAKE_SOURCE_DIR}/src/*.h
 	${CMAKE_SOURCE_DIR}/src/*.hpp)
-
-SET(CMAKE_CXX_FLAGS  "-std=c++17 -Wall")
 
 # Add external libs
 ADD_SUBDIRECTORY(exts)
