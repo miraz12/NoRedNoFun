@@ -3,8 +3,6 @@ cmake_minimum_required(VERSION 3.10)
 # set the project name
 project(NoRedNoFun)
 
-set (CMAKE_CXX_STANDARD 17)
-
 # Generate compile_commands.json for LSP
 if (UNIX)
 	set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -24,6 +22,8 @@ ADD_SUBDIRECTORY(exts)
 add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCE_FILES})
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} exts)
 ADD_DEPENDENCIES(${PROJECT_NAME} exts)
+
+set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
 
 # Copy resource folder to binary folder
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
