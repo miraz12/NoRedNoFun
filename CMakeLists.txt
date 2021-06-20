@@ -24,6 +24,7 @@ TARGET_LINK_LIBRARIES(${PROJECT_NAME} exts)
 ADD_DEPENDENCIES(${PROJECT_NAME} exts)
 
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
+SET(CMAKE_CXX_FLAGS  "-std=c++11 -Wall")
 
 # Copy resource folder to binary folder
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
