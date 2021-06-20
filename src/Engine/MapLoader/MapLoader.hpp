@@ -10,13 +10,16 @@
 class MapLoader : protected GraphicsObject {
 public:
     MapLoader(ShaderProgram &shader, std::string mapName);
-    ~MapLoader();
+    ~MapLoader() = default;
+    MapLoader(MapLoader const&) = delete;
+    void operator=(MapLoader const&) = delete;
 
 	glm::mat4& getModelMatrix();
     void draw();
 
     bool allowMovement(int x, int y);
 
+    static MapLoader* mapInstance;
 private:
 
     void loadMap(std::string mapName);
@@ -48,4 +51,3 @@ private:
    
 };
 
-static MapLoader* mapInstance;

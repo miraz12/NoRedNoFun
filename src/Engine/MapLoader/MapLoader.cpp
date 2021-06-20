@@ -11,10 +11,6 @@ MapLoader::MapLoader(ShaderProgram &shader, std::string mapName) : GraphicsObjec
     setIndexData(sizeof(m_indices), m_indices);
 }
 
-MapLoader::~MapLoader() {
-    delete m_mapData;
-}
-
 glm::mat4& MapLoader::getModelMatrix() {
 	return m_modelMatrix;
 }

@@ -11,7 +11,7 @@ void MovementComponent::move(float dt, float &x, float &y) {
 
 	float newPosX = x + m_velocity.x;
 	float newPosY = y + m_velocity.y;
-	if(mapInstance->allowMovement(newPosX, newPosY)) {
+	if(MapLoader::mapInstance->allowMovement(newPosX, newPosY)) {
 		x = newPosX;
 		y = newPosY;
 	}

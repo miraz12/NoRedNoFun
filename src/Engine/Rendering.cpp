@@ -5,15 +5,13 @@
 #include <glad/glad.h>
 #include <time.h>
 
+MapLoader* MapLoader::mapInstance;
+
 Rendering::Rendering():
 	m_quadManager(m_instancedShaderProgram),
 	m_lowPolyLiquid(m_simpleShaderProgram) {
-    mapInstance = new MapLoader(m_simpleShaderProgram, "resources/Maps/simple.map");
+    MapLoader::mapInstance = new MapLoader(m_simpleShaderProgram, "resources/Maps/simple.map");
     initGL();
-
-}
-
-Rendering::~Rendering() {
 
 }
 
@@ -25,10 +23,6 @@ Camera* Rendering::getCamera() {
 	return &m_camera;
 }
 
-MapLoader* Rendering::getMapLoader() {
-	return mapInstance;
-}
-
 void Rendering::update(float dt) {
 	// Updates to texture matrices for animations etc goes here for example
 }
@@ -37,7 +31,7 @@ void Rendering::draw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
     m_simpleShaderProgram.use();
 	m_camera.bindViewMatrix(m_simpleShaderProgram.getUniformLocation("viewMatrix"));
-    mapInstance->draw();
+    MapLoader::mapInstance->draw();
     m_instancedShaderProgram.use();
 	m_camera.bindViewMatrix(m_instancedShaderProgram.getUniformLocation("viewMatrix"));
 	m_quadManager.draw();

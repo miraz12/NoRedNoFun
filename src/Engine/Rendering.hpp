@@ -12,11 +12,10 @@ class MapLoader;
 class Rendering {
 public:
     Rendering();
-    ~Rendering();
+    ~Rendering() = default;
 
 	Quad* getNewQuad();
 	Camera* getCamera();
-	MapLoader* getMapLoader();
 
 	void update(float dt);
     void draw();
