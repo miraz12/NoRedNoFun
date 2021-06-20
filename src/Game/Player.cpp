@@ -24,7 +24,7 @@ Player::~Player() {
 void Player::setAccelerationDirection(const glm::vec2& direction) {
 	m_accelerationDirection.x = direction.x;
 	m_accelerationDirection.y = direction.y;
-	m_rotation = std::atan2f(direction.x, direction.y);
+	m_rotation = std::atan2f(direction.x, -direction.y);
 }
 
 void Player::update(float dt) {
