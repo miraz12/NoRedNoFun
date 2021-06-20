@@ -6,7 +6,7 @@ project(NoRedNoFun)
 # Generate compile_commands.json for LSP
 if (UNIX)
 	set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-	set(CMAKE_CXX_COMPILER /usr/bin/g++)
+	set(CMAKE_CXX_COMPILER /usr/bin/g++ CACHE PATH "" FORCE)
 endif(UNIX)
 # Add source files
 file(GLOB_RECURSE SOURCE_FILES 
