@@ -6,6 +6,7 @@ project(NoRedNoFun)
 # Generate compile_commands.json for LSP
 if (UNIX)
 	set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+	set(CMAKE_CXX_COMPILER /usr/bin/g++)
 endif(UNIX)
 # Add source files
 file(GLOB_RECURSE SOURCE_FILES 
@@ -17,16 +18,13 @@ file(GLOB_RECURSE HEADER_FILES
 	${CMAKE_SOURCE_DIR}/src/*.h
 	${CMAKE_SOURCE_DIR}/src/*.hpp)
 
+SET(CMAKE_CXX_FLAGS  "-std=c++17 -Wall")
+
 # Add external libs
 ADD_SUBDIRECTORY(exts)
 add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCE_FILES})
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} exts)
 ADD_DEPENDENCIES(${PROJECT_NAME} exts)
-
-
-set(CMAKE_CXX_COMPILER /usr/bin/g++)
-set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 17)
-SET(CMAKE_CXX_FLAGS  "-std=c++11 -Wall")
 
 # Copy resource folder to binary folder
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
