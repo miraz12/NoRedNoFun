@@ -13,7 +13,7 @@ Game::Game(Rendering& rendering):
 }	
 
 Game::~Game() {
-
+	delete m_botInterface;
 }
 
 void Game::processInput(GLFWwindow* window) {
