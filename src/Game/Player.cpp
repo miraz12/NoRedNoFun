@@ -24,7 +24,6 @@ Player::~Player() {
 void Player::setAccelerationDirection(const glm::vec2& direction) {
 	m_accelerationDirection.x = direction.x;
 	m_accelerationDirection.y = direction.y;
-	m_rotation = ::atan2f(direction.x, -direction.y);
 }
 
 void Player::update(float dt) {
@@ -34,6 +33,7 @@ void Player::update(float dt) {
 	if (glm::length2(m_accelerationDirection) > 0.0001f) {
 		normalizedAccelerationDirection = glm::normalize(m_accelerationDirection);
 		accelerating = true;
+		m_rotation = ::atan2f(m_accelerationDirection.x, -m_accelerationDirection.y);
 	}
 
 	if (glm::length2(m_accelerationDirection) > 1.0f) {

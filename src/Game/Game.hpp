@@ -5,6 +5,8 @@
 #include "../Engine/Rendering.hpp"
 #include "../Engine/Objects/Quad.hpp"
 
+#include "Bots/BotLoader.h"
+
 #include "Player.hpp"
 
 class Game {
@@ -17,4 +19,6 @@ public:
 private:
 	Rendering& m_rendering;
 	Player m_player;
+	BotLoader m_botLoader;
+	BotInterface* m_botInterface;
 };

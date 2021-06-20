@@ -33,6 +33,7 @@
 
 # Folders
 .vs/*
+Bot_dev/build/*
 build/*
 out/*
 exts/*

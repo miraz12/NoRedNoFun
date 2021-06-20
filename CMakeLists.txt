@@ -18,7 +18,8 @@ file(GLOB_RECURSE SOURCE_FILES
 # Add header files
 file(GLOB_RECURSE HEADER_FILES 
 	${CMAKE_SOURCE_DIR}/src/*.h
-	${CMAKE_SOURCE_DIR}/src/*.hpp)
+	${CMAKE_SOURCE_DIR}/src/*.hpp
+	${CMAKE_SOURCE_DIR}/resources/Bots/BotInterface.hpp)
 
 # Add external libs
 ADD_SUBDIRECTORY(exts)
