@@ -4,9 +4,6 @@
 cmake_minimum_required (VERSION 3.10)
 
 project(myBot)
-if (UNIX)
-	set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-endif(UNIX)
 
 # Add source files
 set(SOURCE_FILES 
@@ -22,3 +19,10 @@ set(HEADER_FILES
 
 # Add source to this project's executable.
 add_library (${PROJECT_NAME} SHARED ${SOURCE_FILES} ${HEADER_FILES})
+
+
+# Copy resource folder to binary folder
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${CMAKE_CURRENT_BINARY_DIR}/libmyBot.so"
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/Bots)
