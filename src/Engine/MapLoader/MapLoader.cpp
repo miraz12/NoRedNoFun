@@ -33,6 +33,14 @@ bool MapLoader::allowMovement(int x, int y) {
     return true;
 }
 
+unsigned int MapLoader::getWidth() {
+	return m_width;
+}
+
+unsigned int MapLoader::getHeight() {
+	return m_height;
+}
+
 void MapLoader::parseMap() {
     unsigned char* texData;
     texData = static_cast<unsigned char*>(malloc(sizeof(unsigned char) * m_width * m_height * 4));

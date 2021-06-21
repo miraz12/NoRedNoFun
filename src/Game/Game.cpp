@@ -7,8 +7,12 @@ Game::Game(Rendering& rendering):
 	m_player(m_rendering.getNewQuad()),
 	m_botLoader("myBot"),
 	m_botInterface(m_botLoader.newInterface()) {
-	m_rendering.getCamera()->setZoom(1.0f/15.0f); // Zoom out so that 30x30 units is visible (2x2 from the start, -1 to 1 in both directions)
-	MapLoader::mapInstance->getModelMatrix() = glm::scale(glm::mat4(1.0f), glm::vec3(30.0f, 30.0f, 1.0f)); // Scale map by 30 to make the tile size 1x1
+	MapLoader::mapInstance->getModelMatrix() = glm::translate(glm::mat4(1.0f),
+		glm::vec3(0.5f * (float) MapLoader::mapInstance->getWidth(), 0.5f * (float)MapLoader::mapInstance->getHeight(), 0.1f));
+	MapLoader::mapInstance->getModelMatrix() = glm::scale(MapLoader::mapInstance->getModelMatrix(),
+		glm::vec3((float) MapLoader::mapInstance->getWidth(), (float)MapLoader::mapInstance->getHeight(), 1.0f)); // Scale map to make the tile size 1x1
+	m_rendering.getCamera()->setZoom(1.0f/(0.5f * (float) max(MapLoader::mapInstance->getWidth(), MapLoader::mapInstance->getHeight()))); // Zoom out so that the whole map is visible
+	m_rendering.getCamera()->setPosition(0.5f * (float)MapLoader::mapInstance->getWidth(), 0.5f * (float)MapLoader::mapInstance->getHeight());
 	m_botInterface->print();
 }	
 
