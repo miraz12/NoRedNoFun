@@ -3,9 +3,6 @@ cmake_minimum_required(VERSION 3.10)
 # set the project name
 project(NoRedNoFun)
 
-set (CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_FLAGS  "-Wall")
-
 # Generate compile_commands.json for LSP
 if (UNIX)
 	set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -24,7 +21,14 @@ file(GLOB_RECURSE HEADER_FILES
 # Add external libs
 ADD_SUBDIRECTORY(exts)
 add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCE_FILES})
+target_compile_options(${PROJECT_NAME} PUBLIC 
+	$<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:GNU>>:-Wall;-Wextra>
+	$<$<CXX_COMPILER_ID:MSVC>:/W4>)
+
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} exts)
+target_compile_options(${PROJECT_NAME} PUBLIC 
+	$<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:GNU>>:>
+	$<$<CXX_COMPILER_ID:MSVC>:>)
 ADD_DEPENDENCIES(${PROJECT_NAME} exts)
 
 # Copy resource folder to binary folder
