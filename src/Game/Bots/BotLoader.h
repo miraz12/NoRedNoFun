@@ -1,6 +1,8 @@
 #pragma once
 #ifdef _WIN32
 #include <Windows.h>
+#elif __linux__
+#include <dlfcn.h>
 #endif
 #include <glm/glm.hpp>
 

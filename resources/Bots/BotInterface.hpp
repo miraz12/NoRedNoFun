@@ -4,7 +4,7 @@
 
 #define BOT_EXPORTS
 
-#ifdef __WIN32
+#ifdef _WIN32
 	#ifdef BOT_EXPORTS
 	#define BOT_API __declspec(dllexport)
 	#else

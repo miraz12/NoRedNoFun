@@ -1,6 +1,6 @@
 #include "BotLoader.h"
 
-#include <dlfcn.h>
+
 #include <iostream>
 
 BotLoader::BotLoader(std::string botName) {
@@ -24,7 +24,7 @@ void BotLoader::loadDLL() {
 	if (m_handle != NULL) {
 		// Function pointers
 #ifdef _WIN32
-		newInterface = (NewInterface)GetProcAddress(m_handle, "newInterface");
+		newInterface = (NewInterface)GetProcAddress((HMODULE)m_handle, "newInterface");
 #elif __linux__
 		newInterface = (NewInterface)dlsym(m_handle, "newInterface");
 #endif
@@ -44,7 +44,7 @@ void BotLoader::loadDLL() {
 
 void BotLoader::unloadDLL() {
 #ifdef _WIN32
-	FreeLibrary(m_handle);
+	FreeLibrary((HMODULE)m_handle);
 #elif __linux__
 	dlclose(m_handle);
 #endif
