@@ -22,9 +22,5 @@ private:
 };
 
 // ----DLL functions----
-#ifdef _WIN32
 extern "C" BOT_API BotInterface * newInterface();
-#elif __linux__
-extern "C" BotInterface * newInterface();
-#endif
 // ---------------------

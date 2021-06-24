@@ -15,12 +15,8 @@ BotLoader::~BotLoader() {
 
 void BotLoader::loadDLL() {
 	// Load dll
-
-#ifdef _WIN32
 	m_handle = LoadLibrary(("resources/Bots/" + m_botName + ".dll").c_str());
-#elif __linux__
-	m_handle = dlopen(("resources/Bots/lib" + m_botName + ".so").c_str(), RTLD_LAZY);
-#endif
+
 	if (m_handle != NULL) {
 		// Function pointers
 #ifdef _WIN32
@@ -31,7 +27,7 @@ void BotLoader::loadDLL() {
 		m_loaded = true;
 
 		// Catch failed function loads
-		if (newInterface == nullptr) {
+		if (newInterface == NULL) {
 			std::cout << "Failed to load function \"newInterface\" from bot \"" << m_botName << "\".\n";
 			m_loaded = false;
 		}

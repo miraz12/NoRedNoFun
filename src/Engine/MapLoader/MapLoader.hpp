@@ -18,6 +18,8 @@ public:
     void draw();
 
     bool allowMovement(int x, int y);
+	unsigned int getWidth();
+	unsigned int getHeight();
 
     static MapLoader* mapInstance;
 private:

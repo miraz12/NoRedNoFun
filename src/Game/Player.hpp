@@ -13,6 +13,8 @@ public:
 	void setAccelerationDirection(const glm::vec2 &direction);
 	void update(float dt);
 private:
+	void collideWithMap();
+
 	Quad* m_playerQuad;
 
 	// Movement
