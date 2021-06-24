@@ -78,19 +78,45 @@ void Player::collideWithMap() {
 	for (int x = -1; x < 2; x++) {
 		for (int y = -1; y < 2; y++) {
 			if (x == 0 && y == 0) {
-				continue; // Don't do anything for the 
+				continue; // Don't do anything for the tile the player is in
 			}
 
 			int mapTileX = floor(m_position.x) + x;
 			int mapTileY = floor(m_position.y) + y;
-			if (!MapLoader::mapInstance->allowMovement(mapTileX, mapTileY)) {
+			if (!MapLoader::mapInstance->allowMovement(mapTileX, (int)MapLoader::mapInstance->getHeight() - 1 - mapTileY)) {
 				// Movement not allowed, does the player overlap?
-				if (((float)mapTileX + 1.0f) >= (m_position.x - 0.5f) && ((float)mapTileX - 1.0f) <= (m_position.x + 0.5f) && // x-axis
-					((float)mapTileY + 1.0f) >= (m_position.y - 0.5f) && ((float)mapTileY - 1.0f) <= (m_position.y + 0.5f)) { // y-axis
-					/*float xOverlap = glm::min(((float)mapTileX + 1.0f) - (m_position.x - 0.5f), (m_position.x + 0.5f) - ((float)mapTileX - 1.0f));
-					float yOverlap = glm::min(((float)mapTileY + 1.0f) - (m_position.y - 0.5f), (m_position.y + 0.5f) - ((float)mapTileY - 1.0f));*/
-					/*std::cout << "Collision\n";*/
-				}
+
+                // X-axis
+                float xOverlapLeft = ((float)mapTileX + 1.0f) - (m_position.x - 0.5f);
+                if (xOverlapLeft < 0.0f) {
+                    continue; // No overlap
+                }
+                float xOverlapRight = (m_position.x + 0.5f) - ((float)mapTileX);
+                if (xOverlapRight < 0.0f) {
+                    continue; // No overlap
+                }
+                // Y-axis
+                float yOverlapTop = m_position.y + 0.5f - (float)mapTileY;
+                if (yOverlapTop < 0.0f) {
+                    continue; // No overlap
+                }
+                float yOverlapBottom = ((float)mapTileY + 1.0f) - (m_position.y - 0.5f);
+                if (yOverlapBottom < 0.0f) {
+                    continue; // No overlap
+                }
+
+                // If we have made it here, there is a collision
+                // Move back by smallest overlap
+                float minX = std::min(xOverlapLeft, xOverlapRight);
+                float minY = std::min(yOverlapTop, yOverlapBottom);
+                if (minX < minY) {
+                    // X is smallest
+                    m_position.x += minX - 2.0f * minX * (xOverlapLeft > xOverlapRight);
+                } else {
+                    m_position.y += minY - 2.0f * minY * (yOverlapTop < yOverlapBottom);
+                }
+//                 std::cout << "Collision" << std::rand();
+
 			}
 		}
 	}

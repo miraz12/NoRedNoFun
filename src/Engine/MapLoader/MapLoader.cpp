@@ -25,7 +25,11 @@ void MapLoader::draw() {
 }
 
 bool MapLoader::allowMovement(int x, int y) {
-    tileType tile = static_cast<tileType>(m_mapData[m_width * x + y]);
+    if (x < 0 || x >= m_width || y < 0 || y >= m_height) {
+        return false;
+    }
+
+    tileType tile = static_cast<tileType>(m_mapData[m_width * y + x]);
     if (tile == tileType::wall)
     {
         return false;
