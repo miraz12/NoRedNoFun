@@ -4,6 +4,9 @@
 cmake_minimum_required (VERSION 3.10)
 
 project(myBot)
+if (UNIX)
+	set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+endif(UNIX)
 
 # Add source files
 set(SOURCE_FILES 
