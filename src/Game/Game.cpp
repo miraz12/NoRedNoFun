@@ -1,12 +1,16 @@
+#define NOMINMAX
 #include "Game.hpp"
 
 #include "../Engine/MapLoader/MapLoader.hpp"
 
-Game::Game(Rendering& rendering):
+
+Game::Game(Rendering& rendering, GLFWwindow* window):
 	m_rendering(rendering),
 	m_player(m_rendering.getNewQuad()),
 	m_botLoader("myBot"),
-	m_botInterface(m_botLoader.newInterface()) {
+	m_botInterface(m_botLoader.newInterface()),
+	m_movementSystem(),
+	m_inputSystem(){
 	MapLoader::mapInstance->getModelMatrix() = glm::translate(glm::mat4(1.0f),
 		glm::vec3(0.5f * (float) MapLoader::mapInstance->getWidth(), 0.5f * (float)MapLoader::mapInstance->getHeight(), 0.1f));
 	MapLoader::mapInstance->getModelMatrix() = glm::scale(MapLoader::mapInstance->getModelMatrix(),
@@ -14,6 +18,15 @@ Game::Game(Rendering& rendering):
 	m_rendering.getCamera()->setZoom(1.0f/(0.5f * (float) std::max(MapLoader::mapInstance->getWidth(), MapLoader::mapInstance->getHeight()))); // Zoom out so that the whole map is visible
 	m_rendering.getCamera()->setPosition(0.5f * (float)MapLoader::mapInstance->getWidth(), 0.5f * (float)MapLoader::mapInstance->getHeight());
 	m_botInterface->print();
+
+	//Lägg till komponenter till player
+	m_player.addComponent(new PositionComponent(m_rendering.getNewQuad()->getModelMatrix()));
+	m_player.addComponent(new MovementComponent());
+	m_player.addComponent(new InputComponent(window));
+
+	//Lägg till player i system
+	m_inputSystem.addEntity(&m_player);
+	m_movementSystem.addEntity(&m_player);
 }	
 
 Game::~Game() {
@@ -38,5 +51,7 @@ void Game::processInput(GLFWwindow* window) {
 }
 
 void Game::update(float dt) {
-	m_player.update(dt);
+	//m_player.update(dt);
+	m_inputSystem.update(dt);
+	m_movementSystem.update(dt);
 }

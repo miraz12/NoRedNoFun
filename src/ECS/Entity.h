@@ -5,7 +5,7 @@
 class Entity
 {
 public:
-	int ID;
+	int m_ID;
 
 	Entity(int ID);
 

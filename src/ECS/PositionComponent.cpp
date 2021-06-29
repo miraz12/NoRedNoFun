@@ -2,11 +2,12 @@
 
 
 
-PositionComponent::PositionComponent() :
-	m_xPosition(0.0f), m_yPosition(0.0f){
-}
-PositionComponent::PositionComponent(float x, float y) :
-	m_xPosition(x), m_yPosition(y) {
+PositionComponent::PositionComponent(glm::mat4& modelMatrix) :
+	m_position(2.0f, 2.0f, -0.1f),
+	m_rotation(0.0f),
+	m_scale(1.0f), 
+	m_xPosition(0.0f), m_yPosition(0.0f),
+	m_matrix(modelMatrix){
 }
 
 

@@ -4,36 +4,38 @@ InputSystem::InputSystem()
 	: System(ComponentTypeEnum::INPUT){
 }
 
-bool System::addEntity(Entity* entity) {
-
-	//assumes entities only has one type of component
-	bool entityAdded = false;
-	for (int i = 0; i < m_requiredComponents.size(); ++i) {
-
-		if (!entity->hasComponent(m_requiredComponents[i])) {
-			return false; //Component does not exist!
-		}
-	}
-
-	//the right components exists in entity
-	m_entities.push_back(entity);
-
-	return true;
-}
-
 void System::removeEntity(int ID)
 {
 }
 
-void InputSystem::update(){
+void InputSystem::update(float dt){
 	//Handle input
 
 
-	for (auto &e: m_entities) {
+	for (auto& e : m_entities) {
 		//Get component(s)
-		InputComponent *input = static_cast<InputComponent *>(e->getComponent(ComponentTypeEnum::INPUT));
+		InputComponent* input = static_cast<InputComponent*>(e->getComponent(ComponentTypeEnum::INPUT));
+		MovementComponent* movement = static_cast<MovementComponent*>(e->getComponent(ComponentTypeEnum::MOVEMENT));
 
-		//call on component-specific stuff
+		//calculate input. Maybe every AI can use its own input component for this?
+		input->calculateInput();
+
+		//movementInput
+		glm::vec3 direction(0.0f);
+		if (input->m_keys[GLFW_KEY_W] == GLFW_PRESS) {
+			direction.y += 1.0f;
+		}
+		if (input->m_keys[GLFW_KEY_S] == GLFW_PRESS) {
+			direction.y += -1.0f;
+		}
+		if (input->m_keys[GLFW_KEY_A] == GLFW_PRESS) {
+			direction.x += -1.0f;
+		}
+		if (input->m_keys[GLFW_KEY_D] == GLFW_PRESS) {
+			direction.x += 1.0f;
+		}
+		movement->m_accelerationDirection.x = direction.x;
+		movement->m_accelerationDirection.y = direction.y;
 	}
 
 }

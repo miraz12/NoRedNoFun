@@ -20,7 +20,22 @@ public:
 
 
 	//Adds entity to System if it contains the right components
-	virtual bool addEntity(Entity* entity) = 0;
+	virtual bool addEntity(Entity* entity){
+
+		//assumes entities has at most one of each type of component
+		bool entityAdded = false;
+		for (int i = 0; i < m_requiredComponents.size(); ++i) {
+
+			if (!entity->hasComponent(m_requiredComponents[i])) {
+				return false; //Component does not exist!
+			}
+		}
+
+		//the right components exists in entity
+		m_entities.push_back(entity);
+
+		return true;
+	}
 
 	//Removes entity
 	virtual void removeEntity(int ID);

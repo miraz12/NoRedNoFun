@@ -7,6 +7,7 @@
 #include "../Engine/MapLoader/MapLoader.hpp"
 
 Player::Player(Quad* playerQuad) :
+	Entity(1),
 	m_playerQuad(playerQuad),
 	m_accelerationDirection(0.0f),
 	m_velocity(0.0f),

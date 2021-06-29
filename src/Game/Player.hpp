@@ -4,8 +4,9 @@
 #include <glm/ext.hpp>
 
 #include "../Engine/Objects/Quad.hpp"
+#include "../ECS/Entity.h"
 
-class Player {
+class Player : public Entity {
 public:
 	Player(Quad* playerQuad);
 	virtual ~Player();

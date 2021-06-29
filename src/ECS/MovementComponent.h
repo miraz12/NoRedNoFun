@@ -1,16 +1,19 @@
+#pragma once
+
 #include "Component.h"
 #include <glm/glm.hpp>
+#include <glm/gtx/norm.hpp>
+#include <cmath>
 
 class MovementComponent : public Component
 {
 public:
+	glm::vec3 m_accelerationDirection;
+	glm::vec3 m_velocity;
+	float m_acceleration;
+	float m_drag;
+	float m_maxSpeed;
+
 	MovementComponent();
 
-	//updates position x and y based on velocity and delta time dt
-	void move(float dt, float &x, float &y);
-
-	void setVelocity(glm::vec2 v);
-
-private:
-	glm::vec2 m_velocity;
 };
