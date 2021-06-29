@@ -11,8 +11,6 @@ public:
 
 	void calculateInput();
 
-	ComponentTypeEnum getComponentType();
-
 private:
 	GLFWwindow* m_window;
 };

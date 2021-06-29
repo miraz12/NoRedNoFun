@@ -4,6 +4,13 @@ Entity::Entity(int ID) {
     m_ID = ID;
 }
 
+//Dont know if this is the correct way to free components
+Entity::~Entity() {
+    for (auto *component : m_components) {
+        delete component;
+    }
+}
+
 void Entity::addComponent(Component* component) {
     if (!hasComponent(component->getComponentType())) {
         m_components.push_back(component);

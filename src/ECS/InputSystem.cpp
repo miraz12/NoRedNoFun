@@ -1,7 +1,7 @@
 #include "InputSystem.h"
 
 InputSystem::InputSystem() 
-	: System(ComponentTypeEnum::INPUT){
+	: System(ComponentTypeEnum::INPUT, ComponentTypeEnum::MOVEMENT){
 }
 
 void System::removeEntity(int ID)

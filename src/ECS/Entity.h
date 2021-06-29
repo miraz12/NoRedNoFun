@@ -9,6 +9,8 @@ public:
 
 	Entity(int ID);
 
+	~Entity();
+
 	//Adds component
 	//Can't have more than one type of component!
 	void addComponent(Component *component);

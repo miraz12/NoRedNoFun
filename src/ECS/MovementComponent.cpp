@@ -7,7 +7,7 @@ MovementComponent::MovementComponent() :
 	m_acceleration(20.0f),
 	m_drag(10.0f),
 	m_maxSpeed(7.0f){
-
+	m_componentType = ComponentTypeEnum::MOVEMENT;
 }
 
 //void MovementComponent::move(float dt, float &x, float &y) {

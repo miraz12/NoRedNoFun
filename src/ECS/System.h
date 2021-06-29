@@ -20,7 +20,7 @@ public:
 
 
 	//Adds entity to System if it contains the right components
-	virtual bool addEntity(Entity* entity){
+	bool addEntity(Entity* entity){
 
 		//assumes entities has at most one of each type of component
 		bool entityAdded = false;

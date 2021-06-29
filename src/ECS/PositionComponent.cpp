@@ -8,6 +8,7 @@ PositionComponent::PositionComponent(glm::mat4& modelMatrix) :
 	m_scale(1.0f), 
 	m_xPosition(0.0f), m_yPosition(0.0f),
 	m_matrix(modelMatrix){
+	m_componentType = ComponentTypeEnum::POSITION;
 }
 
 
