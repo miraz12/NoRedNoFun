@@ -5,6 +5,8 @@
 #include <iostream>
 
 #include "../Engine/MapLoader/MapLoader.hpp"
+#include "../Engine/Physics/Shape.hpp"
+#include "../Engine/Physics/SAT.hpp"
 
 Player::Player(Quad* playerQuad) :
 	Entity(1),
@@ -75,6 +77,15 @@ void Player::update(float dt) {
 }
 
 void Player::collideWithMap() {
+    // Create player shape, TODO: Don't do this repeatedly
+    Shape playerShape;
+    playerShape.addNormal(glm::vec2(1.0f, 0.0f));
+    playerShape.addNormal(glm::vec2(0.0f, 1.0f));
+    playerShape.addVertex(glm::vec2(m_position.x - 0.5f, m_position.y - 0.5f));
+    playerShape.addVertex(glm::vec2(m_position.x + 0.5f, m_position.y - 0.5f));
+    playerShape.addVertex(glm::vec2(m_position.x - 0.5f, m_position.y + 0.5f));
+    playerShape.addVertex(glm::vec2(m_position.x + 0.5f, m_position.y + 0.5f));
+
 	// Assuming that a map tile is 1x1 and map starts at 0,0
 	for (int x = -1; x < 2; x++) {
 		for (int y = -1; y < 2; y++) {
@@ -87,37 +98,24 @@ void Player::collideWithMap() {
 			if (!MapLoader::mapInstance->allowMovement(mapTileX, (int)MapLoader::mapInstance->getHeight() - 1 - mapTileY)) {
 				// Movement not allowed, does the player overlap?
 
-                // X-axis
-                float xOverlapLeft = ((float)mapTileX + 1.0f) - (m_position.x - 0.5f);
-                if (xOverlapLeft < 0.0f) {
-                    continue; // No overlap
-                }
-                float xOverlapRight = (m_position.x + 0.5f) - ((float)mapTileX);
-                if (xOverlapRight < 0.0f) {
-                    continue; // No overlap
-                }
-                // Y-axis
-                float yOverlapTop = m_position.y + 0.5f - (float)mapTileY;
-                if (yOverlapTop < 0.0f) {
-                    continue; // No overlap
-                }
-                float yOverlapBottom = ((float)mapTileY + 1.0f) - (m_position.y - 0.5f);
-                if (yOverlapBottom < 0.0f) {
-                    continue; // No overlap
-                }
+                Shape tileShape;
+                //No need to add normals in this case since they will be the same as for player shape (both are aabb's for now)
+                // TODO: Change this when implementign rotations of player shape.
+                tileShape.addVertex(glm::vec2(mapTileX, mapTileY));
+                tileShape.addVertex(glm::vec2(mapTileX + 1.0f, mapTileY));
+                tileShape.addVertex(glm::vec2(mapTileX, mapTileY + 1.0f));
+                tileShape.addVertex(glm::vec2(mapTileX + 1.0f, mapTileY + 1.0f));
 
-                // If we have made it here, there is a collision
-                // Move back by smallest overlap
-                float minX = std::min(xOverlapLeft, xOverlapRight);
-                float minY = std::min(yOverlapTop, yOverlapBottom);
-                if (minX < minY) {
-                    // X is smallest
-                    m_position.x += minX - 2.0f * minX * (xOverlapLeft > xOverlapRight);
-                } else {
-                    m_position.y += minY - 2.0f * minY * (yOverlapTop < yOverlapBottom);
-                }
-//                 std::cout << "Collision" << std::rand();
+                glm::vec2 tempIntersectionAxis(0.0f);
+                float tempIntersectionDepth = 0.0f;
 
+                if (SAT::getIntersection(playerShape, tileShape, tempIntersectionAxis, tempIntersectionDepth)) {
+                    if (glm::length2(tempIntersectionAxis) > 0.0001f) {
+                        m_position += glm::vec3(tempIntersectionAxis.x, tempIntersectionAxis.y, 0.0f)  * tempIntersectionDepth;
+                        glm::vec3 normalizedIntersectionAxis = {glm::normalize(tempIntersectionAxis).x, glm::normalize(tempIntersectionAxis).y, 0.0f};
+                        m_velocity -= normalizedIntersectionAxis * glm::dot(normalizedIntersectionAxis, m_velocity);
+                    }
+                }
 			}
 		}
 	}
