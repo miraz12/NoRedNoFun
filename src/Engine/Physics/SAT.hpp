@@ -8,7 +8,7 @@
 
 namespace SAT {
 
-    float getOverlap(const glm::vec2 &overlapVector, const std::vector<glm::vec2> &shapeAVertices, const std::vector<glm::vec2> &shapeBVertices, bool &reverse) {
+    inline float getOverlap(const glm::vec2 &overlapVector, const std::vector<glm::vec2> &shapeAVertices, const std::vector<glm::vec2> &shapeBVertices, bool &reverse) {
         float maxA = -INFINITY;
         float minA = INFINITY;
         float maxB = -INFINITY;
@@ -50,7 +50,7 @@ namespace SAT {
         return -1.0f;
     }
 
-    bool getIntersection(const Shape &shapeA, const Shape &shapeB, glm::vec2 &intersectionAxis, float &intersectionDepth) {
+    inline bool getIntersection(const Shape &shapeA, const Shape &shapeB, glm::vec2 &intersectionAxis, float &intersectionDepth) {
         intersectionDepth = INFINITY;
 
         auto shapeAVertices = shapeA.getVertices();

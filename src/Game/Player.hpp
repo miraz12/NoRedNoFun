@@ -6,7 +6,7 @@
 #include "../Engine/Objects/Quad.hpp"
 #include "../ECS/Entity.h"
 
-class Player : public Entity {
+class Player : public Entity { //inheriting from entity(instead of being an entity) for now just to try out ECS
 public:
 	Player(Quad* playerQuad);
 	virtual ~Player();
