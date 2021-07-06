@@ -49,15 +49,14 @@ void MovementSystem::update(float dt)
 
 		p->m_position += (oldVelocity + m->m_velocity) * 0.5f * dt; // This works for any update rate
 
-		//collideWithMap();
-
 		m->m_accelerationDirection = { 0.0f, 0.0f, 0.0f };
 
+
+		//Should this part be in Collisionsystem too maybe or another system?
 		p->m_matrix = glm::translate(glm::mat4(1.0f), p->m_position);
 		p->m_matrix = glm::rotate(p->m_matrix, p->m_rotation, glm::vec3(0.0f, 0.0f, 1.0f));
 		p->m_matrix = glm::scale(p->m_matrix, p->m_scale);
 
-		//m->move(dt, p->getPositionX(), p->getPositionY());
 	}
 }
 

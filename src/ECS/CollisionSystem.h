@@ -7,7 +7,7 @@ public:
 
 	CollisionSystem();
 
-	void Update(float dt);
+	void update(float dt);
 
 };
 

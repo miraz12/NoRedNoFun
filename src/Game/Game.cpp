@@ -6,11 +6,13 @@
 
 Game::Game(Rendering& rendering, GLFWwindow* window):
 	m_rendering(rendering),
-	m_player(m_rendering.getNewQuad()),
+	/*m_player(m_rendering.getNewQuad()),*/
+	m_player(1),
 	m_botLoader("myBot"),
 	m_botInterface(m_botLoader.newInterface()),
 	m_movementSystem(),
-	m_inputSystem(){
+	m_inputSystem(),
+	m_collisionSystem(){
 	MapLoader::mapInstance->getModelMatrix() = glm::translate(glm::mat4(1.0f),
 		glm::vec3(0.5f * (float) MapLoader::mapInstance->getWidth(), 0.5f * (float)MapLoader::mapInstance->getHeight(), 0.1f));
 	MapLoader::mapInstance->getModelMatrix() = glm::scale(MapLoader::mapInstance->getModelMatrix(),
@@ -23,10 +25,12 @@ Game::Game(Rendering& rendering, GLFWwindow* window):
 	m_player.addComponent(new PositionComponent(m_rendering.getNewQuad()->getModelMatrix()));
 	m_player.addComponent(new MovementComponent());
 	m_player.addComponent(new InputComponent(window));
+	m_player.addComponent(new CollisionComponent());
 
 	//Lägg till player i system
 	m_inputSystem.addEntity(&m_player);
 	m_movementSystem.addEntity(&m_player);
+	m_collisionSystem.addEntity(&m_player);
 }	
 
 Game::~Game() {
@@ -47,11 +51,12 @@ void Game::processInput(GLFWwindow* window) {
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
 		movement.x += 1.0f;
 	}
-	m_player.setAccelerationDirection(movement);
+	//m_player.setAccelerationDirection(movement);
 }
 
 void Game::update(float dt) {
 	//m_player.update(dt);
 	m_inputSystem.update(dt);
 	m_movementSystem.update(dt);
+	m_collisionSystem.update(dt);
 }
