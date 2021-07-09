@@ -36,5 +36,5 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
 		
         "${CMAKE_CURRENT_BINARY_DIR}$<$<CONFIG:Debug>:/debug/>$<$<CONFIG:Release>:/release/>myBot.dll"
-        $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources)
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>/../../../resources/Bots)
 endif ()

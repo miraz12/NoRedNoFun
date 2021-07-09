@@ -4,11 +4,14 @@
 #include <glm/ext.hpp>
 
 #include "../Engine/Objects/Quad.hpp"
+#include "../Engine/Physics/Shape.hpp"
 
 class Player {
 public:
 	Player(Quad* playerQuad);
 	virtual ~Player();
+
+	Shape &getShape();
 
 	void setAccelerationDirection(const glm::vec2 &direction);
 	void update(float dt);
@@ -16,6 +19,7 @@ private:
 	void collideWithMap();
 
 	Quad* m_playerQuad;
+	Shape m_shape;
 
 	// Movement
 	glm::vec3 m_accelerationDirection;

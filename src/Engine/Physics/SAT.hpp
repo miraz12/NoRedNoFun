@@ -50,13 +50,13 @@ namespace SAT {
         return -1.0f;
     }
 
-    bool getIntersection(const Shape &shapeA, const Shape &shapeB, glm::vec2 &intersectionAxis, float &intersectionDepth) {
+    bool getIntersection(Shape &shapeA, Shape &shapeB, glm::vec2 &intersectionAxis, float &intersectionDepth) {
         intersectionDepth = INFINITY;
 
-        auto shapeAVertices = shapeA.getVertices();
-        auto shapeBVertices = shapeB.getVertices();
+        auto shapeAVertices = shapeA.getTransformedVertices();
+        auto shapeBVertices = shapeB.getTransformedVertices();
 
-        const std::vector<glm::vec2> &shapeANormals = shapeA.getNormals();
+        auto shapeANormals = shapeA.getTransformedNormals();
         for (unsigned int i = 0; i < shapeANormals.size(); i++) {
             bool reverse = false;
             float overlap = getOverlap(shapeANormals[i], shapeAVertices, shapeBVertices, reverse);
@@ -71,7 +71,7 @@ namespace SAT {
             }
         }
 
-        const std::vector<glm::vec2> &shapeBNormals = shapeB.getNormals();
+        const std::vector<glm::vec2> &shapeBNormals = shapeB.getTransformedNormals();
         for (unsigned int i = 0; i < shapeBNormals.size(); i++) {
             bool reverse = false;
             float overlap = getOverlap(shapeBNormals[i], shapeAVertices, shapeBVertices, reverse);
