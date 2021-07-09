@@ -16,6 +16,7 @@
 #include "../ECS/Components/MovementComponent.h"
 #include "../ECS/Components/InputComponent.h"
 #include "../ECS/Components/CollisionComponent.h"
+#include "../ECS/ECSManager.h"
 
 
 
@@ -31,5 +32,5 @@ private:
 	//Player m_player;
 	BotLoader m_botLoader;
 	BotInterface* m_botInterface;
-
+	ECSManager m_ECSManager;
 };

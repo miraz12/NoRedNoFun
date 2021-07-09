@@ -20,7 +20,7 @@ public:
 	void update(float dt);
 
 	//adds entity and inserts it into to all matching systems
-	void addEntity(Entity entity);
+	void addEntity(Entity* entity);
 
 	void addComponent(Entity& entity, Component* component);
 
@@ -30,17 +30,18 @@ public:
 	//Removes  componenet from entity and then the entity from all concerned systems
 	void removeComponent(Entity& entity, ComponentTypeEnum component);
 
+	//Returns entity by ID, or NULL if it does not exist
 	const Entity& getEntity(int entityID);
 
 private:
 	//Entities
-	std::vector<Entity> m_entities;
+	std::vector<Entity*> m_entities;
 
 	//Systems
 	std::map<std::string, std::shared_ptr<System>> m_systems;
 
 	//Events
-	std::vector<Entity> m_addEntities;
+	std::vector<Entity*> m_addEntities;
 	struct addComponent_t {
 		Entity& ent;
 		Component* cmp;

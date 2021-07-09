@@ -29,7 +29,7 @@ void ECSManager::update(float dt)
 	removeComponents();
 }
 
-void ECSManager::addEntity(Entity entity)
+void ECSManager::addEntity(Entity* entity)
 {
 	m_addEntities.push_back(entity);
 }
@@ -52,7 +52,12 @@ void ECSManager::removeComponent(Entity& entity, ComponentTypeEnum component)
 const Entity& ECSManager::getEntity(int entityID)
 {
 	// TODO: insert return statement here
-	return m_entities[0];
+	for (auto& entity : m_entities) {
+		if (entity->m_ID == entityID) {
+			return *entity;
+		}
+	}
+	return NULL;
 }
 
 
@@ -67,7 +72,7 @@ void ECSManager::addEntites()
 
 		//add to systems
 		for (auto& system : m_systems) {
-			system.second->addEntity(&m_entities.back());
+			system.second->addEntity(m_entities.back());
 		}
 	}
 	m_addEntities.clear();
@@ -103,7 +108,7 @@ void ECSManager::removeEntities()
 
 		//delete in manager
 		for (int j = 0; j < m_entities.size(); j++) {
-			if (m_entities[j].m_ID == i) {
+			if (m_entities[j]->m_ID == i) {
 				m_entities.erase(m_entities.begin() + j);
 			}
 		}

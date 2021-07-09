@@ -3,7 +3,7 @@
 #include "../Components/InputComponent.h"
 #include "../Components/MovementComponent.h"
 
-class ECSManager;
+
 class InputSystem: public System
 {
 public:

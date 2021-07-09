@@ -3,6 +3,7 @@
 #include "../Entity.h"
 #include "../Components/Component.h"
 
+class ECSManager;
 class System {
 
 public:

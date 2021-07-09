@@ -1,6 +1,6 @@
+#pragma once
 #include "System.h"
 
-class ECSManager;
 class MovementSystem : public System
 {
 public:
