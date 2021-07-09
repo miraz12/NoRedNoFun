@@ -1,12 +1,11 @@
 #include "InputSystem.h"
+#include "../Components/InputComponent.h"
+#include "../Components/MovementComponent.h"
 
-InputSystem::InputSystem() 
-	: System(ComponentTypeEnum::INPUT, ComponentTypeEnum::MOVEMENT){
+InputSystem::InputSystem(ECSManager *ECSManager) 
+	: System(ECSManager, ComponentTypeEnum::INPUT, ComponentTypeEnum::MOVEMENT){
 }
 
-void System::removeEntity(int ID)
-{
-}
 
 void InputSystem::update(float dt){
 	//Handle input

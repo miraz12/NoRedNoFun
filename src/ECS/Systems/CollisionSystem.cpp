@@ -1,12 +1,12 @@
 #include "CollisionSystem.h"
-#include "PositionComponent.h"
-#include "MovementComponent.h"
-#include "CollisionComponent.h"
-#include "../Engine/MapLoader/MapLoader.hpp"
-#include "../Engine/Physics/SAT.hpp"
+#include "../../Engine/MapLoader/MapLoader.hpp"
+#include "../../Engine/Physics/SAT.hpp"
+#include "../Components/PositionComponent.h"
+#include "../Components/MovementComponent.h"
+#include "../Components/CollisionComponent.h"
 
-CollisionSystem::CollisionSystem()
-	: System(ComponentTypeEnum::COLLISION, ComponentTypeEnum::MOVEMENT, ComponentTypeEnum::POSITION) {
+CollisionSystem::CollisionSystem(ECSManager *ECSManager)
+	: System(ECSManager, ComponentTypeEnum::COLLISION, ComponentTypeEnum::MOVEMENT, ComponentTypeEnum::POSITION) {
 
 }
 

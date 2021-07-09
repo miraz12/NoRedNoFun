@@ -1,9 +1,9 @@
 #include "MovementSystem.h"
-#include "PositionComponent.h"
-#include "MovementComponent.h"
+#include "../Components/PositionComponent.h"
+#include "../Components/MovementComponent.h"
 
-MovementSystem::MovementSystem() 
-	: System(ComponentTypeEnum::POSITION, ComponentTypeEnum::MOVEMENT){
+MovementSystem::MovementSystem(ECSManager * ECSManager) 
+	: System(ECSManager, ComponentTypeEnum::POSITION, ComponentTypeEnum::MOVEMENT){
 
 }
 

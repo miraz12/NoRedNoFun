@@ -1,6 +1,6 @@
 #pragma once
 #include "Component.h"
-#include "../Engine/Physics/Shape.hpp"
+#include "../../Engine/Physics/Shape.hpp"
 
 class CollisionComponent : public Component
 {

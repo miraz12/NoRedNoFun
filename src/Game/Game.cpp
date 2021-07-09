@@ -7,12 +7,9 @@
 Game::Game(Rendering& rendering, GLFWwindow* window):
 	m_rendering(rendering),
 	/*m_player(m_rendering.getNewQuad()),*/
-	m_player(1),
 	m_botLoader("myBot"),
 	m_botInterface(m_botLoader.newInterface()),
-	m_movementSystem(),
-	m_inputSystem(),
-	m_collisionSystem(){
+{
 	MapLoader::mapInstance->getModelMatrix() = glm::translate(glm::mat4(1.0f),
 		glm::vec3(0.5f * (float) MapLoader::mapInstance->getWidth(), 0.5f * (float)MapLoader::mapInstance->getHeight(), 0.1f));
 	MapLoader::mapInstance->getModelMatrix() = glm::scale(MapLoader::mapInstance->getModelMatrix(),
@@ -56,7 +53,4 @@ void Game::processInput(GLFWwindow* window) {
 
 void Game::update(float dt) {
 	//m_player.update(dt);
-	m_inputSystem.update(dt);
-	m_movementSystem.update(dt);
-	m_collisionSystem.update(dt);
 }
