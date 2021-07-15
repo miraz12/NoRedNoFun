@@ -25,13 +25,13 @@ InstancedQuadManager::~InstancedQuadManager() {
 }
 
 
-Quad* InstancedQuadManager::getNewQuad() {
+Quad& InstancedQuadManager::getNewQuad() {
     m_quadMatrices.emplace_back(1.0f);
     m_quadMatrices.emplace_back(1.0f);
 
-	m_quads.emplace_back(m_quadMatrices[m_quadMatrices.size() - 2], m_quadMatrices.back());
+	m_quads.emplace_back(m_quadMatrices[m_quadMatrices.size() - 2], m_quadMatrices[m_quadMatrices.size() - 1]);
 
-    return &(m_quads.back());
+    return m_quads.back();
 }
 
 std::vector<Quad>& InstancedQuadManager::getQuads() {

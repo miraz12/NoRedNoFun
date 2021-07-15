@@ -14,7 +14,7 @@ public:
 	InstancedQuadManager(ShaderProgram &shaderProgram);
 	~InstancedQuadManager();
 
-    Quad* getNewQuad();
+    Quad& getNewQuad();
 	std::vector<Quad>& getQuads();
 
     Texture& getTexture();

@@ -15,7 +15,7 @@ Rendering::Rendering():
 
 }
 
-Quad* Rendering::getNewQuad() {
+Quad& Rendering::getNewQuad() {
 	return m_quadManager.getNewQuad();
 }
 

@@ -8,7 +8,7 @@
 #include "../Engine/Physics/Shape.hpp"
 #include "../Engine/Physics/SAT.hpp"
 
-Player::Player(Quad* playerQuad, Quad* intersectionPointDisplayQuad) :
+Player::Player(Quad& playerQuad, Quad& intersectionPointDisplayQuad) :
 	m_playerQuad(playerQuad),
 	m_intersectionPointDisplay(intersectionPointDisplayQuad),
 	m_accelerationDirection(0.0f),
@@ -19,7 +19,7 @@ Player::Player(Quad* playerQuad, Quad* intersectionPointDisplayQuad) :
 	m_position(2.0f, 2.0f, -0.1f),
 	m_rotation(0.0f),
 	m_scale(1.0f),
-	m_matrix(m_playerQuad->getModelMatrix()) {
+	m_matrix(m_playerQuad.getModelMatrix()) {
 		m_shape.addVertex(glm::vec2(-0.5f, -0.5f));
 		m_shape.addVertex(glm::vec2(0.5f, -0.5f));
 		m_shape.addVertex(glm::vec2(-0.5f, 0.5f));
@@ -28,7 +28,7 @@ Player::Player(Quad* playerQuad, Quad* intersectionPointDisplayQuad) :
 		m_shape.addNormal(glm::vec2(1.0f, 0.0f));
 		m_shape.addNormal(glm::vec2(0.0f, 1.0f));
 
-		m_intersectionPointDisplay->getModelMatrix() = glm::mat4(1.0f);
+		// m_intersectionPointDisplay->getModelMatrix() = glm::mat4(1.0f);
 }
 
 Player::~Player() {
@@ -130,9 +130,8 @@ void Player::collideWithMap() {
                         m_velocity -= normalizedIntersectionAxis * glm::dot(normalizedIntersectionAxis, m_velocity);
 						
 						// Display intersectionPoint
-						glm::mat4 &tempMatrix = m_intersectionPointDisplay->getModelMatrix();
-						tempMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(4.0f, 4.0f, -0.2f));
-						// m_intersectionPointDisplay->getModelMatrix() = glm::scale(m_intersectionPointDisplay->getModelMatrix(), m_scale * 0.2f);
+						m_intersectionPointDisplay.getModelMatrix() = glm::translate(glm::mat4(1.0f), glm::vec3(4.0f, 4.0f, -0.2f));
+						// m_intersectionPointDisplay.getModelMatrix() = glm::scale(m_intersectionPointDisplay.getModelMatrix(), m_scale * 0.2f);
                     }
                 }
 			}
