@@ -8,8 +8,9 @@
 #include "../Engine/Physics/Shape.hpp"
 #include "../Engine/Physics/SAT.hpp"
 
-Player::Player(Quad* playerQuad) :
+Player::Player(Quad* playerQuad, Quad* intersectionPointDisplayQuad) :
 	m_playerQuad(playerQuad),
+	m_intersectionPointDisplay(intersectionPointDisplayQuad),
 	m_accelerationDirection(0.0f),
 	m_velocity(0.0f),
 	m_acceleration(20.0f),
@@ -26,6 +27,8 @@ Player::Player(Quad* playerQuad) :
 
 		m_shape.addNormal(glm::vec2(1.0f, 0.0f));
 		m_shape.addNormal(glm::vec2(0.0f, 1.0f));
+
+		m_intersectionPointDisplay->getModelMatrix() = glm::mat4(1.0f);
 }
 
 Player::~Player() {
@@ -105,8 +108,8 @@ void Player::collideWithMap() {
 				continue; // Don't do anything for the tile the player is in
 			}
 
-			int mapTileX = floor(m_position.x) + x;
-			int mapTileY = floor(m_position.y) + y;
+			int mapTileX = (int) floor(m_position.x) + x;
+			int mapTileY = (int) floor(m_position.y) + y;
 			if (!MapLoader::mapInstance->allowMovement(mapTileX, (int)MapLoader::mapInstance->getHeight() - 1 - mapTileY)) {
 				// Movement not allowed, does the player overlap?
 
@@ -118,12 +121,18 @@ void Player::collideWithMap() {
 
                 glm::vec2 tempIntersectionAxis(0.0f);
                 float tempIntersectionDepth = 0.0f;
+				glm::vec2 intersectionPoint(0.0f);
 
-                if (SAT::getIntersection(m_shape, tileShape, tempIntersectionAxis, tempIntersectionDepth)) {
+                if (SAT::getIntersection(m_shape, tileShape, tempIntersectionAxis, tempIntersectionDepth, intersectionPoint)) {
                     if (glm::length2(tempIntersectionAxis) > 0.0001f) {
                         m_position += glm::vec3(tempIntersectionAxis.x, tempIntersectionAxis.y, 0.0f)  * tempIntersectionDepth;
                         glm::vec3 normalizedIntersectionAxis = {glm::normalize(tempIntersectionAxis).x, glm::normalize(tempIntersectionAxis).y, 0.0f};
                         m_velocity -= normalizedIntersectionAxis * glm::dot(normalizedIntersectionAxis, m_velocity);
+						
+						// Display intersectionPoint
+						glm::mat4 &tempMatrix = m_intersectionPointDisplay->getModelMatrix();
+						tempMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(4.0f, 4.0f, -0.2f));
+						// m_intersectionPointDisplay->getModelMatrix() = glm::scale(m_intersectionPointDisplay->getModelMatrix(), m_scale * 0.2f);
                     }
                 }
 			}

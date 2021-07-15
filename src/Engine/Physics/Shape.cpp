@@ -52,7 +52,7 @@ const std::vector<glm::vec2>& Shape::getTransformedNormals() {
     if (m_normalsNeedsUpdate) {
         m_transformedNormals.clear();
         for (size_t i = 0; i < m_originalNormals.size(); i++) {
-            m_transformedNormals.emplace_back((m_transformMatrix * glm::vec4(m_originalNormals[i], 0.0f, 1.0f)) -  (m_transformMatrix * glm::vec4(0.0f, 0.0f, 0.0f, 1.0f)));
+            m_transformedNormals.emplace_back(glm::mat3(glm::transpose(glm::inverse(m_transformMatrix))) * glm::vec3(m_originalNormals[i], 0.0f));
             m_transformedNormals.back() = glm::normalize(m_transformedNormals.back());
         }
         m_normalsNeedsUpdate = false;

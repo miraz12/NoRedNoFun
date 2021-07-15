@@ -8,7 +8,7 @@
 
 class Player {
 public:
-	Player(Quad* playerQuad);
+	Player(Quad* playerQuad, Quad* intersectionPointDisplayQuad);
 	virtual ~Player();
 
 	Shape &getShape();
@@ -19,6 +19,7 @@ private:
 	void collideWithMap();
 
 	Quad* m_playerQuad;
+	Quad* m_intersectionPointDisplay;
 	Shape m_shape;
 
 	// Movement

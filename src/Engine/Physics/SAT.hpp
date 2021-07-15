@@ -9,28 +9,30 @@
 namespace SAT {
 
     float getOverlap(const glm::vec2 &overlapVector, const std::vector<glm::vec2> &shapeAVertices, const std::vector<glm::vec2> &shapeBVertices, bool &reverse) {
-        float maxA = -INFINITY;
-        float minA = INFINITY;
-        float maxB = -INFINITY;
-        float minB = INFINITY;
+        float maxA = glm::dot(overlapVector, shapeAVertices[0]);
+        float minA = maxA;
+        float maxB = glm::dot(overlapVector, shapeBVertices[0]);
+        float minB = maxB;
 
-        for (unsigned int i = 0; i < shapeAVertices.size(); i++) {
-            float dot = glm::dot(overlapVector, shapeAVertices[i]);
-            if (dot < minA) {
-                minA = dot;
+        float tempDot = 0.0f;
+
+        for (unsigned int i = 1; i < shapeAVertices.size(); i++) {
+            tempDot = glm::dot(overlapVector, shapeAVertices[i]);
+            if (tempDot < minA) {
+                minA = tempDot;
             }
-            if (dot > maxA) {
-                maxA = dot;
+            if (tempDot > maxA) {
+                maxA = tempDot;
             }
         }
 
-        for (unsigned int i = 0; i < shapeBVertices.size(); i++) {
-            float dot = glm::dot(overlapVector, shapeBVertices[i]);
-            if (dot < minB) {
-                minB = dot;
+        for (unsigned int i = 1; i < shapeBVertices.size(); i++) {
+            tempDot =  glm::dot(overlapVector, shapeBVertices[i]);
+            if (tempDot < minB) {
+                minB = tempDot;
             }
-            if (dot > maxB) {
-                maxB = dot;
+            if (tempDot > maxB) {
+                maxB = tempDot;
             }
         }
 
@@ -50,8 +52,55 @@ namespace SAT {
         return -1.0f;
     }
 
-    bool getIntersection(Shape &shapeA, Shape &shapeB, glm::vec2 &intersectionAxis, float &intersectionDepth) {
+    void calculateIntersectionPoint(const glm::vec2 &intersectionLine, 
+        const std::vector<glm::vec2> &shapeAVertices, 
+        const std::vector<glm::vec2> &shapeBVertices, 
+        const std::vector<unsigned int> &shapeAIndices, 
+        const std::vector<unsigned int> &shapeBIndices, 
+        glm::vec2 &intersectionPoint) 
+    { 
+        float maxA = glm::dot(intersectionLine, shapeAVertices[shapeAIndices[0]]);
+        unsigned int maxAIndex = shapeAIndices[0];
+        float minA = maxA;
+        unsigned int minAIndex = maxAIndex;
+        float maxB = glm::dot(intersectionLine, shapeBVertices[shapeBIndices[0]]);
+        unsigned int maxBIndex = shapeBIndices[0];
+        float minB = maxB;
+        unsigned int minBIndex = maxBIndex;
+
+        float tempDot = 0.0f;
+
+        for (unsigned int i = 1; i < shapeAIndices.size(); i++) {
+            tempDot = glm::dot(intersectionLine, shapeAVertices[shapeAIndices[i]]);
+            if (tempDot < minA) {
+                minA = tempDot;
+            }
+            if (tempDot > maxA) {
+                maxA = tempDot;
+            }
+        }
+
+        for (unsigned int i = 1; i < shapeBIndices.size(); i++) {
+            tempDot =  glm::dot(intersectionLine, shapeBVertices[shapeBIndices[i]]);
+            if (tempDot < minB) {
+                minB = tempDot;
+            }
+            if (tempDot > maxB) {
+                maxB = tempDot;
+            }
+        }
+            
+        if (maxA - minB < maxB - minA) {
+            intersectionPoint = (shapeAVertices[maxAIndex] + shapeBVertices[minBIndex]) * 0.5f; 
+        }
+        else {
+            intersectionPoint = (shapeAVertices[minAIndex] + shapeBVertices[maxBIndex]) * 0.5f; 
+        }
+    }
+
+    bool getIntersection(Shape &shapeA, Shape &shapeB, glm::vec2 &intersectionAxis, float &intersectionDepth, glm::vec2 &intersectionPoint) {
         intersectionDepth = INFINITY;
+        std::vector<glm::vec2> closestIntersections;
 
         auto shapeAVertices = shapeA.getTransformedVertices();
         auto shapeBVertices = shapeB.getTransformedVertices();
@@ -85,6 +134,55 @@ namespace SAT {
                 intersectionAxis = shapeBNormals[i] - shapeBNormals[i] * 2.0f * (float) reverse;
             }
         }
+
+        // Intersection occured, find out intersection point
+        std::vector<unsigned int> shapeAIntersectionPointIndices;
+        std::vector<unsigned int> shapeBIntersectionPointIndices;
+        // Vector is always pointing from B to A so only have to keep track of max projection for B and min projection for A
+        float minA = glm::dot(shapeAVertices[0], intersectionAxis);
+        shapeAIntersectionPointIndices.emplace_back(0);
+
+        float maxB = glm::dot(shapeBVertices[0], intersectionAxis);
+        shapeBIntersectionPointIndices.emplace_back(0);
+        
+        float tempDot = 0.0f;
+
+        // Find for A
+        for (unsigned int i = 1; i < shapeAVertices.size(); i++) {
+            tempDot = glm::dot(shapeAVertices[i], intersectionAxis);
+            if (tempDot < minA - 0.00001f) {
+                minA = tempDot;
+                shapeAIntersectionPointIndices.clear();
+                shapeAIntersectionPointIndices.emplace_back(i);
+            } else if (tempDot <= minA) {
+                shapeAIntersectionPointIndices.emplace_back(i);
+            }
+        }
+
+        // Find for B
+        for (unsigned int i = 1; i < shapeBVertices.size(); i++) {
+            tempDot = glm::dot(shapeBVertices[i], intersectionAxis);
+            if (tempDot > maxB + 0.00001f) {
+                maxB = tempDot;
+                shapeBIntersectionPointIndices.clear();
+                shapeBIntersectionPointIndices.emplace_back(i);
+            } else if (tempDot >= maxB) {
+                shapeBIntersectionPointIndices.emplace_back(i);
+            }
+        }
+
+        // Calculate intersection point
+        if (shapeAIntersectionPointIndices.size() == 1) {
+            intersectionPoint = shapeAVertices[shapeAIntersectionPointIndices[0]];
+        }
+        else if (shapeBIntersectionPointIndices.size() == 1) {
+            intersectionPoint = shapeBVertices[shapeBIntersectionPointIndices[0]];
+        }
+        else {
+            glm::vec2 intersectionLine = glm::vec2(intersectionAxis.y, -intersectionAxis.x); // Rotated intersection axis 90 degrees
+            calculateIntersectionPoint(intersectionLine, shapeAVertices, shapeBVertices, shapeAIntersectionPointIndices, shapeBIntersectionPointIndices, intersectionPoint);
+        }
+
         return true;
     }
 

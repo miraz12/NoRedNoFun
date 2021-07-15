@@ -6,7 +6,7 @@
 
 Game::Game(Rendering& rendering):
 	m_rendering(rendering),
-	m_player(m_rendering.getNewQuad()),
+	m_player(m_rendering.getNewQuad(), m_rendering.getNewQuad()),
 	m_botLoader("myBot"),
 	m_botInterface(m_botLoader.newInterface()) {
 	MapLoader::mapInstance->getModelMatrix() = glm::translate(glm::mat4(1.0f),
