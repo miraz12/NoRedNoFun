@@ -23,5 +23,5 @@ private:
 	glm::vec2 m_nrOfSprites;
 	glm::vec2 m_currentSprite;
 
-	glm::mat4 &m_textureMatrix;
+	glm::mat4& m_textureMatrix;
 };

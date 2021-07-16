@@ -1,6 +1,6 @@
 #include "SpriteMap.hpp"
 
-SpriteMap::SpriteMap(glm::mat4 &textureMatrix):
+SpriteMap::SpriteMap(glm::mat4& textureMatrix):
 	m_nrOfSprites(1.0f),
 	m_currentSprite(0.0f),
 	m_textureMatrix(textureMatrix) {
@@ -19,7 +19,7 @@ const glm::vec2 &SpriteMap::getCurrentSprite() {
 	return m_currentSprite;
 }
 
-glm::mat4 &SpriteMap::getTextureMatrix() {
+glm::mat4& SpriteMap::getTextureMatrix() {
 	return m_textureMatrix;
 }
 

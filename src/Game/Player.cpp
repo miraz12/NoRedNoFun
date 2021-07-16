@@ -8,7 +8,7 @@
 #include "../Engine/Physics/Shape.hpp"
 #include "../Engine/Physics/SAT.hpp"
 
-Player::Player(Quad* playerQuad, Quad* intersectionPointDisplayQuad) :
+Player::Player(Quad& playerQuad, Quad& intersectionPointDisplayQuad) :
 	m_playerQuad(playerQuad),
 	m_intersectionPointDisplay(intersectionPointDisplayQuad),
 	m_accelerationDirection(0.0f),
@@ -18,8 +18,8 @@ Player::Player(Quad* playerQuad, Quad* intersectionPointDisplayQuad) :
 	m_maxSpeed(7.0f),
 	m_position(2.0f, 2.0f, -0.1f),
 	m_rotation(0.0f),
-	m_scale(1.0f),
-	m_matrix(m_playerQuad->getModelMatrix()) {
+	m_scale(0.5f),
+	m_matrix(m_playerQuad.getModelMatrix()) {
 		m_shape.addVertex(glm::vec2(-0.5f, -0.5f));
 		m_shape.addVertex(glm::vec2(0.5f, -0.5f));
 		m_shape.addVertex(glm::vec2(-0.5f, 0.5f));
@@ -28,7 +28,7 @@ Player::Player(Quad* playerQuad, Quad* intersectionPointDisplayQuad) :
 		m_shape.addNormal(glm::vec2(1.0f, 0.0f));
 		m_shape.addNormal(glm::vec2(0.0f, 1.0f));
 
-		m_intersectionPointDisplay->getModelMatrix() = glm::mat4(1.0f);
+		m_intersectionPointDisplay.getModelMatrix() = glm::translate(glm::mat4(1.0f), glm::vec3(4.0f, 4.0f, -0.2f));
 }
 
 Player::~Player() {
@@ -102,39 +102,72 @@ void Player::collideWithMap() {
 	tileShape.addNormal(glm::vec2(1.0f, 0.0f));
 	tileShape.addNormal(glm::vec2(0.0f, 1.0f));
 	
-	for (int x = -1; x < 2; x++) {
-		for (int y = -1; y < 2; y++) {
-			if (x == 0 && y == 0) {
-				continue; // Don't do anything for the tile the player is in
-			}
+	for (int direction = 0; direction < 2; direction++) {
+		for (int a = -1; a < 2; a += 2) {
+			bool buildingShape = false;
+			for (int b = -1; b < 2; b++) {
+				int mapTileX;
+				int mapTileY;
 
-			int mapTileX = (int) floor(m_position.x) + x;
-			int mapTileY = (int) floor(m_position.y) + y;
-			if (!MapLoader::mapInstance->allowMovement(mapTileX, (int)MapLoader::mapInstance->getHeight() - 1 - mapTileY)) {
-				// Movement not allowed, does the player overlap?
+				if (direction == 0) {
+					mapTileX = (int) floor(m_position.x) + a;
+					mapTileY = (int) floor(m_position.y) + b;
+				}
+				else {
+					mapTileX = (int) floor(m_position.x) + b;
+					mapTileY = (int) floor(m_position.y) + a;
+				}
 
-                tileShape.clearVertices();
-                tileShape.addVertex(glm::vec2(mapTileX, mapTileY));
-                tileShape.addVertex(glm::vec2(mapTileX + 1.0f, mapTileY));
-                tileShape.addVertex(glm::vec2(mapTileX, mapTileY + 1.0f));
-                tileShape.addVertex(glm::vec2(mapTileX + 1.0f, mapTileY + 1.0f));
+				bool movementAllowed = MapLoader::mapInstance->allowMovement(mapTileX, (int)MapLoader::mapInstance->getHeight() - 1 - mapTileY);
+				bool testShape = false;
 
-                glm::vec2 tempIntersectionAxis(0.0f);
-                float tempIntersectionDepth = 0.0f;
-				glm::vec2 intersectionPoint(0.0f);
+				if (movementAllowed == buildingShape) {
+					tileShape.addVertex(glm::vec2(mapTileX, mapTileY));
+					if (direction == 0) {
+						tileShape.addVertex(glm::vec2(mapTileX + 1.0f, mapTileY));
+					}
+					else {
+						tileShape.addVertex(glm::vec2(mapTileX, mapTileY + 1.0f));
+					}
 
-                if (SAT::getIntersection(m_shape, tileShape, tempIntersectionAxis, tempIntersectionDepth, intersectionPoint)) {
-                    if (glm::length2(tempIntersectionAxis) > 0.0001f) {
-                        m_position += glm::vec3(tempIntersectionAxis.x, tempIntersectionAxis.y, 0.0f)  * tempIntersectionDepth;
-                        glm::vec3 normalizedIntersectionAxis = {glm::normalize(tempIntersectionAxis).x, glm::normalize(tempIntersectionAxis).y, 0.0f};
-                        m_velocity -= normalizedIntersectionAxis * glm::dot(normalizedIntersectionAxis, m_velocity);
-						
-						// Display intersectionPoint
-						glm::mat4 &tempMatrix = m_intersectionPointDisplay->getModelMatrix();
-						tempMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(4.0f, 4.0f, -0.2f));
-						// m_intersectionPointDisplay->getModelMatrix() = glm::scale(m_intersectionPointDisplay->getModelMatrix(), m_scale * 0.2f);
-                    }
-                }
+					if (buildingShape) {
+						// Shape done, test it
+						testShape = true;
+						buildingShape = false;
+					} else {
+						buildingShape = true;
+					}
+				}
+				else if (!movementAllowed && buildingShape && b == 1) {
+					tileShape.addVertex(glm::vec2(mapTileX + 1.0f, mapTileY + 1.0f));
+					if (direction == 0) {
+						tileShape.addVertex(glm::vec2(mapTileX, mapTileY + 1.0f));
+					}
+					else {
+						tileShape.addVertex(glm::vec2(mapTileX + 1.0f, mapTileY));
+					}
+					testShape = true;
+					buildingShape = false;
+				}
+
+				if (testShape) {
+					glm::vec2 tempIntersectionAxis(0.0f);
+					float tempIntersectionDepth = 0.0f;
+					glm::vec2 intersectionPoint(0.0f);
+
+					if (SAT::getIntersection(m_shape, tileShape, tempIntersectionAxis, tempIntersectionDepth, intersectionPoint)) {
+						if (glm::length2(tempIntersectionAxis) > 0.0001f) {
+							m_position += glm::vec3(tempIntersectionAxis, 0.0f)  * tempIntersectionDepth;
+							glm::vec3 normalizedIntersectionAxis = {glm::normalize(tempIntersectionAxis), 0.0f};
+							m_velocity -= normalizedIntersectionAxis * glm::dot(normalizedIntersectionAxis, m_velocity);
+							
+							// Display intersectionPoint
+							m_intersectionPointDisplay.getModelMatrix() = glm::translate(glm::mat4(1.0f), glm::vec3(intersectionPoint, -0.3f));
+							m_intersectionPointDisplay.getModelMatrix() = glm::scale(m_intersectionPointDisplay.getModelMatrix(), glm::vec3(0.3f));
+						}
+					}
+					tileShape.clearVertices();
+				}
 			}
 		}
 	}

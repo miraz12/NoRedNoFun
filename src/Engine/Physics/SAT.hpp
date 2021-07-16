@@ -74,9 +74,11 @@ namespace SAT {
             tempDot = glm::dot(intersectionLine, shapeAVertices[shapeAIndices[i]]);
             if (tempDot < minA) {
                 minA = tempDot;
+                minAIndex = shapeAIndices[i];
             }
             if (tempDot > maxA) {
                 maxA = tempDot;
+                maxAIndex = shapeAIndices[i];
             }
         }
 
@@ -84,16 +86,24 @@ namespace SAT {
             tempDot =  glm::dot(intersectionLine, shapeBVertices[shapeBIndices[i]]);
             if (tempDot < minB) {
                 minB = tempDot;
+                minBIndex = shapeBIndices[i];
             }
             if (tempDot > maxB) {
                 maxB = tempDot;
+                maxBIndex = shapeBIndices[i];
             }
         }
             
-        if (maxA - minB < maxB - minA) {
+        if (maxA > maxB && minA < minB) { // B interval is completely inside A interval, use middle of A interval
+            intersectionPoint = (shapeBVertices[maxBIndex] + shapeBVertices[minBIndex]) * 0.5f; 
+        }
+        else if (maxB > maxA && minB < minA) { // A interval is completely inside B interval, use middle of A interval
+            intersectionPoint = (shapeAVertices[maxAIndex] + shapeAVertices[minAIndex]) * 0.5f; 
+        }
+        else if (maxA - minB < maxB - minA) { // max A and min B is the overlap, calculate middle of overlap
             intersectionPoint = (shapeAVertices[maxAIndex] + shapeBVertices[minBIndex]) * 0.5f; 
         }
-        else {
+        else { // max B and min A is the overlap, calculate middle of overlap
             intersectionPoint = (shapeAVertices[minAIndex] + shapeBVertices[maxBIndex]) * 0.5f; 
         }
     }

@@ -5,7 +5,7 @@
 
 #include "InstancedQuadManager.hpp"
 
-Quad::Quad(glm::mat4 &modelMatrix, glm::mat4 &textureMatrix) :
+Quad::Quad(glm::mat4& modelMatrix, glm::mat4& textureMatrix) :
     SpriteMap(textureMatrix),
     m_modelMatrix(modelMatrix) {
 
