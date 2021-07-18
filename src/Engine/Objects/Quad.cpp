@@ -5,9 +5,10 @@
 
 #include "InstancedQuadManager.hpp"
 
-Quad::Quad(glm::mat4& modelMatrix, glm::mat4& textureMatrix) :
-    SpriteMap(textureMatrix),
-    m_modelMatrix(modelMatrix) {
+Quad::Quad(std::vector<glm::mat4>* matrices, unsigned int matrixIndex) :
+    SpriteMap(matrices, matrixIndex + 1),
+    m_matrices(matrices),
+    m_matrixIndex(matrixIndex) {
 
 }
 
@@ -16,5 +17,5 @@ Quad::~Quad() {
 }
 
 glm::mat4& Quad::getModelMatrix() {
-	return m_modelMatrix;
+	return m_matrices->at(m_matrixIndex);
 }

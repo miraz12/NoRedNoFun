@@ -18,9 +18,6 @@ InstancedQuadManager::InstancedQuadManager(ShaderProgram &shaderProgram):
 
     setVertexData(sizeof(m_vertices), m_vertices);
     setIndexData(sizeof(m_indices), m_indices);
-
-    m_quadMatrices.reserve(4);
-    m_quads.reserve(2);
 }
 
 InstancedQuadManager::~InstancedQuadManager() {
@@ -28,16 +25,16 @@ InstancedQuadManager::~InstancedQuadManager() {
 }
 
 
-Quad& InstancedQuadManager::getNewQuad() {
+Quad* InstancedQuadManager::getNewQuad() {
     m_quadMatrices.emplace_back(1.0f);
     m_quadMatrices.emplace_back(1.0f);
 
-	m_quads.emplace_back(m_quadMatrices[m_quadMatrices.size() - 2], m_quadMatrices[m_quadMatrices.size() - 1]);
+	m_quads.emplace_back(new Quad(&m_quadMatrices, m_quadMatrices.size() - 2));
 
     return m_quads[m_quads.size() - 1];
 }
 
-std::vector<Quad>& InstancedQuadManager::getQuads() {
+std::vector<Quad*>& InstancedQuadManager::getQuads() {
 	return m_quads;
 }
 

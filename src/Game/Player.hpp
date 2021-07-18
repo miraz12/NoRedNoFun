@@ -8,7 +8,7 @@
 
 class Player {
 public:
-	Player(Quad& playerQuad, Quad& intersectionPointDisplayQuad);
+	Player(Quad* playerQuad, Quad* intersectionPointDisplayQuad);
 	virtual ~Player();
 
 	Shape &getShape();
@@ -18,8 +18,8 @@ public:
 private:
 	void collideWithMap();
 
-	Quad& m_playerQuad;
-	Quad& m_intersectionPointDisplay;
+	Quad* m_playerQuad;
+	Quad* m_intersectionPointDisplay;
 	Shape m_shape;
 
 	// Movement
@@ -33,5 +33,4 @@ private:
 	glm::vec3 m_position;
 	float m_rotation;
 	glm::vec3 m_scale;
-	glm::mat4& m_matrix;
 };

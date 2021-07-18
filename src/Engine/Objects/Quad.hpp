@@ -1,17 +1,17 @@
 #pragma once
 
-#include "GraphicsObject.hpp"
 #include "../Textures/SpriteMap.hpp"
 
-class ShaderProgram;
-class InstancedQuadManager;
+#include <vector>
 
 class Quad: public SpriteMap {
 public:
-    Quad(glm::mat4& modelMatrix, glm::mat4& textureMatrix);
+    Quad(std::vector<glm::mat4>* matrices, unsigned int matrixIndex);
     virtual ~Quad();
 
 	glm::mat4& getModelMatrix();
+
 private:
-    glm::mat4& m_modelMatrix;
+    std::vector<glm::mat4>* m_matrices;
+    unsigned int m_matrixIndex;
 };

@@ -14,7 +14,7 @@ public:
     Rendering();
     ~Rendering() = default;
 
-	Quad& getNewQuad();
+	Quad* getNewQuad();
 	Camera* getCamera();
 
 	void update(float dt);

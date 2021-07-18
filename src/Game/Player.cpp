@@ -8,7 +8,7 @@
 #include "../Engine/Physics/Shape.hpp"
 #include "../Engine/Physics/SAT.hpp"
 
-Player::Player(Quad& playerQuad, Quad& intersectionPointDisplayQuad) :
+Player::Player(Quad* playerQuad, Quad* intersectionPointDisplayQuad) :
 	m_playerQuad(playerQuad),
 	m_intersectionPointDisplay(intersectionPointDisplayQuad),
 	m_accelerationDirection(0.0f),
@@ -18,8 +18,7 @@ Player::Player(Quad& playerQuad, Quad& intersectionPointDisplayQuad) :
 	m_maxSpeed(7.0f),
 	m_position(2.0f, 2.0f, -0.1f),
 	m_rotation(0.0f),
-	m_scale(0.5f),
-	m_matrix(m_playerQuad.getModelMatrix()) {
+	m_scale(0.5f) {
 		m_shape.addVertex(glm::vec2(-0.5f, -0.5f));
 		m_shape.addVertex(glm::vec2(0.5f, -0.5f));
 		m_shape.addVertex(glm::vec2(-0.5f, 0.5f));
@@ -28,7 +27,7 @@ Player::Player(Quad& playerQuad, Quad& intersectionPointDisplayQuad) :
 		m_shape.addNormal(glm::vec2(1.0f, 0.0f));
 		m_shape.addNormal(glm::vec2(0.0f, 1.0f));
 
-		m_intersectionPointDisplay.getModelMatrix() = glm::translate(glm::mat4(1.0f), glm::vec3(4.0f, 4.0f, -0.2f));
+		m_intersectionPointDisplay->getModelMatrix() = glm::translate(glm::mat4(1.0f), glm::vec3(4.0f, 4.0f, -0.2f));
 }
 
 Player::~Player() {
@@ -80,19 +79,21 @@ void Player::update(float dt) {
 
 	m_position += (oldVelocity + m_velocity) * 0.5f * dt; // This works for any update rate
 
-	m_matrix = glm::translate(glm::mat4(1.0f), m_position);
-	m_matrix = glm::rotate(m_matrix, m_rotation, glm::vec3(0.0f, 0.0f, 1.0f));
-	m_matrix = glm::scale(m_matrix, m_scale);
+	glm::mat4& matrix = m_playerQuad->getModelMatrix();
 
-	m_shape.setTransformMatrix(m_matrix);
+	matrix = glm::translate(glm::mat4(1.0f), m_position);
+	matrix = glm::rotate(matrix, m_rotation, glm::vec3(0.0f, 0.0f, 1.0f));
+	matrix = glm::scale(matrix, m_scale);
+
+	m_shape.setTransformMatrix(matrix);
 
 	collideWithMap();
 
 	m_accelerationDirection = {0.0f, 0.0f, 0.0f};	
 
-	m_matrix = glm::translate(glm::mat4(1.0f), m_position);
-	m_matrix = glm::rotate(m_matrix, m_rotation, glm::vec3(0.0f, 0.0f, 1.0f));
-	m_matrix = glm::scale(m_matrix, m_scale);
+	matrix = glm::translate(glm::mat4(1.0f), m_position);
+	matrix = glm::rotate(matrix, m_rotation, glm::vec3(0.0f, 0.0f, 1.0f));
+	matrix = glm::scale(matrix, m_scale);
 }
 
 void Player::collideWithMap() {
@@ -162,8 +163,9 @@ void Player::collideWithMap() {
 							m_velocity -= normalizedIntersectionAxis * glm::dot(normalizedIntersectionAxis, m_velocity);
 							
 							// Display intersectionPoint
-							m_intersectionPointDisplay.getModelMatrix() = glm::translate(glm::mat4(1.0f), glm::vec3(intersectionPoint, -0.3f));
-							m_intersectionPointDisplay.getModelMatrix() = glm::scale(m_intersectionPointDisplay.getModelMatrix(), glm::vec3(0.3f));
+							glm::mat4 &matrix = m_intersectionPointDisplay->getModelMatrix();
+							matrix= glm::translate(glm::mat4(1.0f), glm::vec3(intersectionPoint, -0.3f));
+							matrix = glm::scale(matrix, glm::vec3(0.3f));
 						}
 					}
 					tileShape.clearVertices();
