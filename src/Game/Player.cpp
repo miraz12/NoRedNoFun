@@ -106,6 +106,7 @@ void Player::collideWithMap() {
 	for (int direction = 0; direction < 2; direction++) {
 		for (int a = -1; a < 2; a += 2) {
 			bool buildingShape = false;
+			tileShape.clearVertices();
 			for (int b = -1; b < 2; b++) {
 				int mapTileX;
 				int mapTileY;
