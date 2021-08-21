@@ -119,6 +119,7 @@ void ECSManager::removeEntities()
 void ECSManager::removeComponents()
 {
 	for (auto& components : m_removeComponents) {
+		components.ent.removeComponent(components.cmp);
 		for (auto& system : m_systems) {
 			system.second->removeFaultyEntity(components.ent.m_ID);
 		}

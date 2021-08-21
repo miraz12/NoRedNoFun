@@ -28,6 +28,16 @@ bool Entity::hasComponent(ComponentTypeEnum type){
     return false;
 }
 
+void Entity::removeComponent(ComponentTypeEnum removeComponent)
+{
+    for (int i = 0; i < m_components.size(); i++) {
+        if (m_components[i]->getComponentType() == removeComponent) {
+            m_components.erase(m_components.begin() + i);
+            return;
+        }
+    }
+}
+
 Component* Entity::getComponent(ComponentTypeEnum type) {
     for (auto& c : m_components) {
         if (c->getComponentType() == type) {

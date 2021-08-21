@@ -21,6 +21,9 @@ public:
 	//Check if component exists
 	bool hasComponent(ComponentTypeEnum type);
 
+	//Removes component
+	void removeComponent(ComponentTypeEnum removeComponent);
+
 private:
 
 	std::vector<Component*> m_components;

@@ -5,7 +5,8 @@ enum class ComponentTypeEnum {
 	POSITION,
 	MOVEMENT,
 	INPUT,
-	COLLISION
+	COLLISION,
+	ACTION
 };
 
 //Basic component interface which all other components implement
