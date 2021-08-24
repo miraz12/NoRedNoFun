@@ -15,7 +15,7 @@ public:
 	~InstancedQuadManager();
 
     Quad* getNewQuad();
-	std::vector<Quad>& getQuads();
+	std::vector<Quad*>& getQuads();
 
     Texture& getTexture();
 
@@ -24,7 +24,7 @@ private:
 	unsigned int m_instanceVBO;
 
     std::vector<glm::mat4> m_quadMatrices;
-	std::vector<Quad> m_quads;
+	std::vector<Quad*> m_quads;
 
     Texture m_texture;
 

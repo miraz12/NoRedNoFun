@@ -1,14 +1,17 @@
 #include "Component.h"
+
 #include <glm/glm.hpp>
+
+#include "../../Engine/Objects/Quad.hpp"
 
 class PositionComponent : public Component 
 {
 
 public:
-	glm::vec3 m_position;
-	float m_rotation;
-	glm::vec3 m_scale;
-	glm::mat4& m_matrix;
+	glm::vec3 position;
+	float rotation;
+	glm::vec3 scale;
+	Quad* quad;
 
-	PositionComponent(glm::mat4& modelMatrix);
+	PositionComponent(Quad* aQuad);
 };

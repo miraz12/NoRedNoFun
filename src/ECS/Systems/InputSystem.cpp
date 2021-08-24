@@ -22,22 +22,22 @@ void InputSystem::update(float dt){
 
 		//movementInput
 		glm::vec3 direction(0.0f);
-		if (input->m_keys[GLFW_KEY_W] == GLFW_PRESS) {
+		if (input->keys[GLFW_KEY_W] == GLFW_PRESS) {
 			direction.y += 1.0f;
 		}
-		if (input->m_keys[GLFW_KEY_S] == GLFW_PRESS) {
+		if (input->keys[GLFW_KEY_S] == GLFW_PRESS) {
 			direction.y += -1.0f;
 		}
-		if (input->m_keys[GLFW_KEY_A] == GLFW_PRESS) {
+		if (input->keys[GLFW_KEY_A] == GLFW_PRESS) {
 			direction.x += -1.0f;
 		}
-		if (input->m_keys[GLFW_KEY_D] == GLFW_PRESS) {
+		if (input->keys[GLFW_KEY_D] == GLFW_PRESS) {
 			direction.x += 1.0f;
 		}
-		if (input->m_keys[GLFW_KEY_SPACE] == GLFW_PRESS) {
+		if (input->keys[GLFW_KEY_SPACE] == GLFW_PRESS) {
 			m_manager->removeComponent(*e, ComponentTypeEnum::COLLISION);
 		}
-		movement->m_accelerationDirection.x = direction.x;
-		movement->m_accelerationDirection.y = direction.y;
+		movement->accelerationDirection.x = direction.x;
+		movement->accelerationDirection.y = direction.y;
 	}
 }

@@ -1,12 +1,13 @@
 #define NOMINMAX
 #include "Game.hpp"
 
+#include <algorithm>
+
 #include "../Engine/MapLoader/MapLoader.hpp"
 
 
 Game::Game(Rendering& rendering, GLFWwindow* window):
 	m_rendering(rendering),
-	/*m_player(m_rendering.getNewQuad()),*/
 	m_botLoader("myBot"),
 	m_botInterface(m_botLoader.newInterface()),
 	m_ECSManager()
@@ -19,40 +20,31 @@ Game::Game(Rendering& rendering, GLFWwindow* window):
 	m_rendering.getCamera()->setPosition(0.5f * (float)MapLoader::mapInstance->getWidth(), 0.5f * (float)MapLoader::mapInstance->getHeight());
 	m_botInterface->print();
 
-
-	//Testing to create an entity here. Maybe they should be created in a factory?
-	//I think all collaborators here love factories...
-	Entity* playerEntity = new Entity(1);
-	//Lägg till komponenter till player
-	playerEntity->addComponent(new PositionComponent(m_rendering.getNewQuad()->getModelMatrix()));
+	// Testing to create an entity here. Maybe they should be created in a factory?
+	// I think all collaborators here love factories...
+	Entity* playerEntity = new Entity(1); // TODO: Make me not have to send in an id myself, should be automatically calculated.
+	// Add componments to player
+	playerEntity->addComponent(new PositionComponent(m_rendering.getNewQuad()));
 	playerEntity->addComponent(new MovementComponent());
 	playerEntity->addComponent(new InputComponent(window));
 	playerEntity->addComponent(new CollisionComponent());
 	m_ECSManager.addEntity(playerEntity);
+
+	// Test player 2 to make sure multiple quads work
+	Entity* playerEntity2 = new Entity(2);
+	// Add components to player 2
+	playerEntity2->addComponent(new PositionComponent(m_rendering.getNewQuad()));
+	static_cast<PositionComponent *>(playerEntity2->getComponent(ComponentTypeEnum::POSITION))->position.x = 4.0f;
+	playerEntity2->addComponent(new MovementComponent());
+	playerEntity2->addComponent(new InputComponent(window));
+	playerEntity2->addComponent(new CollisionComponent());
+	m_ECSManager.addEntity(playerEntity2);
 }	
 
 Game::~Game() {
 	delete m_botInterface;
 }
 
-void Game::processInput(GLFWwindow* window) {
-	glm::vec3 movement(0.0f);
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-		movement.y += 1.0f;
-	}
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-		movement.y += -1.0f;
-	}
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-		movement.x += -1.0f;
-	}
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-		movement.x += 1.0f;
-	}
-	//m_player.setAccelerationDirection(movement);
-}
-
 void Game::update(float dt) {
-	//m_player.update(dt);
 	m_ECSManager.update(dt);
 }

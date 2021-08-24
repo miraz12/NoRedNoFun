@@ -40,6 +40,7 @@ exts/*
 CMakeFiles/*
 src/.ccls-cache/*
 /.vs/slnx.sqlite
+.vscode/*
 .vscode/c_cpp_properties.json
 .clangd/index/_fixes.hpp.7AAE3E7F6E0B96FE.idx
 .clangd/index/_noise.hpp.393697CC2ED02C04.idx

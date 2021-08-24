@@ -2,10 +2,10 @@
 #include "../../Engine/MapLoader/MapLoader.hpp"
 
 MovementComponent::MovementComponent() :
-	m_accelerationDirection(0.0f),
-	m_velocity(0.0f),
-	m_acceleration(20.0f),
-	m_drag(10.0f),
-	m_maxSpeed(7.0f){
+	accelerationDirection(0.0f),
+	velocity(0.0f),
+	acceleration(20.0f),
+	drag(10.0f),
+	maxSpeed(7.0f){
 	m_componentType = ComponentTypeEnum::MOVEMENT;
 }

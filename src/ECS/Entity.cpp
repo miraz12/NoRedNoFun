@@ -44,4 +44,6 @@ Component* Entity::getComponent(ComponentTypeEnum type) {
             return c;
         }
     }
+
+    return nullptr;
 }

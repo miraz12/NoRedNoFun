@@ -5,7 +5,7 @@
 class InputComponent: public Component
 {
 public:
-	int m_keys[1024];
+	int keys[1024];
 
 	InputComponent(GLFWwindow* window);
 

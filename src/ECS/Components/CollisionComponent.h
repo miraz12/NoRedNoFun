@@ -5,7 +5,7 @@
 class CollisionComponent : public Component
 {
 public:
-	Shape m_shape;
+	Shape shape;
 
 	CollisionComponent();
 };

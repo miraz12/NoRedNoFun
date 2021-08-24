@@ -12,8 +12,5 @@ public:
 
 	void update(float dt);
 
-
-private:
-
 };
 

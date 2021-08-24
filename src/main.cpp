@@ -60,7 +60,6 @@ int main() {
         // input
         // -----
         processInput(window);
-		game.processInput(window);
 
 		// Update
 		// -----

@@ -18,45 +18,42 @@ void MovementSystem::update(float dt)
 		bool accelerating = false;
 
 
-		if (glm::length2(m->m_accelerationDirection) > 0.0001f) {
-			normalizedAccelerationDirection = glm::normalize(m->m_accelerationDirection);
+		if (glm::length2(m->accelerationDirection) > 0.0001f) {
+			normalizedAccelerationDirection = glm::normalize(m->accelerationDirection);
 			accelerating = true;
-			p->m_rotation = ::atan2f(m->m_accelerationDirection.x, -m->m_accelerationDirection.y);
+			p->rotation = ::atan2f(m->accelerationDirection.x, -m->accelerationDirection.y);
 		}
 
-		if (glm::length2(m->m_accelerationDirection) > 1.0f) {
-			m->m_accelerationDirection = normalizedAccelerationDirection;
+		if (glm::length2(m->accelerationDirection) > 1.0f) {
+			m->accelerationDirection = normalizedAccelerationDirection;
 		}
 
-		glm::vec3 oldVelocity = m->m_velocity;
-		m->m_velocity += m->m_accelerationDirection * (m->m_acceleration * dt);
+		glm::vec3 oldVelocity = m->velocity;
+		m->velocity += m->accelerationDirection * (m->acceleration * dt);
 
 		// Apply drag
-		if (glm::length2(m->m_velocity) > 0.0001f) {
-			glm::vec3 normalizedVel = glm::normalize(m->m_velocity);
-			m->m_velocity -= normalizedVel * (1.0f - glm::dot(normalizedVel, normalizedAccelerationDirection)) * m->m_drag * dt;
+		if (glm::length2(m->velocity) > 0.0001f) {
+			glm::vec3 normalizedVel = glm::normalize(m->velocity);
+			m->velocity -= normalizedVel * (1.0f - glm::dot(normalizedVel, normalizedAccelerationDirection)) * m->drag * dt;
 		}
 
 		// Limit velocity to max speed
-		if (glm::length(m->m_velocity) > m->m_maxSpeed) {
-			m->m_velocity = glm::normalize(m->m_velocity) * m->m_maxSpeed;
+		if (glm::length(m->velocity) > m->maxSpeed) {
+			m->velocity = glm::normalize(m->velocity) * m->maxSpeed;
 		}
 
-		// Stop player if velocity is small enough
-		if (!accelerating && glm::length2(m->m_velocity) < 0.01f) {
-			m->m_velocity = { 0.0f, 0.0f, 0.0f };
+		// Stop movement if velocity is small enough
+		if (!accelerating && glm::length2(m->velocity) < 0.01f) {
+			m->velocity = { 0.0f, 0.0f, 0.0f };
 		}
 
-		p->m_position += (oldVelocity + m->m_velocity) * 0.5f * dt; // This works for any update rate
+		p->position += (oldVelocity + m->velocity) * 0.5f * dt; // This works for any update rate
 
-		m->m_accelerationDirection = { 0.0f, 0.0f, 0.0f };
+		m->accelerationDirection = { 0.0f, 0.0f, 0.0f };
 
-
-		//Should this part be in Collisionsystem too maybe or another system?
-		p->m_matrix = glm::translate(glm::mat4(1.0f), p->m_position);
-		p->m_matrix = glm::rotate(p->m_matrix, p->m_rotation, glm::vec3(0.0f, 0.0f, 1.0f));
-		p->m_matrix = glm::scale(p->m_matrix, p->m_scale);
-
+		p->quad->getModelMatrix() = glm::translate(glm::mat4(1.0f), p->position);
+		p->quad->getModelMatrix() = glm::rotate(p->quad->getModelMatrix(), p->rotation, glm::vec3(0.0f, 0.0f, 1.0f));
+		p->quad->getModelMatrix() = glm::scale(p->quad->getModelMatrix(), p->scale);
 	}
 }
 

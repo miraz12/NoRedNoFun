@@ -8,11 +8,11 @@
 class MovementComponent : public Component
 {
 public:
-	glm::vec3 m_accelerationDirection;
-	glm::vec3 m_velocity;
-	float m_acceleration;
-	float m_drag;
-	float m_maxSpeed;
+	glm::vec3 accelerationDirection;
+	glm::vec3 velocity;
+	float acceleration;
+	float drag;
+	float maxSpeed;
 
 	MovementComponent();
 

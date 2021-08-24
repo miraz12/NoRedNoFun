@@ -16,13 +16,13 @@ ECSManager::~ECSManager()
 
 void ECSManager::update(float dt)
 {
-	//Gå igenom alla systems och gör update
+	//Gï¿½ igenom alla systems och gï¿½r update
 	m_systems["INPUT"]->update(dt);
 	m_systems["MOVEMENT"]->update(dt);
 	m_systems["COLLISION"]->update(dt);
 
-	//för alla eniteter, ta bort/lägg till komponenter
-	//ta bort/lägg till entiteter från system
+	//fï¿½r alla eniteter, ta bort/lï¿½gg till komponenter
+	//ta bort/lï¿½gg till entiteter frï¿½n system
 	addEntites();
 	addComponents();
 	removeEntities();
@@ -51,7 +51,6 @@ void ECSManager::removeComponent(Entity& entity, ComponentTypeEnum component)
 
 const Entity& ECSManager::getEntity(int entityID)
 {
-	// TODO: insert return statement here
 	for (auto& entity : m_entities) {
 		if (entity->m_ID == entityID) {
 			return *entity;
