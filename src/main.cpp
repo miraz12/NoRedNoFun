@@ -41,7 +41,7 @@ int main() {
 
 
     Rendering rendering;
-	Game game(rendering);
+	Game game(rendering, window);
 
 	double currentTime = glfwGetTime();
 	double previousTime = currentTime;
@@ -60,7 +60,6 @@ int main() {
         // input
         // -----
         processInput(window);
-		game.processInput(window);
 
 		// Update
 		// -----

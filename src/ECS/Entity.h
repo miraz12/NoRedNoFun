@@ -1,17 +1,19 @@
 #pragma once
 #include <vector>
-#include "Component.h"
+#include "Components/Component.h"
 
 class Entity
 {
 public:
-	int ID;
+	int m_ID;
 
 	Entity(int ID);
 
+	~Entity();
+
 	//Adds component
 	//Can't have more than one type of component!
-	void addComponent(Component *component);
+	bool addComponent(Component* component);
 
 	//Returns component based on enum ComponentTypeEnum
 	Component* getComponent(ComponentTypeEnum type);
