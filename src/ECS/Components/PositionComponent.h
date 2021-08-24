@@ -11,14 +11,4 @@ public:
 	glm::mat4& m_matrix;
 
 	PositionComponent(glm::mat4& modelMatrix);
-
-	void setPositionX(float x);
-	void setPositionY(float y);
-
-	float& getPositionX();
-	float& getPositionY();
-
-private:
-	float m_xPosition;
-	float m_yPosition;
 };
