@@ -1,7 +1,7 @@
 #include "Entity.h"
 
-Entity::Entity(int ID) {
-    m_ID = ID;
+Entity::Entity(int ID)
+:m_ID(ID), m_components(){
 }
 
 //Dont know if this is the correct way to free components
@@ -9,6 +9,11 @@ Entity::~Entity() {
     for (int i = 0; i < m_components.size(); i++) {
         delete m_components[i];
     }
+}
+
+const int Entity::getID()
+{
+    return m_ID;
 }
 
 bool Entity::addComponent(Component* component) {

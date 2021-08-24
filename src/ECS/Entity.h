@@ -5,11 +5,12 @@
 class Entity
 {
 public:
-	int m_ID;
 
 	Entity(int ID);
 
 	~Entity();
+
+	const int getID();
 
 	//Adds component
 	//Can't have more than one type of component!
@@ -25,7 +26,7 @@ public:
 	void removeComponent(ComponentTypeEnum removeComponent);
 
 private:
-
+	int m_ID;
 	std::vector<Component*> m_components;
 };
 
