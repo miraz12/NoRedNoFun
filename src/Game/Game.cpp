@@ -20,25 +20,22 @@ Game::Game(Rendering& rendering, GLFWwindow* window):
 	m_rendering.getCamera()->setPosition(0.5f * (float)MapLoader::mapInstance->getWidth(), 0.5f * (float)MapLoader::mapInstance->getHeight());
 	m_botInterface->print();
 
-	// Testing to create an entity here. Maybe they should be created in a factory?
-	// I think all collaborators here love factories...
-	Entity* playerEntity = new Entity(1); // TODO: Make me not have to send in an id myself, should be automatically calculated.
+
+	Entity& playerEntity = m_ECSManager.createEntity();
 	// Add componments to player
-	playerEntity->addComponent(new PositionComponent(m_rendering.getNewQuad()));
-	playerEntity->addComponent(new MovementComponent());
-	playerEntity->addComponent(new InputComponent(window));
-	playerEntity->addComponent(new CollisionComponent());
-	m_ECSManager.addEntity(playerEntity);
+	playerEntity.addComponent(new PositionComponent(m_rendering.getNewQuad()));
+	playerEntity.addComponent(new MovementComponent());
+	playerEntity.addComponent(new InputComponent(window));
+	playerEntity.addComponent(new CollisionComponent());
 
 	// Test player 2 to make sure multiple quads work
-	Entity* playerEntity2 = new Entity(2);
+	Entity& playerEntity2 = m_ECSManager.createEntity();
 	// Add components to player 2
-	playerEntity2->addComponent(new PositionComponent(m_rendering.getNewQuad()));
-	static_cast<PositionComponent *>(playerEntity2->getComponent(ComponentTypeEnum::POSITION))->position.x = 4.0f;
-	playerEntity2->addComponent(new MovementComponent());
-	playerEntity2->addComponent(new InputComponent(window));
-	playerEntity2->addComponent(new CollisionComponent());
-	m_ECSManager.addEntity(playerEntity2);
+	playerEntity2.addComponent(new PositionComponent(m_rendering.getNewQuad()));
+	static_cast<PositionComponent *>(playerEntity2.getComponent(ComponentTypeEnum::POSITION))->position.x = 4.0f;
+	playerEntity2.addComponent(new MovementComponent());
+	playerEntity2.addComponent(new InputComponent(window));
+	playerEntity2.addComponent(new CollisionComponent());
 }	
 
 Game::~Game() {

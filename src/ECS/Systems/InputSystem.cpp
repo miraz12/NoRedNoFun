@@ -1,6 +1,7 @@
 #include "InputSystem.h"
 #include "../Components/InputComponent.h"
 #include "../Components/MovementComponent.h"
+#include "../ECSManager.h"
 
 InputSystem::InputSystem(ECSManager *ECSManager) 
 	: System(ECSManager, ComponentTypeEnum::INPUT, ComponentTypeEnum::MOVEMENT){
@@ -33,8 +34,10 @@ void InputSystem::update(float dt){
 		if (input->keys[GLFW_KEY_D] == GLFW_PRESS) {
 			direction.x += 1.0f;
 		}
+		if (input->keys[GLFW_KEY_SPACE] == GLFW_PRESS) {
+			m_manager->removeComponent(*e, ComponentTypeEnum::COLLISION);
+		}
 		movement->accelerationDirection.x = direction.x;
 		movement->accelerationDirection.y = direction.y;
 	}
-
 }

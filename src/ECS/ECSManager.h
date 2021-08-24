@@ -19,9 +19,13 @@ public:
 	//Runs through all systems
 	void update(float dt);
 
+	//creates and returns a new entity
+	Entity& createEntity();
+
 	//adds entity and inserts it into to all matching systems
 	void addEntity(Entity* entity);
 
+	//adds component to entity and inserts it to matching systems
 	void addComponent(Entity& entity, Component* component);
 
 	//Removes an entity from all systems
@@ -35,6 +39,7 @@ public:
 
 private:
 	//Entities
+	int m_idCounter;
 	std::vector<Entity*> m_entities;
 
 	//Systems
@@ -54,7 +59,7 @@ private:
 	};
 	std::vector<removeComponent_t> m_removeComponents;
 
-	void addEntites();
+	void addEntities();
 	void addComponents();
 	void removeEntities();
 	void removeComponents();

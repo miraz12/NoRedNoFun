@@ -12,4 +12,5 @@ void InputComponent::calculateInput() {
 	keys[GLFW_KEY_S] = glfwGetKey(m_window, GLFW_KEY_S);
 	keys[GLFW_KEY_A] = glfwGetKey(m_window, GLFW_KEY_A);
 	keys[GLFW_KEY_D] = glfwGetKey(m_window, GLFW_KEY_D);
+	keys[GLFW_KEY_SPACE] = glfwGetKey(m_window, GLFW_KEY_SPACE);
 }

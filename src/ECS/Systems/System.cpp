@@ -40,7 +40,7 @@
 	//checks if entity belongs to this system
 	bool System::containsEntity(int entityID) {
 		for (auto& entity : m_entities) {
-			if (entity->m_ID == entityID) {
+			if (entity->getID() == entityID) {
 				return true;
 			}
 		}
@@ -50,7 +50,7 @@
 	//finds entity by id and removes it if it does not contain correct components
 	void System::removeFaultyEntity(int ID) {
 		for (int i = m_entities.size() - 1; i >= 0; i--) {
-			if (m_entities[i]->m_ID == ID) {
+			if (m_entities[i]->getID() == ID) {
 				if (!entityHasCorrectComponents(m_entities[i])) {
 					m_entities.erase(m_entities.begin() + i);
 				}
@@ -61,7 +61,7 @@
 	//Removes entity
 	void System::removeEntity(int ID) {
 		for (int i = m_entities.size() - 1; i >= 0; i--) {
-			if (m_entities[i]->m_ID == ID) {
+			if (m_entities[i]->getID() == ID) {
 				m_entities.erase(m_entities.begin() + i);
 			}
 		}

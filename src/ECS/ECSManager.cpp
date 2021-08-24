@@ -1,7 +1,7 @@
 #include "ECSManager.h"
 
 ECSManager::ECSManager()
-	: m_entities(), m_systems{
+	:m_idCounter(1), m_entities(), m_systems{
 		{"INPUT", std::make_shared<InputSystem>(InputSystem(this))},
 		{"MOVEMENT", std::make_shared<MovementSystem>(MovementSystem(this))},
 		{"COLLISION", std::make_shared<CollisionSystem>(CollisionSystem(this))}}, 
@@ -21,12 +21,20 @@ void ECSManager::update(float dt)
 	m_systems["MOVEMENT"]->update(dt);
 	m_systems["COLLISION"]->update(dt);
 
-	//f�r alla eniteter, ta bort/l�gg till komponenter
-	//ta bort/l�gg till entiteter fr�n system
-	addEntites();
+
+	//for all entities, remove/add components
+	//remove/add entities from systems
+	addEntities();
 	addComponents();
 	removeEntities();
 	removeComponents();
+}
+
+Entity& ECSManager::createEntity()
+{
+	Entity* e = new Entity(m_idCounter++);
+	m_addEntities.push_back(e);
+	return *e;
 }
 
 void ECSManager::addEntity(Entity* entity)
@@ -52,7 +60,7 @@ void ECSManager::removeComponent(Entity& entity, ComponentTypeEnum component)
 const Entity& ECSManager::getEntity(int entityID)
 {
 	for (auto& entity : m_entities) {
-		if (entity->m_ID == entityID) {
+		if (entity->getID() == entityID) {
 			return *entity;
 		}
 	}
@@ -62,7 +70,7 @@ const Entity& ECSManager::getEntity(int entityID)
 
 //PRIVATE
 
-void ECSManager::addEntites()
+void ECSManager::addEntities()
 {
 	for (auto& newEntity : m_addEntities) {
 		//add to manager
@@ -86,11 +94,10 @@ void ECSManager::addComponents()
 
 			for (auto& system : m_systems) {
 				//if entity is not already belonging to the system, try and add it
-				if (!system.second->containsEntity(components.ent.m_ID)) {
+				if (!system.second->containsEntity(components.ent.getID())) {
 					system.second->addEntity(&components.ent);
 				}
 			}
-
 		}
 	}
 	m_addComponents.clear();
@@ -107,7 +114,7 @@ void ECSManager::removeEntities()
 
 		//delete in manager
 		for (int j = 0; j < m_entities.size(); j++) {
-			if (m_entities[j]->m_ID == i) {
+			if (m_entities[j]->getID() == i) {
 				m_entities.erase(m_entities.begin() + j);
 			}
 		}
@@ -118,8 +125,9 @@ void ECSManager::removeEntities()
 void ECSManager::removeComponents()
 {
 	for (auto& components : m_removeComponents) {
+		components.ent.removeComponent(components.cmp);
 		for (auto& system : m_systems) {
-			system.second->removeFaultyEntity(components.ent.m_ID);
+			system.second->removeFaultyEntity(components.ent.getID());
 		}
 	}
 	m_removeComponents.clear();

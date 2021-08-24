@@ -14,14 +14,4 @@ public:
 	Quad* quad;
 
 	PositionComponent(Quad* aQuad);
-
-	void setPositionX(float x);
-	void setPositionY(float y);
-
-	float& getPositionX();
-	float& getPositionY();
-
-private:
-	float m_xPosition;
-	float m_yPosition;
 };
