@@ -32,12 +32,12 @@ void BotLoader::loadDLL() {
 
 		// Catch failed function loads
 		if (newInterface == nullptr) {
-			std::cout << "Failed to load function \"newInterface\" from bot \"" << m_botName << "\".\n";
+			std::cout << "Failed to load function \"newInterface\" from bot \"" << m_botName.c_str() << "\".\n";
 			m_loaded = false;
 		}
 	}
 	else {
-		std::cout << "Failed to load bot \"" << m_botName << "\".\n";
+		std::cout << "Failed to load bot \"" << m_botName.c_str() << "\".\n";
 		m_loaded = false;
 	}
 }
