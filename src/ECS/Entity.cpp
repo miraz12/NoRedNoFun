@@ -11,7 +11,7 @@ Entity::~Entity() {
     }
 }
 
-const int Entity::getID()
+int Entity::getID()
 {
     return m_ID;
 }

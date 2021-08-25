@@ -3,6 +3,7 @@
 #include "Systems/MovementSystem.h"
 #include "Systems/InputSystem.h"
 #include "Systems/CollisionSystem.h"
+#include "Systems/BotSystem.h"
 #include <map>
 #include <string>
 #include <memory>
@@ -19,14 +20,15 @@ public:
 	//Runs through all systems
 	void update(float dt);
 
-	//creates and returns a new entity
-	Entity& createEntity();
+	//creates and returns ID of new entity
+	int createEntity();
 
 	//adds entity and inserts it into to all matching systems
 	void addEntity(Entity* entity);
 
-	//adds component to entity and inserts it to matching systems
-	void addComponent(Entity& entity, Component* component);
+	//adds component to entity and inserts it to matching systems.
+	//returns false if no entity with entityID exists
+	bool addComponent(int entityID, Component* component);
 
 	//Removes an entity from all systems
 	void removeEntity(int entityID);
@@ -36,6 +38,9 @@ public:
 
 	//Returns entity by ID, or NULL if it does not exist
 	const Entity& getEntity(int entityID);
+
+	//Returns all entities
+	const std::vector<Entity*> getAllEntities();
 
 private:
 	//Entities

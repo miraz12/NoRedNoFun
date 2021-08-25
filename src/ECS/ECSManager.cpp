@@ -3,6 +3,7 @@
 ECSManager::ECSManager()
 	:m_idCounter(1), m_entities(), m_systems{
 		{"INPUT", std::make_shared<InputSystem>(InputSystem(this))},
+		{"BOT", std::make_shared<BotSystem>(BotSystem(this))},
 		{"MOVEMENT", std::make_shared<MovementSystem>(MovementSystem(this))},
 		{"COLLISION", std::make_shared<CollisionSystem>(CollisionSystem(this))}}, 
 		m_addEntities(), m_addComponents(), m_removeEntities(), m_removeComponents()
@@ -18,6 +19,7 @@ void ECSManager::update(float dt)
 {
 	//G� igenom alla systems och g�r update
 	m_systems["INPUT"]->update(dt);
+	m_systems["BOT"]->update(dt);
 	m_systems["MOVEMENT"]->update(dt);
 	m_systems["COLLISION"]->update(dt);
 
@@ -30,11 +32,11 @@ void ECSManager::update(float dt)
 	removeComponents();
 }
 
-Entity& ECSManager::createEntity()
+int ECSManager::createEntity()
 {
 	Entity* e = new Entity(m_idCounter++);
-	m_addEntities.push_back(e);
-	return *e;
+	m_entities.push_back(e);
+	return e->getID();
 }
 
 void ECSManager::addEntity(Entity* entity)
@@ -42,9 +44,15 @@ void ECSManager::addEntity(Entity* entity)
 	m_addEntities.push_back(entity);
 }
 
-void ECSManager::addComponent(Entity& entity, Component* component)
+bool ECSManager::addComponent(int entityID, Component* component)
 {
-	m_addComponents.push_back(addComponent_t{ entity, component });
+	for (auto& e : m_entities) {
+		if (e->getID() == entityID) {
+			m_addComponents.push_back(addComponent_t{ *e, component });
+			return true;
+		}
+	}
+	return false;
 }
 
 void ECSManager::removeEntity(int entityID)
@@ -65,6 +73,11 @@ const Entity& ECSManager::getEntity(int entityID)
 		}
 	}
 	return NULL;
+}
+
+const std::vector<Entity*> ECSManager::getAllEntities()
+{
+	return std::vector<Entity*>();
 }
 
 
@@ -89,7 +102,7 @@ void ECSManager::addComponents()
 {
 	for (auto& components : m_addComponents) {
 
-		//if enitity does not already have component, proceed
+		//if entity does not already have component, proceed
 		if (components.ent.addComponent(components.cmp)) {
 
 			for (auto& system : m_systems) {

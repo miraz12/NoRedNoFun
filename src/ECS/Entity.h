@@ -10,7 +10,7 @@ public:
 
 	~Entity();
 
-	const int getID();
+	int getID();
 
 	//Adds component
 	//Can't have more than one type of component!

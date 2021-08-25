@@ -15,6 +15,7 @@
 #include "../ECS/Components/MovementComponent.h"
 #include "../ECS/Components/InputComponent.h"
 #include "../ECS/Components/CollisionComponent.h"
+#include "../ECS/Components/BotComponent.h"
 #include "../ECS/ECSManager.h"
 
 

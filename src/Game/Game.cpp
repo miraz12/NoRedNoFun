@@ -21,21 +21,23 @@ Game::Game(Rendering& rendering, GLFWwindow* window):
 	m_botInterface->print();
 
 
-	Entity& playerEntity = m_ECSManager.createEntity();
+	int playerEntity = m_ECSManager.createEntity();
 	// Add componments to player
-	playerEntity.addComponent(new PositionComponent(m_rendering.getNewQuad()));
-	playerEntity.addComponent(new MovementComponent());
-	playerEntity.addComponent(new InputComponent(window));
-	playerEntity.addComponent(new CollisionComponent());
+	m_ECSManager.addComponent(playerEntity, new PositionComponent(m_rendering.getNewQuad()));
+	m_ECSManager.addComponent(playerEntity, new MovementComponent());
+	m_ECSManager.addComponent(playerEntity, new InputComponent(window));
+	m_ECSManager.addComponent(playerEntity, new CollisionComponent());
+	m_ECSManager.addComponent(playerEntity, new BotComponent(m_botInterface));
 
 	// Test player 2 to make sure multiple quads work
-	Entity& playerEntity2 = m_ECSManager.createEntity();
+	int playerEntity2 = m_ECSManager.createEntity();
 	// Add components to player 2
-	playerEntity2.addComponent(new PositionComponent(m_rendering.getNewQuad()));
-	static_cast<PositionComponent *>(playerEntity2.getComponent(ComponentTypeEnum::POSITION))->position.x = 4.0f;
-	playerEntity2.addComponent(new MovementComponent());
-	playerEntity2.addComponent(new InputComponent(window));
-	playerEntity2.addComponent(new CollisionComponent());
+	PositionComponent *positionComponent = new PositionComponent(m_rendering.getNewQuad());
+	positionComponent->position.x = 4.0f;
+	m_ECSManager.addComponent(playerEntity2, positionComponent);
+	m_ECSManager.addComponent(playerEntity2, new MovementComponent());
+	m_ECSManager.addComponent(playerEntity2, new InputComponent(window));
+	m_ECSManager.addComponent(playerEntity2, new CollisionComponent());
 }	
 
 Game::~Game() {
