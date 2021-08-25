@@ -30,4 +30,6 @@ private:
 	BotLoader m_botLoader;
 	BotInterface* m_botInterface;
 	ECSManager m_ECSManager;
+
+	Entity* playerEntity;
 };

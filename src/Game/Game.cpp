@@ -5,7 +5,6 @@
 
 #include "../Engine/MapLoader/MapLoader.hpp"
 
-
 Game::Game(Rendering& rendering, GLFWwindow* window):
 	m_rendering(rendering),
 	m_botLoader("myBot"),
@@ -20,13 +19,12 @@ Game::Game(Rendering& rendering, GLFWwindow* window):
 	m_rendering.getCamera()->setPosition(0.5f * (float)MapLoader::mapInstance->getWidth(), 0.5f * (float)MapLoader::mapInstance->getHeight());
 	m_botInterface->print();
 
-
-	Entity& playerEntity = m_ECSManager.createEntity();
+	playerEntity = &m_ECSManager.createEntity();
 	// Add componments to player
-	playerEntity.addComponent(new PositionComponent(m_rendering.getNewQuad()));
-	playerEntity.addComponent(new MovementComponent());
-	playerEntity.addComponent(new InputComponent(window));
-	playerEntity.addComponent(new CollisionComponent());
+	playerEntity->addComponent(new PositionComponent(m_rendering.getNewQuad()));
+	playerEntity->addComponent(new MovementComponent());
+	playerEntity->addComponent(new InputComponent(window));
+	playerEntity->addComponent(new CollisionComponent());
 
 	// Test player 2 to make sure multiple quads work
 	Entity& playerEntity2 = m_ECSManager.createEntity();
@@ -44,4 +42,9 @@ Game::~Game() {
 
 void Game::update(float dt) {
 	m_ECSManager.update(dt);
+	unsigned int commandOut;
+	m_botInterface->update(commandOut);
+
+	static_cast<InputComponent *>(playerEntity->getComponent(ComponentTypeEnum::INPUT))->updateInput(commandOut);
+	printf("%d\n", commandOut);
 }

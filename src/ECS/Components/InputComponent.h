@@ -10,8 +10,10 @@ public:
 	InputComponent(GLFWwindow* window);
 
 	void calculateInput();
+	void updateInput(unsigned int key);
 
 private:
 	GLFWwindow* m_window;
+	bool manualInput{false};
 };
 
