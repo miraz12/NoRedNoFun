@@ -10,8 +10,8 @@ BotInterface::~BotInterface() {
 
 unsigned int currKey = 3;
 unsigned int iter = 0;
-void BotInterface::update(unsigned int& command) {
-	command = currKey;
+void BotInterface::update(void (*f)(unsigned int)) {
+	f(currKey);
 	iter++;
 	if (iter > 30) {
 		if(currKey != 3) {

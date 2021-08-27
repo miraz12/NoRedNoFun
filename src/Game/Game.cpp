@@ -5,6 +5,7 @@
 
 #include "../Engine/MapLoader/MapLoader.hpp"
 
+Entity* playerEntity;
 Game::Game(Rendering& rendering, GLFWwindow* window):
 	m_rendering(rendering),
 	m_botLoader("myBot"),
@@ -40,11 +41,13 @@ Game::~Game() {
 	delete m_botInterface;
 }
 
+void botMove(unsigned int key)
+{
+	static_cast<InputComponent *>(playerEntity->getComponent(ComponentTypeEnum::INPUT))->updateInput(key);
+	printf("%d\n", key);
+}
+
 void Game::update(float dt) {
 	m_ECSManager.update(dt);
-	unsigned int commandOut;
-	m_botInterface->update(commandOut);
-
-	static_cast<InputComponent *>(playerEntity->getComponent(ComponentTypeEnum::INPUT))->updateInput(commandOut);
-	printf("%d\n", commandOut);
+	m_botInterface->update(&botMove);
 }

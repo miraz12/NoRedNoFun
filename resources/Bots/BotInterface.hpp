@@ -17,7 +17,7 @@ public:
 	virtual ~BotInterface();
 
 	virtual void print();
-	virtual void update(unsigned int& command);
+	virtual void update(void (*f)(unsigned int));
 
 private:
 };

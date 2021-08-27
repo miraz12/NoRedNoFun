@@ -31,5 +31,4 @@ private:
 	BotInterface* m_botInterface;
 	ECSManager m_ECSManager;
 
-	Entity* playerEntity;
 };
