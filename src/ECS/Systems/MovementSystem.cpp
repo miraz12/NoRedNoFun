@@ -13,7 +13,6 @@ void MovementSystem::update(float dt)
 		PositionComponent *p = static_cast<PositionComponent *>(e->getComponent(ComponentTypeEnum::POSITION));
 		MovementComponent *m = static_cast<MovementComponent*>(e->getComponent(ComponentTypeEnum::MOVEMENT));
 
-
 		glm::vec3 normalizedAccelerationDirection(0.0f);
 		bool accelerating = false;
 
@@ -56,5 +55,3 @@ void MovementSystem::update(float dt)
 		p->quad->getModelMatrix() = glm::scale(p->quad->getModelMatrix(), p->scale);
 	}
 }
-
-

@@ -6,7 +6,9 @@ enum class ComponentTypeEnum {
 	MOVEMENT,
 	INPUT,
 	COLLISION,
-	ACTION
+	ACTION, 
+	Health,
+	Attack
 };
 
 //Basic component interface which all other components implement
