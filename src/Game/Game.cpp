@@ -6,6 +6,11 @@
 #include "../Engine/MapLoader/MapLoader.hpp"
 
 Entity* playerEntity;
+void botMove(unsigned int key)
+{
+	static_cast<InputComponent *>(playerEntity->getComponent(ComponentTypeEnum::INPUT))->updateInput(key);
+}
+
 Game::Game(Rendering& rendering, GLFWwindow* window):
 	m_rendering(rendering),
 	m_botLoader("myBot"),
@@ -19,6 +24,7 @@ Game::Game(Rendering& rendering, GLFWwindow* window):
 	m_rendering.getCamera()->setZoom(1.0f/(0.5f * (float) std::max(MapLoader::mapInstance->getWidth(), MapLoader::mapInstance->getHeight()))); // Zoom out so that the whole map is visible
 	m_rendering.getCamera()->setPosition(0.5f * (float)MapLoader::mapInstance->getWidth(), 0.5f * (float)MapLoader::mapInstance->getHeight());
 	m_botInterface->print();
+	m_botInterface->output(botMove);
 
 	playerEntity = &m_ECSManager.createEntity();
 	// Add componments to player
@@ -41,13 +47,8 @@ Game::~Game() {
 	delete m_botInterface;
 }
 
-void botMove(unsigned int key)
-{
-	static_cast<InputComponent *>(playerEntity->getComponent(ComponentTypeEnum::INPUT))->updateInput(key);
-	printf("%d\n", key);
-}
 
 void Game::update(float dt) {
 	m_ECSManager.update(dt);
-	m_botInterface->update(&botMove);
+	m_botInterface->update();
 }

@@ -11,7 +11,7 @@ endif(UNIX)
 # Add source files
 set(SOURCE_FILES 
 	"dllmain.cpp"
-	"BotInterface.cpp"
+	"ExampleBot.cpp"
 	)
 	
 # Add header files

@@ -11,15 +11,12 @@
 	#define BOT_API __declspec(dllimport)
 	#endif
 #endif
+
 class BotInterface {
 public:
-	BotInterface();
-	virtual ~BotInterface();
-
-	virtual void print();
-	virtual void update(void (*f)(unsigned int));
-
-private:
+	virtual void print() = 0;
+	virtual void update() = 0;
+	virtual void output(void (*f)(unsigned int key)) = 0;
 };
 
 // ----DLL functions----
