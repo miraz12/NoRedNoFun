@@ -13,5 +13,5 @@ public:
 	glm::vec3 scale;
 	Quad* quad;
 
-	PositionComponent(Quad* aQuad);
+	PositionComponent(Quad* aQuad, float startX, float startY);
 };

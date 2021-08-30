@@ -23,7 +23,7 @@ Game::Game(Rendering& rendering, GLFWwindow* window):
 
 	int playerEntity = m_ECSManager.createEntity();
 	// Add componments to player
-	m_ECSManager.addComponent(playerEntity, new PositionComponent(m_rendering.getNewQuad()));
+	m_ECSManager.addComponent(playerEntity, new PositionComponent(m_rendering.getNewQuad(), 2.0f, 2.0f));
 	m_ECSManager.addComponent(playerEntity, new MovementComponent());
 	m_ECSManager.addComponent(playerEntity, new InputComponent(window));
 	m_ECSManager.addComponent(playerEntity, new CollisionComponent());
@@ -32,9 +32,7 @@ Game::Game(Rendering& rendering, GLFWwindow* window):
 	// Test player 2 to make sure multiple quads work
 	int playerEntity2 = m_ECSManager.createEntity();
 	// Add components to player 2
-	PositionComponent *positionComponent = new PositionComponent(m_rendering.getNewQuad());
-	positionComponent->position.x = 4.0f;
-	m_ECSManager.addComponent(playerEntity2, positionComponent);
+	m_ECSManager.addComponent(playerEntity2, new PositionComponent(m_rendering.getNewQuad(), 4.0f, 2.0f));
 	m_ECSManager.addComponent(playerEntity2, new MovementComponent());
 	m_ECSManager.addComponent(playerEntity2, new InputComponent(window));
 	m_ECSManager.addComponent(playerEntity2, new CollisionComponent());
