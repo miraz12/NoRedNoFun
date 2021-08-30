@@ -44,8 +44,8 @@ void Entity::removeComponent(ComponentTypeEnum removeComponent)
 }
 
 Component* Entity::getComponent(ComponentTypeEnum type) {
-    for (auto& c : m_components) {
-        if (c->getComponentType() == type) {
+    for (auto* c : m_components) {
+        if ((c != nullptr) && c->getComponentType() == type) {
             return c;
         }
     }

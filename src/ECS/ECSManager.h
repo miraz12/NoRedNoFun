@@ -12,7 +12,13 @@
 class ECSManager
 {
 public:
-	ECSManager();
+	static ECSManager& getInstance() {
+		static ECSManager instance; 
+		return instance;
+    }
+
+	ECSManager(ECSManager const&) = delete;
+	void operator=(ECSManager const&) = delete;
 
 	~ECSManager();
 
@@ -38,6 +44,8 @@ public:
 	const Entity& getEntity(int entityID);
 
 private:
+
+	ECSManager();
 	//Entities
 	int m_idCounter;
 	std::vector<Entity*> m_entities;

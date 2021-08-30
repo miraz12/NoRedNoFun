@@ -29,7 +29,7 @@ private:
 	Rendering& m_rendering;
 	BotLoader m_botLoader;
 	BotInterface* m_botInterface;
-	ECSManager m_ECSManager;
+	ECSManager* m_ECSManager;
 
 };
 

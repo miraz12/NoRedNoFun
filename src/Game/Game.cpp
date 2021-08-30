@@ -8,6 +8,7 @@
 Entity* playerEntity;
 void botMove(unsigned int key)
 {
+	// TODO: Replace this with fetching through ECSManager singleton.
 	static_cast<InputComponent *>(playerEntity->getComponent(ComponentTypeEnum::INPUT))->updateInput(key);
 }
 
@@ -15,7 +16,7 @@ Game::Game(Rendering& rendering, GLFWwindow* window):
 	m_rendering(rendering),
 	m_botLoader("myBot"),
 	m_botInterface(m_botLoader.newInterface()),
-	m_ECSManager()
+	m_ECSManager(&ECSManager::getInstance())
 {
 	MapLoader::mapInstance->getModelMatrix() = glm::translate(glm::mat4(1.0f),
 		glm::vec3(0.5f * (float) MapLoader::mapInstance->getWidth(), 0.5f * (float)MapLoader::mapInstance->getHeight(), 0.1f));
@@ -26,7 +27,7 @@ Game::Game(Rendering& rendering, GLFWwindow* window):
 	m_botInterface->print();
 	m_botInterface->output(botMove);
 
-	playerEntity = &m_ECSManager.createEntity();
+	playerEntity = &m_ECSManager->createEntity();
 	// Add componments to player
 	playerEntity->addComponent(new PositionComponent(m_rendering.getNewQuad()));
 	playerEntity->addComponent(new MovementComponent());
@@ -34,7 +35,7 @@ Game::Game(Rendering& rendering, GLFWwindow* window):
 	playerEntity->addComponent(new CollisionComponent());
 
 	// Test player 2 to make sure multiple quads work
-	Entity& playerEntity2 = m_ECSManager.createEntity();
+	Entity& playerEntity2 = m_ECSManager->createEntity();
 	// Add components to player 2
 	playerEntity2.addComponent(new PositionComponent(m_rendering.getNewQuad()));
 	static_cast<PositionComponent *>(playerEntity2.getComponent(ComponentTypeEnum::POSITION))->position.x = 4.0f;
@@ -49,6 +50,6 @@ Game::~Game() {
 
 
 void Game::update(float dt) {
-	m_ECSManager.update(dt);
+	m_ECSManager->update(dt);
 	m_botInterface->update();
 }
