@@ -138,7 +138,7 @@ void ECSManager::removeComponents()
 
 void ECSManager::removeDeadEntities() {
 	for (auto &e: m_entities) {
-		if (e->isAlive) {
+		if (!e->isAlive) {
 			std::cout << "Entity: " << e->getID() << " is dead!" << std::endl;
 			removeEntity(e->getID());
 		}
