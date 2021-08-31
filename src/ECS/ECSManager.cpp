@@ -4,7 +4,8 @@ ECSManager::ECSManager()
 	:m_idCounter(1), m_entities(), m_systems{
 		{"INPUT", std::make_shared<InputSystem>(InputSystem(this))},
 		{"MOVEMENT", std::make_shared<MovementSystem>(MovementSystem(this))},
-		{"COLLISION", std::make_shared<CollisionSystem>(CollisionSystem(this))}}, 
+		{"COLLISION", std::make_shared<CollisionSystem>(CollisionSystem(this))},
+		{"HEALTH", std::make_shared<HealthSystem>(HealthSystem(this))}},
 		m_addEntities(), m_addComponents(), m_removeEntities(), m_removeComponents()
 {
 }
@@ -20,7 +21,9 @@ void ECSManager::update(float dt)
 	m_systems["INPUT"]->update(dt);
 	m_systems["MOVEMENT"]->update(dt);
 	m_systems["COLLISION"]->update(dt);
+	m_systems["HEALTH"]->update(dt);
 
+	removeDeadEntities();
 
 	//for all entities, remove/add components
 	//remove/add entities from systems
@@ -131,4 +134,13 @@ void ECSManager::removeComponents()
 		}
 	}
 	m_removeComponents.clear();
+}
+
+void ECSManager::removeDeadEntities() {
+	for (auto &e: m_entities) {
+		if (e->isAlive) {
+			std::cout << "Entity: " << e->getID() << " is dead!" << std::endl;
+			removeEntity(e->getID());
+		}
+	}
 }

@@ -7,3 +7,4 @@ HealthComponent::HealthComponent() : health(100) {
 
 void HealthComponent::damage(unsigned int hp) { health -= hp; }
 void HealthComponent::heal(unsigned int hp) { health += hp;}
+int HealthComponent::getHealth() { return health; }

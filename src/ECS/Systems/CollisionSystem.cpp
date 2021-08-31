@@ -21,6 +21,7 @@ void CollisionSystem::update(float /*dt*/) {
 		c->shape.setTransformMatrix(p->quad->getModelMatrix());
 
 		collideWithMap(e);
+		//Check for entity collisions and add them to e->m_collisionEntities
 
 		// Update matrix after collision (the position changes if the object intersects with a wall)
 		p->quad->getModelMatrix() = glm::translate(glm::mat4(1.0f), p->position);

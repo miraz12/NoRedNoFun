@@ -15,6 +15,8 @@
 #include "../ECS/Components/MovementComponent.h"
 #include "../ECS/Components/InputComponent.h"
 #include "../ECS/Components/CollisionComponent.h"
+#include "../ECS/Components/HealthComponent.h"
+#include "../ECS/Components/DamageComponent.h"
 #include "../ECS/ECSManager.h"
 
 

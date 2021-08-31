@@ -33,6 +33,7 @@ Game::Game(Rendering& rendering, GLFWwindow* window):
 	playerEntity->addComponent(new MovementComponent());
 	playerEntity->addComponent(new InputComponent(window));
 	playerEntity->addComponent(new CollisionComponent());
+	playerEntity->addComponent(new HealthComponent());
 
 	// Test player 2 to make sure multiple quads work
 	Entity& playerEntity2 = m_ECSManager->createEntity();
@@ -42,6 +43,7 @@ Game::Game(Rendering& rendering, GLFWwindow* window):
 	playerEntity2.addComponent(new MovementComponent());
 	playerEntity2.addComponent(new InputComponent(window));
 	playerEntity2.addComponent(new CollisionComponent());
+	playerEntity2.addComponent(new HealthComponent());
 }	
 
 Game::~Game() {

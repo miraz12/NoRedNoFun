@@ -1,7 +1,7 @@
 #include "Entity.h"
 
 Entity::Entity(int ID)
-:m_ID(ID), m_components(){
+:collisionEntities(), isAlive(true), m_ID(ID), m_components(){
 }
 
 //Dont know if this is the correct way to free components

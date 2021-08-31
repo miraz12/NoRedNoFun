@@ -3,9 +3,11 @@
 #include "Systems/MovementSystem.h"
 #include "Systems/InputSystem.h"
 #include "Systems/CollisionSystem.h"
+#include "Systems/HealthSystem.h"
 #include <map>
 #include <string>
 #include <memory>
+#include <iostream>
 
 
 
@@ -71,5 +73,6 @@ private:
 	void addComponents();
 	void removeEntities();
 	void removeComponents();
+	void removeDeadEntities();
 };
 
