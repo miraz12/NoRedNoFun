@@ -1,28 +1,34 @@
 #include "HealthSystem.h"
+#include "../ECSManager.h"
 
+#include "../Components/CollisionComponent.h"
 
-HealthSystem::HealthSystem(ECSManager* ECSManager) : System(ECSManager, ComponentTypeEnum::Health, ComponentTypeEnum::Attack) {
+HealthSystem::HealthSystem(ECSManager* ECSManager) : System(ECSManager, ComponentTypeEnum::Health) {
 }
 
 void HealthSystem::update(float dt) {
 
     //Do all health related stuff such as damage and heal
     for (auto& e : m_entities) {
-        HealthComponent* health = static_cast<HealthComponent*>(e->getComponent(ComponentTypeEnum::Health));
+        HealthComponent* healthComp = static_cast<HealthComponent*>(e->getComponent(ComponentTypeEnum::Health));
 
-        //If hit by entity with damage component, reduce health in healthcomponent
-        for (auto& attackingE : e->collisionEntities) {
+        CollisionComponent* collisionComp = static_cast<CollisionComponent*>(e->getComponent(ComponentTypeEnum::COLLISION));
+        if (collisionComp) {
+            //If hit by entity with damage component, reduce health in healthcomponent
+            for (auto& attackingE : collisionComp->currentCollisionEntities) {
 
-            if (attackingE->hasComponent(ComponentTypeEnum::DAMAGE)) {
-                DamageComponent* damage = static_cast<DamageComponent*>(attackingE->getComponent(ComponentTypeEnum::DAMAGE));
-                health->damage(damage->damage);
+                if (attackingE->hasComponent(ComponentTypeEnum::DAMAGE)) {
+                    DamageComponent* damageComp = static_cast<DamageComponent*>(attackingE->getComponent(ComponentTypeEnum::DAMAGE));
+                    healthComp->health -= damageComp->damage;
 
-                //entity is dead if health is 0
-                if (health->getHealth() <= 0) {
-                    e->isAlive = false;
+                    //entity is dead if health is 0
+                    if (healthComp->health <= 0) {
+                        std::cout << "Entity: " << e->getID() << " is dead!" << std::endl;
+                        m_manager->removeEntity(e->getID());
+                    }
                 }
             }
         }
-        e->collisionEntities.clear();
+        
     }
 }

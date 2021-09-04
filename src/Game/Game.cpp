@@ -9,8 +9,10 @@ void botMove(unsigned int key)
 {
 	// TODO: get entity with current id not magic 1.
 	// TODO: move entity with movecomponent not through inputcomponent
-	Entity &e = ECSManager::getEntity(1);
-	static_cast<InputComponent*>(e.getComponent(ComponentTypeEnum::INPUT))->updateInput(key);
+	Entity *e = ECSManager::getEntity(1);
+	if (e) {
+		static_cast<InputComponent*>(e->getComponent(ComponentTypeEnum::INPUT))->updateInput(key);
+	}
 }
 
 Game::Game(Rendering& rendering, GLFWwindow* window):
@@ -45,6 +47,7 @@ Game::Game(Rendering& rendering, GLFWwindow* window):
 	playerEntity2.addComponent(new InputComponent(window));
 	playerEntity2.addComponent(new CollisionComponent());
 	playerEntity2.addComponent(new HealthComponent());
+	playerEntity2.addComponent(new DamageComponent());
 }	
 
 Game::~Game() {

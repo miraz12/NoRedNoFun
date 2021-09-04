@@ -12,24 +12,53 @@ CollisionSystem::CollisionSystem(ECSManager *ECSManager)
 
 
 void CollisionSystem::update(float /*dt*/) {
-
+	
+	// Update position of shapes
 	for (auto& e : m_entities) {
 		PositionComponent* p = static_cast<PositionComponent*>(e->getComponent(ComponentTypeEnum::POSITION));
 		CollisionComponent* c = static_cast<CollisionComponent*>(e->getComponent(ComponentTypeEnum::COLLISION));
 
-		//update position of shape
 		c->shape.setTransformMatrix(p->quad->getModelMatrix());
+		c->currentCollisionEntities.clear(); // Clear current collisions
+	}
+
+
+	for (auto& e : m_entities) {
+		PositionComponent* p = static_cast<PositionComponent*>(e->getComponent(ComponentTypeEnum::POSITION));
+		CollisionComponent* c = static_cast<CollisionComponent*>(e->getComponent(ComponentTypeEnum::COLLISION));
+		MovementComponent* m = static_cast<MovementComponent*>(e->getComponent(ComponentTypeEnum::MOVEMENT));
+
+		// Collide with other entities
+		for (auto& e2 : m_entities) {
+			if (e->getID() == e2->getID()) {
+				continue;
+			}
+
+			CollisionComponent* c2 = static_cast<CollisionComponent*>(e2->getComponent(ComponentTypeEnum::COLLISION));
+
+			glm::vec2 tempIntersectionAxis(0.0f);
+			float tempIntersectionDepth = 0.0f;
+			glm::vec2 intersectionPoint(0.0f);
+
+			if (SAT::getIntersection(c->shape, c2->shape, tempIntersectionAxis, tempIntersectionDepth, intersectionPoint)) {
+				if (glm::length2(tempIntersectionAxis) > 0.0001f) {
+					p->position += glm::vec3(tempIntersectionAxis, 0.0f)  * tempIntersectionDepth;
+					glm::vec3 normalizedIntersectionAxis = {glm::normalize(tempIntersectionAxis), 0.0f};
+					m->velocity -= normalizedIntersectionAxis * glm::dot(normalizedIntersectionAxis, m->velocity);
+
+					// Update matrix after collision
+					p->quad->getModelMatrix() = glm::translate(glm::mat4(1.0f), p->position);
+					p->quad->getModelMatrix() = glm::rotate(p->quad->getModelMatrix(), p->rotation, glm::vec3(0.0f, 0.0f, 1.0f));
+					p->quad->getModelMatrix() = glm::scale(p->quad->getModelMatrix(), p->scale);
+
+					// Also update shape
+					c->shape.setTransformMatrix(p->quad->getModelMatrix());
+				}
+				c->currentCollisionEntities.emplace_back(e2); // Save collision
+			}
+		}
 
 		collideWithMap(e);
-		//Check for entity collisions and add them to e->m_collisionEntities
-
-		// Update matrix after collision (the position changes if the object intersects with a wall)
-		p->quad->getModelMatrix() = glm::translate(glm::mat4(1.0f), p->position);
-		p->quad->getModelMatrix() = glm::rotate(p->quad->getModelMatrix(), p->rotation, glm::vec3(0.0f, 0.0f, 1.0f));
-		p->quad->getModelMatrix() = glm::scale(p->quad->getModelMatrix(), p->scale);
-
-		// Also update shape
-		c->shape.setTransformMatrix(p->quad->getModelMatrix());
 	}
 }
 
@@ -68,6 +97,14 @@ void CollisionSystem::collideWithMap(Entity *e) {
 						p->position += glm::vec3(tempIntersectionAxis, 0.0f)  * tempIntersectionDepth;
 						glm::vec3 normalizedIntersectionAxis = {glm::normalize(tempIntersectionAxis), 0.0f};
 						m->velocity -= normalizedIntersectionAxis * glm::dot(normalizedIntersectionAxis, m->velocity);
+
+						// Update matrix after collision
+						p->quad->getModelMatrix() = glm::translate(glm::mat4(1.0f), p->position);
+						p->quad->getModelMatrix() = glm::rotate(p->quad->getModelMatrix(), p->rotation, glm::vec3(0.0f, 0.0f, 1.0f));
+						p->quad->getModelMatrix() = glm::scale(p->quad->getModelMatrix(), p->scale);
+
+						// Also update shape
+						c->shape.setTransformMatrix(p->quad->getModelMatrix());
 					}
 				}
 			}

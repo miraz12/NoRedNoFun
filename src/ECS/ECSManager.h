@@ -24,8 +24,6 @@ public:
 
 	~ECSManager();
 
-	static void move(unsigned int key);
-
 	//Runs through all systems
 	void update(float dt);
 
@@ -45,7 +43,7 @@ public:
 	void removeComponent(Entity& entity, ComponentTypeEnum component);
 
 	//Returns entity by ID, or NULL if it does not exist
-	static Entity& getEntity(int entityID);
+	static Entity* getEntity(int entityID);
 
 private:
 
@@ -75,6 +73,5 @@ private:
 	void addComponents();
 	void removeEntities();
 	void removeComponents();
-	void removeDeadEntities();
 };
 

@@ -8,7 +8,6 @@ enum class ComponentTypeEnum {
 	COLLISION,
 	ACTION, 
 	Health,
-	Attack,
 	DAMAGE
 };
 

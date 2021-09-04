@@ -17,12 +17,6 @@ ECSManager::~ECSManager()
 	//Delete all entities and systems
 }
 
-void ECSManager::move(unsigned int key)
-{
-	Entity& e = ECSManager::getEntity(1);
-		std::cout << key << std::endl;
-}
-
 void ECSManager::update(float dt)
 {
 	//G� igenom alla systems och g�r update
@@ -30,8 +24,6 @@ void ECSManager::update(float dt)
 	m_systems["MOVEMENT"]->update(dt);
 	m_systems["COLLISION"]->update(dt);
 	m_systems["HEALTH"]->update(dt);
-
-	removeDeadEntities();
 
 	//for all entities, remove/add components
 	//remove/add entities from systems
@@ -68,15 +60,14 @@ void ECSManager::removeComponent(Entity& entity, ComponentTypeEnum component)
 	m_removeComponents.push_back(removeComponent_t{ entity, component });
 }
 
-Entity& ECSManager::getEntity(int entityID)
+Entity* ECSManager::getEntity(int entityID)
 {
 	for (auto& entity : m_entities) {
 		if (entity->getID() == entityID) {
-			return *entity;
+			return entity;
 		}
 	}
-	return *m_entities.front();
-	//return nullptr;
+	return nullptr;
 }
 
 
@@ -143,13 +134,4 @@ void ECSManager::removeComponents()
 		}
 	}
 	m_removeComponents.clear();
-}
-
-void ECSManager::removeDeadEntities() {
-	for (auto &e: m_entities) {
-		if (!e->isAlive) {
-			std::cout << "Entity: " << e->getID() << " is dead!" << std::endl;
-			removeEntity(e->getID());
-		}
-	}
 }

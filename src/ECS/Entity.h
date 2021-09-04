@@ -5,12 +5,6 @@
 class Entity
 {
 public:
-	std::vector<Entity*>collisionEntities;
-	//This could be in healthcomponent but it could apply to entities without
-	//health, that just expire such as powerups.
-	bool isAlive;
-	
-
 	Entity(int ID);
 
 	~Entity();
