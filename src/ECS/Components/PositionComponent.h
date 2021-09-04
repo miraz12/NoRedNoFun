@@ -14,4 +14,5 @@ public:
 	Quad* quad;
 
 	PositionComponent(Quad* aQuad);
+	PositionComponent(Quad* aQuad, float startX, float startY);
 };

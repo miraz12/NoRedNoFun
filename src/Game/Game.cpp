@@ -30,24 +30,23 @@ Game::Game(Rendering& rendering, GLFWwindow* window):
 	m_botInterface->print();
 	m_botInterface->output(botMove);
 
-	Entity *botEntity = &m_ECSManager->createEntity();
+	Entity &botEntity = m_ECSManager->createEntity();
 	// Add componments to player
-	botEntity->addComponent(new PositionComponent(m_rendering.getNewQuad()));
-	botEntity->addComponent(new MovementComponent());
-	botEntity->addComponent(new CollisionComponent());
-	botEntity->addComponent(new InputComponent(window));
-	botEntity->addComponent(new HealthComponent());
+	m_ECSManager->addComponent(botEntity, new PositionComponent(m_rendering.getNewQuad()));
+	m_ECSManager->addComponent(botEntity, new MovementComponent());
+	m_ECSManager->addComponent(botEntity, new CollisionComponent());
+	m_ECSManager->addComponent(botEntity, new InputComponent(window));
+	m_ECSManager->addComponent(botEntity, new HealthComponent());
 
 	// Test player 2 to make sure multiple quads work
 	Entity& playerEntity2 = m_ECSManager->createEntity();
 	// Add components to player 2
-	playerEntity2.addComponent(new PositionComponent(m_rendering.getNewQuad()));
-	static_cast<PositionComponent *>(playerEntity2.getComponent(ComponentTypeEnum::POSITION))->position.x = 4.0f;
-	playerEntity2.addComponent(new MovementComponent());
-	playerEntity2.addComponent(new InputComponent(window));
-	playerEntity2.addComponent(new CollisionComponent());
-	playerEntity2.addComponent(new HealthComponent());
-	playerEntity2.addComponent(new DamageComponent());
+	m_ECSManager->addComponent(playerEntity2, new PositionComponent(m_rendering.getNewQuad(), 4.0f, 2.0f));
+	m_ECSManager->addComponent(playerEntity2, new MovementComponent());
+	m_ECSManager->addComponent(playerEntity2, new InputComponent(window));
+	m_ECSManager->addComponent(playerEntity2, new CollisionComponent());
+	m_ECSManager->addComponent(playerEntity2, new HealthComponent());
+	m_ECSManager->addComponent(playerEntity2, new DamageComponent());
 }	
 
 Game::~Game() {
