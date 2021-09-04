@@ -54,6 +54,10 @@ int main() {
 	float fpsUpdate = 1.0f;
 	float fpsUpdateTimer = 0.0f;
 
+    float minUpdateRate = 1.0f / 60.0f;
+	float updateTimer = 0.0f;
+	int updatesSinceRender = 0;
+
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -82,7 +86,26 @@ int main() {
 			glfwSetWindowTitle(window, ("OpenGL FPS: " + std::to_string((int)fps)).c_str());
 		}
 
-		game.update((float)dt);
+		updateTimer += dt;
+		updatesSinceRender = 0;
+
+        // If dt is bigger than minUpdateRate - update multiple times
+        while (updateTimer >= minUpdateRate) { 
+			if (updatesSinceRender >= 20) {
+                // Too many updates, throw away the rest of dt (makes the game run in slow-motion)
+				updateTimer = 0.0f;
+				break;
+			}
+
+		    game.update(minUpdateRate);
+            updateTimer -= minUpdateRate;
+            updatesSinceRender++;
+        }
+
+        if (updatesSinceRender == 0) { // dt is faster than 
+            game.update(updateTimer);
+            updateTimer = 0.0f;
+        }
 		rendering.update((float) dt);
 
         // render
