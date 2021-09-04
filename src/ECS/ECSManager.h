@@ -24,6 +24,8 @@ public:
 
 	~ECSManager();
 
+	static void move(unsigned int key);
+
 	//Runs through all systems
 	void update(float dt);
 
@@ -43,14 +45,14 @@ public:
 	void removeComponent(Entity& entity, ComponentTypeEnum component);
 
 	//Returns entity by ID, or NULL if it does not exist
-	const Entity& getEntity(int entityID);
+	static Entity& getEntity(int entityID);
 
 private:
 
 	ECSManager();
 	//Entities
 	int m_idCounter;
-	std::vector<Entity*> m_entities;
+	static std::vector<Entity*> m_entities;
 
 	//Systems
 	std::map<std::string, std::shared_ptr<System>> m_systems;

@@ -5,11 +5,12 @@
 
 #include "../Engine/MapLoader/MapLoader.hpp"
 
-Entity* playerEntity;
 void botMove(unsigned int key)
 {
-	// TODO: Replace this with fetching through ECSManager singleton.
-	static_cast<InputComponent *>(playerEntity->getComponent(ComponentTypeEnum::INPUT))->updateInput(key);
+	// TODO: get entity with current id not magic 1.
+	// TODO: move entity with movecomponent not through inputcomponent
+	Entity &e = ECSManager::getEntity(1);
+	static_cast<InputComponent*>(e.getComponent(ComponentTypeEnum::INPUT))->updateInput(key);
 }
 
 Game::Game(Rendering& rendering, GLFWwindow* window):
@@ -27,13 +28,13 @@ Game::Game(Rendering& rendering, GLFWwindow* window):
 	m_botInterface->print();
 	m_botInterface->output(botMove);
 
-	playerEntity = &m_ECSManager->createEntity();
+	Entity *botEntity = &m_ECSManager->createEntity();
 	// Add componments to player
-	playerEntity->addComponent(new PositionComponent(m_rendering.getNewQuad()));
-	playerEntity->addComponent(new MovementComponent());
-	playerEntity->addComponent(new InputComponent(window));
-	playerEntity->addComponent(new CollisionComponent());
-	playerEntity->addComponent(new HealthComponent());
+	botEntity->addComponent(new PositionComponent(m_rendering.getNewQuad()));
+	botEntity->addComponent(new MovementComponent());
+	botEntity->addComponent(new CollisionComponent());
+	botEntity->addComponent(new InputComponent(window));
+	botEntity->addComponent(new HealthComponent());
 
 	// Test player 2 to make sure multiple quads work
 	Entity& playerEntity2 = m_ECSManager->createEntity();

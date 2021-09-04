@@ -1,7 +1,9 @@
 #include "ECSManager.h"
 
+std::vector<Entity*> ECSManager::m_entities;
+
 ECSManager::ECSManager()
-	:m_idCounter(1), m_entities(), m_systems{
+	:m_idCounter(1), m_systems{
 		{"INPUT", std::make_shared<InputSystem>(InputSystem(this))},
 		{"MOVEMENT", std::make_shared<MovementSystem>(MovementSystem(this))},
 		{"COLLISION", std::make_shared<CollisionSystem>(CollisionSystem(this))},
@@ -13,6 +15,12 @@ ECSManager::ECSManager()
 ECSManager::~ECSManager()
 {
 	//Delete all entities and systems
+}
+
+void ECSManager::move(unsigned int key)
+{
+	Entity& e = ECSManager::getEntity(1);
+		std::cout << key << std::endl;
 }
 
 void ECSManager::update(float dt)
@@ -60,14 +68,15 @@ void ECSManager::removeComponent(Entity& entity, ComponentTypeEnum component)
 	m_removeComponents.push_back(removeComponent_t{ entity, component });
 }
 
-const Entity& ECSManager::getEntity(int entityID)
+Entity& ECSManager::getEntity(int entityID)
 {
 	for (auto& entity : m_entities) {
 		if (entity->getID() == entityID) {
 			return *entity;
 		}
 	}
-	return NULL;
+	return *m_entities.front();
+	//return nullptr;
 }
 
 
