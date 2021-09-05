@@ -32,11 +32,11 @@ Game::Game(Rendering& rendering, GLFWwindow* window):
 
 	Entity &botEntity = m_ECSManager->createEntity();
 	// Add componments to player
-	botEntity->addComponent(new PositionComponent(m_rendering.getNewQuad(), m_rendering.getQuadManager()));
-	botEntity->addComponent(new MovementComponent());
-	botEntity->addComponent(new CollisionComponent());
-	botEntity->addComponent(new InputComponent(window));
-	botEntity->addComponent(new HealthComponent());
+	m_ECSManager->addComponent(botEntity, new PositionComponent(m_rendering.getNewQuad(), m_rendering.getQuadManager()));
+	m_ECSManager->addComponent(botEntity, new MovementComponent());
+	m_ECSManager->addComponent(botEntity, new CollisionComponent());
+	m_ECSManager->addComponent(botEntity, new InputComponent(window));
+	m_ECSManager->addComponent(botEntity, new HealthComponent());
 
 	// Test player 2 to make sure multiple quads work
 	Entity& playerEntity2 = m_ECSManager->createEntity();
