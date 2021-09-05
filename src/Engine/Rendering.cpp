@@ -19,11 +19,15 @@ Quad* Rendering::getNewQuad() {
 	return m_quadManager.getNewQuad();
 }
 
+InstancedQuadManager* Rendering::getQuadManager() {
+    return &m_quadManager;
+}
+
 Camera* Rendering::getCamera() {
 	return &m_camera;
 }
 
-void Rendering::update(float dt) {
+void Rendering::update(float /*dt*/) {
 	// Updates to texture matrices for animations etc goes here for example
 }
 

@@ -13,17 +13,19 @@ class InstancedQuadManager : protected GraphicsObject {
 public:
 	InstancedQuadManager(ShaderProgram &shaderProgram);
 	~InstancedQuadManager();
-
+    
     Quad* getNewQuad();
 	std::vector<Quad*>& getQuads();
 
     Texture& getTexture();
 
+    void returnQuad(Quad* quadToReturn);
     void draw();
 private:
 	unsigned int m_instanceVBO;
 
     std::vector<glm::mat4> m_quadMatrices;
+    std::vector<unsigned int> m_availableMatrices;
 	std::vector<Quad*> m_quads;
 
     Texture m_texture;

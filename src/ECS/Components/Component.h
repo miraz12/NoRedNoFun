@@ -15,7 +15,8 @@ enum class ComponentTypeEnum {
 class Component {
 
 public:
-
+	Component() = default;
+	virtual ~Component() = default;
 	virtual ComponentTypeEnum getComponentType() {
 		return m_componentType;
 	}

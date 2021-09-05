@@ -4,6 +4,8 @@
 
 #include "../../Engine/Objects/Quad.hpp"
 
+class InstancedQuadManager;
+
 class PositionComponent : public Component 
 {
 
@@ -12,6 +14,8 @@ public:
 	float rotation;
 	glm::vec3 scale;
 	Quad* quad;
+	InstancedQuadManager* quadManager;
 
-	PositionComponent(Quad* aQuad);
+	PositionComponent(Quad* aQuad, InstancedQuadManager* aQuadManager);
+	virtual ~PositionComponent();
 };

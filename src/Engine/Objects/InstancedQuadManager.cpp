@@ -21,15 +21,27 @@ InstancedQuadManager::InstancedQuadManager(ShaderProgram &shaderProgram):
 }
 
 InstancedQuadManager::~InstancedQuadManager() {
-
+    for (size_t i = 0; i < m_quads.size(); i++) {
+        delete m_quads[i];
+    }
 }
 
 
 Quad* InstancedQuadManager::getNewQuad() {
-    m_quadMatrices.emplace_back(1.0f);
-    m_quadMatrices.emplace_back(1.0f);
+    unsigned int newMatrixIndex;
+    if (m_availableMatrices.size() > 0) {
+        m_quadMatrices[m_availableMatrices[0]] = glm::mat4(1.0f);
+        m_quadMatrices[m_availableMatrices[0] + 1] = glm::mat4(1.0f);
+        newMatrixIndex = m_availableMatrices[0];
+        m_availableMatrices.erase(m_availableMatrices.begin());
+    }
+    else {
+        m_quadMatrices.emplace_back(1.0f);
+        m_quadMatrices.emplace_back(1.0f);
+        newMatrixIndex = (unsigned int) (m_quadMatrices.size() - 2);
+    }
 
-	m_quads.emplace_back(new Quad(&m_quadMatrices, m_quadMatrices.size() - 2));
+	m_quads.emplace_back(new Quad(&m_quadMatrices, newMatrixIndex));
 
     return m_quads[m_quads.size() - 1];
 }
@@ -40,6 +52,17 @@ std::vector<Quad*>& InstancedQuadManager::getQuads() {
 
 Texture& InstancedQuadManager::getTexture() {
     return m_texture;
+}
+
+void InstancedQuadManager::returnQuad(Quad* quadToReturn) {
+    for (size_t i = 0; i < m_quads.size(); i++) {
+        if (m_quads[i] == quadToReturn) {
+            quadToReturn->getModelMatrix() = glm::mat4(0.0f);
+            m_availableMatrices.emplace_back(quadToReturn->getMatrixIndex());
+            delete quadToReturn;
+            m_quads.erase(m_quads.begin() + i);
+        }
+    }
 }
 
 void InstancedQuadManager::draw() {

@@ -10,6 +10,7 @@ public:
     virtual ~Quad();
 
 	glm::mat4& getModelMatrix();
+    unsigned int getMatrixIndex();
 
 private:
     std::vector<glm::mat4>* m_matrices;

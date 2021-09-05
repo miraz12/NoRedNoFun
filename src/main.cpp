@@ -9,7 +9,7 @@
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
-void errorCallback(int error, const char* description) { printf("Error: %s\n", description); };
+void errorCallback(int /*error*/, const char* description) { printf("Error: %s\n", description); };
 
 GLFWwindow* window;
 const unsigned int SCR_WIDTH = 800;
@@ -54,8 +54,8 @@ int main() {
 	float fpsUpdate = 1.0f;
 	float fpsUpdateTimer = 0.0f;
 
-    float minUpdateRate = 1.0f / 60.0f;
-	float updateTimer = 0.0f;
+    double minUpdateRate = 1.0f / 60.0f;
+	double updateTimer = 0.0f;
 	int updatesSinceRender = 0;
 
     // render loop
@@ -97,13 +97,13 @@ int main() {
 				break;
 			}
 
-		    game.update(minUpdateRate);
+		    game.update((float) minUpdateRate);
             updateTimer -= minUpdateRate;
             updatesSinceRender++;
         }
 
         if (updatesSinceRender == 0) { // dt is faster than 
-            game.update(updateTimer);
+            game.update((float) updateTimer);
             updateTimer = 0.0f;
         }
 		rendering.update((float) dt);
@@ -120,14 +120,14 @@ int main() {
     return 0;
 }
 
-void processInput(GLFWwindow *window)
+void processInput(GLFWwindow *theWindow)
 {
-    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-        glfwSetWindowShouldClose(window, true);
+    if(glfwGetKey(theWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+        glfwSetWindowShouldClose(theWindow, true);
     }
 }
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+void framebuffer_size_callback(GLFWwindow* /*window*/, int width, int height)
 {
      glViewport(0, 0, width, height);
 }
