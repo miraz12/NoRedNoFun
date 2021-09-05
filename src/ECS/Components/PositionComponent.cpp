@@ -12,6 +12,15 @@ PositionComponent::PositionComponent(Quad* aQuad, InstancedQuadManager* aQuadMan
 	m_componentType = ComponentTypeEnum::POSITION;
 }
 
+PositionComponent::PositionComponent(Quad* aQuad, InstancedQuadManager* aQuadManager, float startX, float startY) :
+	position(startX, startY, -0.1f),
+	rotation(0.0f),
+	scale(1.0f),
+	quad(aQuad),
+	quadManager(aQuadManager) {
+	m_componentType = ComponentTypeEnum::POSITION;
+}
+
 PositionComponent::~PositionComponent() {
 	quadManager->returnQuad(quad);
 }

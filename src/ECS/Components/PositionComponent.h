@@ -17,5 +17,6 @@ public:
 	InstancedQuadManager* quadManager;
 
 	PositionComponent(Quad* aQuad, InstancedQuadManager* aQuadManager);
+	PositionComponent(Quad* aQuad, InstancedQuadManager* aQuadManager, float startX, float startY);
 	virtual ~PositionComponent();
 };
