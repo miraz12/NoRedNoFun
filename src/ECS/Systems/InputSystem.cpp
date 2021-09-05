@@ -8,7 +8,7 @@ InputSystem::InputSystem(ECSManager *ECSManager)
 }
 
 
-void InputSystem::update(float dt){
+void InputSystem::update(float /*dt*/){
 	//Handle input
 
 

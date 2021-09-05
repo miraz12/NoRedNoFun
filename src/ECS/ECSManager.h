@@ -4,12 +4,12 @@
 #include "Systems/InputSystem.h"
 #include "Systems/CollisionSystem.h"
 #include "Systems/HealthSystem.h"
+#include "Systems/GraphicsSystem.h"
+
 #include <map>
 #include <string>
 #include <memory>
 #include <iostream>
-
-
 
 class ECSManager
 {

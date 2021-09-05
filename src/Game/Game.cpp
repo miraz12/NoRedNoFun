@@ -3,6 +3,16 @@
 
 #include <algorithm>
 
+#include "../ECS/Entity.h"
+
+#include "../ECS/Components/PositionComponent.h"
+#include "../ECS/Components/MovementComponent.h"
+#include "../ECS/Components/InputComponent.h"
+#include "../ECS/Components/CollisionComponent.h"
+#include "../ECS/Components/HealthComponent.h"
+#include "../ECS/Components/DamageComponent.h"
+#include "../ECS/Components/GraphicsComponent.h"
+
 #include "../Engine/MapLoader/MapLoader.hpp"
 
 void botMove(unsigned int key)
@@ -32,21 +42,23 @@ Game::Game(Rendering& rendering, GLFWwindow* window):
 
 	Entity &botEntity = m_ECSManager->createEntity();
 	// Add componments to player
-	m_ECSManager->addComponent(botEntity, new PositionComponent(m_rendering.getNewQuad(), m_rendering.getQuadManager()));
+	m_ECSManager->addComponent(botEntity, new PositionComponent());
 	m_ECSManager->addComponent(botEntity, new MovementComponent());
 	m_ECSManager->addComponent(botEntity, new CollisionComponent());
 	m_ECSManager->addComponent(botEntity, new InputComponent(window));
 	m_ECSManager->addComponent(botEntity, new HealthComponent());
+	m_ECSManager->addComponent(botEntity, new GraphicsComponent(m_rendering.getNewQuad(), m_rendering.getQuadManager()));
 
 	// Test player 2 to make sure multiple quads work
 	Entity& playerEntity2 = m_ECSManager->createEntity();
 	// Add components to player 2
-	m_ECSManager->addComponent(playerEntity2, new PositionComponent(m_rendering.getNewQuad(), m_rendering.getQuadManager(), 4.0f, 2.0f));
+	m_ECSManager->addComponent(playerEntity2, new PositionComponent(4.0f, 2.0f));
 	m_ECSManager->addComponent(playerEntity2, new MovementComponent());
 	m_ECSManager->addComponent(playerEntity2, new InputComponent(window));
 	m_ECSManager->addComponent(playerEntity2, new CollisionComponent());
 	m_ECSManager->addComponent(playerEntity2, new HealthComponent());
 	m_ECSManager->addComponent(playerEntity2, new DamageComponent());
+	m_ECSManager->addComponent(playerEntity2, new GraphicsComponent(m_rendering.getNewQuad(), m_rendering.getQuadManager()));
 }	
 
 Game::~Game() {

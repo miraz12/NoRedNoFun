@@ -49,9 +49,5 @@ void MovementSystem::update(float dt)
 		p->position += (oldVelocity + m->velocity) * 0.5f * dt; // This works for any update rate
 
 		m->accelerationDirection = { 0.0f, 0.0f, 0.0f };
-
-		p->quad->getModelMatrix() = glm::translate(glm::mat4(1.0f), p->position);
-		p->quad->getModelMatrix() = glm::rotate(p->quad->getModelMatrix(), p->rotation, glm::vec3(0.0f, 0.0f, 1.0f));
-		p->quad->getModelMatrix() = glm::scale(p->quad->getModelMatrix(), p->scale);
 	}
 }

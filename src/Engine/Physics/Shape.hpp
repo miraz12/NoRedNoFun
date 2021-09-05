@@ -15,7 +15,7 @@ public:
     void clearVertices();
     void clearNormals();
 
-    void setTransformMatrix(glm::mat4 matrix);
+    void setTransformMatrix(const glm::mat4 &matrix);
 
     const std::vector<glm::vec2>& getTransformedVertices();
     const std::vector<glm::vec2>& getTransformedNormals();

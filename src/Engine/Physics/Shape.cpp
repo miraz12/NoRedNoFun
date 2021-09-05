@@ -31,7 +31,7 @@ void Shape::clearNormals() {
     m_normalsNeedsUpdate = true;
 }
 
-void Shape::setTransformMatrix(glm::mat4 matrix) {
+void Shape::setTransformMatrix(const glm::mat4 &matrix) {
     m_transformMatrix = matrix;
     m_verticesNeedsUpdate = true;
     m_normalsNeedsUpdate = true;

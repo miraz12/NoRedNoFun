@@ -18,7 +18,7 @@ void CollisionSystem::update(float /*dt*/) {
 		PositionComponent* p = static_cast<PositionComponent*>(e->getComponent(ComponentTypeEnum::POSITION));
 		CollisionComponent* c = static_cast<CollisionComponent*>(e->getComponent(ComponentTypeEnum::COLLISION));
 
-		c->shape.setTransformMatrix(p->quad->getModelMatrix());
+		c->shape.setTransformMatrix(p->calculateMatrix());
 		c->currentCollisionEntities.clear(); // Clear current collisions
 	}
 
@@ -46,13 +46,8 @@ void CollisionSystem::update(float /*dt*/) {
 					glm::vec3 normalizedIntersectionAxis = {glm::normalize(tempIntersectionAxis), 0.0f};
 					m->velocity -= normalizedIntersectionAxis * glm::dot(normalizedIntersectionAxis, m->velocity);
 
-					// Update matrix after collision
-					p->quad->getModelMatrix() = glm::translate(glm::mat4(1.0f), p->position);
-					p->quad->getModelMatrix() = glm::rotate(p->quad->getModelMatrix(), p->rotation, glm::vec3(0.0f, 0.0f, 1.0f));
-					p->quad->getModelMatrix() = glm::scale(p->quad->getModelMatrix(), p->scale);
-
-					// Also update shape
-					c->shape.setTransformMatrix(p->quad->getModelMatrix());
+					// Update shape
+					c->shape.setTransformMatrix(p->calculateMatrix());
 				}
 				c->currentCollisionEntities.emplace_back(e2); // Save collision
 			}
@@ -98,13 +93,8 @@ void CollisionSystem::collideWithMap(Entity *e) {
 						glm::vec3 normalizedIntersectionAxis = {glm::normalize(tempIntersectionAxis), 0.0f};
 						m->velocity -= normalizedIntersectionAxis * glm::dot(normalizedIntersectionAxis, m->velocity);
 
-						// Update matrix after collision
-						p->quad->getModelMatrix() = glm::translate(glm::mat4(1.0f), p->position);
-						p->quad->getModelMatrix() = glm::rotate(p->quad->getModelMatrix(), p->rotation, glm::vec3(0.0f, 0.0f, 1.0f));
-						p->quad->getModelMatrix() = glm::scale(p->quad->getModelMatrix(), p->scale);
-
-						// Also update shape
-						c->shape.setTransformMatrix(p->quad->getModelMatrix());
+						// Update shape
+						c->shape.setTransformMatrix(p->calculateMatrix());
 					}
 				}
 			}

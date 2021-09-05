@@ -3,14 +3,14 @@
 
 #include "../Components/CollisionComponent.h"
 
-HealthSystem::HealthSystem(ECSManager* ECSManager) : System(ECSManager, ComponentTypeEnum::Health) {
+HealthSystem::HealthSystem(ECSManager* ECSManager) : System(ECSManager, ComponentTypeEnum::HEALTH) {
 }
 
-void HealthSystem::update(float dt) {
+void HealthSystem::update(float /*dt*/) {
 
     //Do all health related stuff such as damage and heal
     for (auto& e : m_entities) {
-        HealthComponent* healthComp = static_cast<HealthComponent*>(e->getComponent(ComponentTypeEnum::Health));
+        HealthComponent* healthComp = static_cast<HealthComponent*>(e->getComponent(ComponentTypeEnum::HEALTH));
 
         CollisionComponent* collisionComp = static_cast<CollisionComponent*>(e->getComponent(ComponentTypeEnum::COLLISION));
         if (collisionComp) {

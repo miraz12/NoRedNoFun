@@ -2,5 +2,5 @@
 
 
 HealthComponent::HealthComponent() : health(100) {
-	m_componentType = ComponentTypeEnum::Health;
+	m_componentType = ComponentTypeEnum::HEALTH;
 }

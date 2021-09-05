@@ -49,7 +49,7 @@
 
 	//finds entity by id and removes it if it does not contain correct components
 	void System::removeFaultyEntity(int ID) {
-		for (int i = m_entities.size() - 1; i >= 0; i--) {
+		for (int i = (int) (m_entities.size() - 1); i >= 0; i--) {
 			if (m_entities[i]->getID() == ID) {
 				if (!entityHasCorrectComponents(m_entities[i])) {
 					m_entities.erase(m_entities.begin() + i);
@@ -60,7 +60,7 @@
 
 	//Removes entity
 	void System::removeEntity(int ID) {
-		for (int i = m_entities.size() - 1; i >= 0; i--) {
+		for (int i = (int) (m_entities.size() - 1); i >= 0; i--) {
 			if (m_entities[i]->getID() == ID) {
 				m_entities.erase(m_entities.begin() + i);
 			}

@@ -4,19 +4,7 @@
 
 #include "../Engine/Rendering.hpp"
 #include "../Engine/Objects/Quad.hpp"
-
 #include "Bots/BotLoader.h"
-
-#include "../ECS/Entity.h"
-#include "../ECS/Systems/MovementSystem.h"
-#include "../ECS/Systems/InputSystem.h"
-#include "../ECS/Systems/CollisionSystem.h"
-#include "../ECS/Components/PositionComponent.h"
-#include "../ECS/Components/MovementComponent.h"
-#include "../ECS/Components/InputComponent.h"
-#include "../ECS/Components/CollisionComponent.h"
-#include "../ECS/Components/HealthComponent.h"
-#include "../ECS/Components/DamageComponent.h"
 #include "../ECS/ECSManager.h"
 
 
