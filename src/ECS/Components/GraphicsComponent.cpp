@@ -1,14 +1,14 @@
 #include "GraphicsComponent.h"
+#include "../../Engine/Rendering.hpp"
 
 #include "../../Engine/Objects/InstancedQuadManager.hpp"
 
-GraphicsComponent::GraphicsComponent(Quad* aQuad, InstancedQuadManager* aQuadManager) :
-	quad(aQuad),
-	quadManager(aQuadManager) {
+GraphicsComponent::GraphicsComponent() {
+	quad = Rendering::getInstance().getNewQuad();
 
 	m_componentType = ComponentTypeEnum::GRAPHICS;
 }
 
 GraphicsComponent::~GraphicsComponent() {
-	quadManager->returnQuad(quad);
+	Rendering::getInstance().getQuadManager()->returnQuad(quad);
 }

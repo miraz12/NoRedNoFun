@@ -2,12 +2,14 @@
 #include "../Components/PositionComponent.h"
 #include "../Components/GraphicsComponent.h"
 
+#include "../../Engine/Rendering.hpp"
+
 GraphicsSystem::GraphicsSystem(ECSManager * ECSManager) 
 	: System(ECSManager, ComponentTypeEnum::POSITION, ComponentTypeEnum::GRAPHICS){
 
 }
 
-void GraphicsSystem::update(float dt)
+void GraphicsSystem::update(float /*dt*/)
 {
 	for (auto& e : m_entities) {
 		PositionComponent *p = static_cast<PositionComponent *>(e->getComponent(ComponentTypeEnum::POSITION));

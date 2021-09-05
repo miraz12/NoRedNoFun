@@ -40,9 +40,7 @@ int main() {
         return -1;
     }
 
-
-    Rendering rendering;
-	Game game(rendering, window);
+	Game game(window);
 
 	double currentTime = glfwGetTime();
 	double previousTime = currentTime;
@@ -106,11 +104,11 @@ int main() {
             game.update((float) updateTimer);
             updateTimer = 0.0f;
         }
-		rendering.update((float) dt);
+		Rendering::getInstance().update((float) dt);
 
         // render
         // ------
-        rendering.draw();
+        Rendering::getInstance().draw();
 
         glfwSwapBuffers(window);
         glfwPollEvents();

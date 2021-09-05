@@ -1,9 +1,11 @@
 #include "CollisionSystem.h"
-#include "../../Engine/MapLoader/MapLoader.hpp"
+#include "../../Engine/Rendering.hpp"
 #include "../../Engine/Physics/SAT.hpp"
 #include "../Components/PositionComponent.h"
 #include "../Components/MovementComponent.h"
 #include "../Components/CollisionComponent.h"
+
+
 
 CollisionSystem::CollisionSystem(ECSManager *ECSManager)
 	: System(ECSManager, ComponentTypeEnum::COLLISION, ComponentTypeEnum::MOVEMENT, ComponentTypeEnum::POSITION) {
@@ -75,7 +77,7 @@ void CollisionSystem::collideWithMap(Entity *e) {
 
 			int mapTileX = (int) floor(p->position.x) + x;
 			int mapTileY = (int) floor(p->position.y) + y;
-			if (!MapLoader::mapInstance->allowMovement(mapTileX, (int)MapLoader::mapInstance->getHeight() - 1 - mapTileY)) {
+			if (!Rendering::getInstance().getMapLoader()->allowMovement(mapTileX, (int)Rendering::getInstance().getMapLoader()->getHeight() - 1 - mapTileY)) {
 				// Movement not allowed, does the player overlap?
 				tileShape.clearVertices();
                 tileShape.addVertex(glm::vec2(mapTileX, mapTileY));

@@ -15,5 +15,5 @@ public:
 	float maxSpeed;
 
 	MovementComponent();
-
+	MovementComponent(float velX, float velY);
 };

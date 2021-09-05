@@ -1,6 +1,8 @@
 #define NOMINMAX
 #include "Game.hpp"
 
+#include "../Engine/Rendering.hpp"
+
 #include <algorithm>
 
 #include "../ECS/Entity.h"
@@ -25,18 +27,23 @@ void botMove(unsigned int key)
 	}
 }
 
-Game::Game(Rendering& rendering, GLFWwindow* window):
-	m_rendering(rendering),
+Game::Game(GLFWwindow* window):
 	m_botLoader("myBot"),
 	m_botInterface(m_botLoader.newInterface()),
 	m_ECSManager(&ECSManager::getInstance())
 {
-	MapLoader::mapInstance->getModelMatrix() = glm::translate(glm::mat4(1.0f),
-		glm::vec3(0.5f * (float) MapLoader::mapInstance->getWidth(), 0.5f * (float)MapLoader::mapInstance->getHeight(), 0.1f));
-	MapLoader::mapInstance->getModelMatrix() = glm::scale(MapLoader::mapInstance->getModelMatrix(),
-		glm::vec3((float) MapLoader::mapInstance->getWidth(), (float)MapLoader::mapInstance->getHeight(), 1.0f)); // Scale map to make the tile size 1x1
-	m_rendering.getCamera()->setZoom(1.0f/(0.5f * (float) std::max(MapLoader::mapInstance->getWidth(), MapLoader::mapInstance->getHeight()))); // Zoom out so that the whole map is visible
-	m_rendering.getCamera()->setPosition(0.5f * (float)MapLoader::mapInstance->getWidth(), 0.5f * (float)MapLoader::mapInstance->getHeight());
+	Rendering::getInstance().getMapLoader()->getModelMatrix() = glm::translate(glm::mat4(1.0f),
+		glm::vec3(0.5f * (float) Rendering::getInstance().getMapLoader()->getWidth(), 
+		0.5f * (float)Rendering::getInstance().getMapLoader()->getHeight(), 
+		0.1f));
+	Rendering::getInstance().getMapLoader()->getModelMatrix() = glm::scale(Rendering::getInstance().getMapLoader()->getModelMatrix(),
+		glm::vec3((float) Rendering::getInstance().getMapLoader()->getWidth(), 
+		(float)Rendering::getInstance().getMapLoader()->getHeight(), 
+		1.0f)); // Scale map to make the tile size 1x1
+	Rendering::getInstance().getCamera()->setZoom(1.0f/(0.5f * (float) std::max(Rendering::getInstance().getMapLoader()->getWidth(), 
+		Rendering::getInstance().getMapLoader()->getHeight()))); // Zoom out so that the whole map is visible
+	Rendering::getInstance().getCamera()->setPosition(0.5f * (float)Rendering::getInstance().getMapLoader()->getWidth(), 
+		0.5f * (float)Rendering::getInstance().getMapLoader()->getHeight());
 	m_botInterface->print();
 	m_botInterface->output(botMove);
 
@@ -47,7 +54,7 @@ Game::Game(Rendering& rendering, GLFWwindow* window):
 	m_ECSManager->addComponent(botEntity, new CollisionComponent());
 	m_ECSManager->addComponent(botEntity, new InputComponent(window));
 	m_ECSManager->addComponent(botEntity, new HealthComponent());
-	m_ECSManager->addComponent(botEntity, new GraphicsComponent(m_rendering.getNewQuad(), m_rendering.getQuadManager()));
+	m_ECSManager->addComponent(botEntity, new GraphicsComponent());
 
 	// Test player 2 to make sure multiple quads work
 	Entity& playerEntity2 = m_ECSManager->createEntity();
@@ -58,7 +65,7 @@ Game::Game(Rendering& rendering, GLFWwindow* window):
 	m_ECSManager->addComponent(playerEntity2, new CollisionComponent());
 	m_ECSManager->addComponent(playerEntity2, new HealthComponent());
 	m_ECSManager->addComponent(playerEntity2, new DamageComponent());
-	m_ECSManager->addComponent(playerEntity2, new GraphicsComponent(m_rendering.getNewQuad(), m_rendering.getQuadManager()));
+	m_ECSManager->addComponent(playerEntity2, new GraphicsComponent());
 }	
 
 Game::~Game() {
