@@ -8,6 +8,7 @@ public:
 	HealthComponent();
 	
 	int health;
-	float invisTime;
-	float invisTimer;
+	float invincibleTime;
+	float invincibleTimer;
+	int damageOnImpact;
 };

@@ -3,7 +3,8 @@
 
 HealthComponent::HealthComponent() : 
 	health(100),
-	invisTime(0.2f),
-	invisTimer(0.0f) {
+	invincibleTime(0.2f),
+	invincibleTimer(0.0f),
+	damageOnImpact(0) {
 	m_componentType = ComponentTypeEnum::HEALTH;
 }

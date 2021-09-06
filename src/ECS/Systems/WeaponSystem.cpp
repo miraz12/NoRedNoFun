@@ -29,20 +29,24 @@ void WeaponSystem::update(float dt)
 
             Entity &projectileEntity = m_manager->createEntity();
 			// Add componments to projectile
-            PositionComponent* tempPos = new PositionComponent(weapon->muzzlePosition.x, weapon->muzzlePosition.y);
-            tempPos->scale = glm::vec3(0.3f, 0.3f, 1.0f);
-			m_manager->addComponent(projectileEntity, tempPos);
-			MovementComponent* tempMove = new MovementComponent();
-            tempMove->maxSpeed = 40.0f;
-            tempMove->velocity = {weapon->aimDirection.x * weapon->speed, weapon->aimDirection.y * weapon->speed, 0.0f};
+            PositionComponent* projPos = new PositionComponent(weapon->muzzlePosition.x, weapon->muzzlePosition.y);
+            projPos->scale = glm::vec3(0.3f, 0.3f, 1.0f);
+			m_manager->addComponent(projectileEntity, projPos);
+			MovementComponent* projMove = new MovementComponent();
+            projMove->maxSpeed = 40.0f;
+            projMove->velocity = {weapon->aimDirection.x * weapon->speed, weapon->aimDirection.y * weapon->speed, 0.0f};
             if (entityMov) {
-                tempMove->velocity += entityMov->velocity;
+                projMove->velocity += entityMov->velocity;
             }
-			tempMove->drag = 0.0f;
-			m_manager->addComponent(projectileEntity, tempMove);
+			projMove->drag = 0.0f;
+			m_manager->addComponent(projectileEntity, projMove);
 			m_manager->addComponent(projectileEntity, new CollisionComponent());
 			m_manager->addComponent(projectileEntity, new GraphicsComponent());
             m_manager->addComponent(projectileEntity, new DamageComponent());
+            HealthComponent* projHealth = new HealthComponent();
+            projHealth->health = 1;
+            projHealth->damageOnImpact = 1; 
+            m_manager->addComponent(projectileEntity, projHealth);
 
             weapon->cooldown = weapon->fireRate;
         }

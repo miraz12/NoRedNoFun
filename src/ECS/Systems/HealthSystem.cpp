@@ -12,27 +12,31 @@ void HealthSystem::update(float dt) {
     for (auto& e : m_entities) {
         HealthComponent* healthComp = static_cast<HealthComponent*>(e->getComponent(ComponentTypeEnum::HEALTH));
         
-        healthComp->invisTimer -= dt;
+        healthComp->invincibleTimer -= dt;
         
-        if (healthComp->invisTimer <= 0.0f) {
+        if (healthComp->invincibleTimer <= 0.0f) {
             CollisionComponent* collisionComp = static_cast<CollisionComponent*>(e->getComponent(ComponentTypeEnum::COLLISION));
             if (collisionComp) {
                 //If hit by entity with damage component, reduce health in healthcomponent
                 for (auto& attackingE : collisionComp->currentCollisionEntities) {
-
                     if (attackingE->hasComponent(ComponentTypeEnum::DAMAGE)) {
                         DamageComponent* damageComp = static_cast<DamageComponent*>(attackingE->getComponent(ComponentTypeEnum::DAMAGE));
                         healthComp->health -= damageComp->damage;
-                        healthComp->invisTimer = healthComp->invisTime;
-
-                        //entity is dead if health is 0
-                        if (healthComp->health <= 0) {
-                            std::cout << "Entity: " << e->getID() << " is dead!" << std::endl;
-                            m_manager->removeEntity(e->getID());
-                        }
+                        healthComp->invincibleTimer = healthComp->invincibleTime;
                     }
                 }
+
+                if (collisionComp->currentCollisionEntities.size() > 0) { // Has collided with something
+                    healthComp->health -= healthComp->damageOnImpact;
+                    healthComp->invincibleTimer = healthComp->invincibleTime;
+                }
             }
+        }
+
+        //entity is dead if health is 0
+        if (healthComp->health <= 0) {
+            std::cout << "Entity: " << e->getID() << " is dead!" << std::endl;
+            m_manager->removeEntity(e->getID());
         }
     }
 }
