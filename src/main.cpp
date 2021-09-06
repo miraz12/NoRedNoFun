@@ -52,7 +52,7 @@ int main() {
 	float fpsUpdate = 1.0f;
 	float fpsUpdateTimer = 0.0f;
 
-    double minUpdateRate = 1.0f / 60.0f;
+    double minUpdateRate = 1.0f / 120.0f;
 	double updateTimer = 0.0f;
 	int updatesSinceRender = 0;
 

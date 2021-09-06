@@ -35,12 +35,14 @@ void WeaponSystem::update(float dt)
 			MovementComponent* projMove = new MovementComponent();
             projMove->maxSpeed = 40.0f;
             projMove->velocity = {weapon->aimDirection.x * weapon->speed, weapon->aimDirection.y * weapon->speed, 0.0f};
-            if (entityMov) {
+            if (entityMov) { // Add entity (holding weapon) velocity to projectile velocity
                 projMove->velocity += entityMov->velocity;
             }
 			projMove->drag = 0.0f;
 			m_manager->addComponent(projectileEntity, projMove);
-			m_manager->addComponent(projectileEntity, new CollisionComponent());
+            CollisionComponent* projCollision = new CollisionComponent();
+            projCollision->effectMovement = false;
+			m_manager->addComponent(projectileEntity, projCollision);
 			m_manager->addComponent(projectileEntity, new GraphicsComponent());
             m_manager->addComponent(projectileEntity, new DamageComponent());
             HealthComponent* projHealth = new HealthComponent();
