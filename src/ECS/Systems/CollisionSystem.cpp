@@ -98,6 +98,7 @@ void CollisionSystem::collideWithMap(Entity *e) {
 						// Update shape
 						c->shape.setTransformMatrix(p->calculateMatrix());
 					}
+					c->currentCollisionEntities.emplace_back(nullptr);
 				}
 			}
 		}

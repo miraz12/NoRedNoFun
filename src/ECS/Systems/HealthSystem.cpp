@@ -19,7 +19,7 @@ void HealthSystem::update(float dt) {
             if (collisionComp) {
                 //If hit by entity with damage component, reduce health in healthcomponent
                 for (auto& attackingE : collisionComp->currentCollisionEntities) {
-                    if (attackingE->hasComponent(ComponentTypeEnum::DAMAGE)) {
+                    if (attackingE && attackingE->hasComponent(ComponentTypeEnum::DAMAGE)) {
                         DamageComponent* damageComp = static_cast<DamageComponent*>(attackingE->getComponent(ComponentTypeEnum::DAMAGE));
                         healthComp->health -= damageComp->damage;
                         healthComp->invincibleTimer = healthComp->invincibleTime;
