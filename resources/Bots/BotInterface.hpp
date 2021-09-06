@@ -15,7 +15,7 @@
 class BotInterface {
 public:
 	virtual void print() = 0;
-	virtual void update() = 0;
+	virtual void update(float dt) = 0;
 	virtual void output(void (*f)(unsigned int key)) = 0;
 };
 

@@ -6,7 +6,7 @@ class ExampleBot : public BotInterface {
     ExampleBot() = default;
     ~ExampleBot() = default;
 
-    void update() override;
+    void update(float dt) override;
     void print() override; 
     
 	void output(void (*f)(unsigned int key)) override {outPutFunc = f;};

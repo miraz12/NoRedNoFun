@@ -77,5 +77,5 @@ Game::~Game() {
 
 void Game::update(float dt) {
 	m_ECSManager->update(dt);
-	m_botInterface->update();
+	m_botInterface->update(dt);
 }
