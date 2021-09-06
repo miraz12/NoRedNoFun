@@ -8,7 +8,8 @@ ECSManager::ECSManager()
 		{"MOVEMENT", std::make_shared<MovementSystem>(MovementSystem(this))},
 		{"COLLISION", std::make_shared<CollisionSystem>(CollisionSystem(this))},
 		{"HEALTH", std::make_shared<HealthSystem>(HealthSystem(this))},
-		{"GRAPHICS", std::make_shared<GraphicsSystem>(GraphicsSystem(this))}},
+		{"GRAPHICS", std::make_shared<GraphicsSystem>(GraphicsSystem(this))},
+		{"WEAPON", std::make_shared<WeaponSystem>(WeaponSystem(this))}},
 		m_addEntities(), m_addComponents(), m_removeEntities(), m_removeComponents()
 {
 }
@@ -26,6 +27,7 @@ void ECSManager::update(float dt)
 	m_systems["COLLISION"]->update(dt);
 	m_systems["HEALTH"]->update(dt);
 	m_systems["GRAPHICS"]->update(dt);
+	m_systems["WEAPON"]->update(dt);
 
 	//for all entities, remove/add components
 	//remove/add entities from systems

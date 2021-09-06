@@ -8,5 +8,6 @@ public:
 	HealthComponent();
 	
 	int health;
-private:
+	float invisTime;
+	float invisTimer;
 };
