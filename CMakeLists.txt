@@ -24,15 +24,9 @@ add_subdirectory(Bot_dev)
 
 # Creaty executable
 add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCE_FILES})
-target_compile_options(${PROJECT_NAME} PUBLIC 
-	$<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:GNU>>:-Wall;-Wextra>
-	$<$<CXX_COMPILER_ID:MSVC>:/W4>)
 
 # Link libraries
 target_link_libraries(${PROJECT_NAME} exts myBot)
-target_compile_options(${PROJECT_NAME} PUBLIC 
-	$<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:GNU>>:>
-	$<$<CXX_COMPILER_ID:MSVC>:>)
 
 # Make executale dependant on libs
 add_dependencies(${PROJECT_NAME} exts)

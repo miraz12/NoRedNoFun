@@ -1,5 +1,9 @@
 #pragma once
 #include "Component.h"
+
+#ifdef __WIN32
+#include <windows.h>
+#endif
 #include <GLFW/glfw3.h>
 
 class InputComponent: public Component
