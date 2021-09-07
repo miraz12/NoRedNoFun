@@ -5,7 +5,7 @@ float timer = 0.0f;
 void ExampleBot::update(float dt) {
     outPutFunc(currKey);
 	timer += dt;
-	if (timer > 1) {
+	if (timer > 1.0f) {
 		if(currKey != 3) {
 			currKey++;
 		} else {

@@ -2,7 +2,9 @@
 
 
 InputComponent::InputComponent(GLFWwindow* window)
-	: keys(), m_window(window){
+	: keys(), mouseX(0.0), mouseY(0.0), m_window(window){
+
+	glfwGetWindowSize(m_window, &winWidth, &winHeight);
 	m_componentType = ComponentTypeEnum::INPUT;
 }
 
@@ -37,5 +39,7 @@ void InputComponent::calculateInput() {
 		keys[GLFW_KEY_A] = glfwGetKey(m_window, GLFW_KEY_A);
 		keys[GLFW_KEY_D] = glfwGetKey(m_window, GLFW_KEY_D);
 		keys[GLFW_KEY_SPACE] = glfwGetKey(m_window, GLFW_KEY_SPACE);
+		glfwGetCursorPos(m_window, &mouseX, &mouseY);
+		glfwGetWindowSize(m_window, &winWidth, &winHeight);
 	}
 }

@@ -4,6 +4,9 @@
 #include "../ECSManager.h"
 
 #include "../Components/WeaponComponent.h"
+#include "../Components/PositionComponent.h"
+
+#include "../../Engine/Rendering.hpp"
 
 InputSystem::InputSystem(ECSManager *ECSManager) 
 	: System(ECSManager, ComponentTypeEnum::INPUT, ComponentTypeEnum::MOVEMENT){
@@ -45,5 +48,13 @@ void InputSystem::update(float /*dt*/){
 		}
 		movement->accelerationDirection.x = direction.x;
 		movement->accelerationDirection.y = direction.y;
+
+		PositionComponent* p = static_cast<PositionComponent*>(e->getComponent(ComponentTypeEnum::POSITION));
+		if (p) {
+			p->rotation = ::atan2f((float) input->mouseX - input->winWidth * p->position.x / (float) Rendering::getInstance().getMapLoader()->getWidth() 
+				, (float) input->mouseY - input->winHeight + input->winHeight * p->position.y / (float) Rendering::getInstance().getMapLoader()->getHeight());
+			// std::cout << "mouseX: " << input->mouseX << "\n" << "mouseY: " << input->mouseY << "\n";
+			// std::cout << "rot: " << p->rotation << "\n";
+		}
 	}
 }
