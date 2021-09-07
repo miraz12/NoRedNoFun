@@ -29,6 +29,9 @@ target_link_libraries(${PROJECT_NAME} exts myBot)
 
 # Make executale dependant on libs
 add_dependencies(${PROJECT_NAME} exts)
+if(UNIX)
+add_dependencies(${PROJECT_NAME} stdc++fs)
+endif(UNIX)
 
 # Copy resource folder to binary folder
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
