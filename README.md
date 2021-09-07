@@ -1,13 +1,9 @@
 # NoRedNoFun
 
 ## Build instructions:
-git submodule init<br/>
-git submodule update<br/>
+git submodule update --init<br/>
 <br/>
-make a folder where you wan't build files to end up, for example "build"<br/>
-cd build<br/>
-cmake ../ (This needs to be done every time a file is created/renamed/moved) <br/>
+mkdir build && cd build<br/>
+cmake .. (This needs to be done every time a file is created/renamed/moved) <br/>
 cmake --build .<br/>
 
-## Notes:
-If the shaders does not compile (error outputs to console during runtime) go into SimpleShaderProgram and change the paths to match your setup.
