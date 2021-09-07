@@ -33,7 +33,7 @@ void BotLoader::loadDLL(std::string botName) {
 #ifdef _WIN32
 	newBot->m_handle = LoadLibrary(("resources/Bots/" + botName).c_str());
 #elif __linux__
-	m_handle = dlopen(("resources/Bots/lib" + m_botName + ".so").c_str(), RTLD_LAZY);
+	newBot->m_handle = dlopen(("resources/Bots/lib" + m_botName + ".so").c_str(), RTLD_LAZY);
 #endif
 	if (newBot->m_handle != NULL) {
 		// Function pointers
