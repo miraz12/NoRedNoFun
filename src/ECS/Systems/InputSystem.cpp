@@ -51,10 +51,9 @@ void InputSystem::update(float /*dt*/){
 
 		PositionComponent* p = static_cast<PositionComponent*>(e->getComponent(ComponentTypeEnum::POSITION));
 		if (p) {
-			p->rotation = ::atan2f((float) input->mouseX - input->winWidth * p->position.x / (float) Rendering::getInstance().getMapLoader()->getWidth() 
-				, (float) input->mouseY - input->winHeight + input->winHeight * p->position.y / (float) Rendering::getInstance().getMapLoader()->getHeight());
-			// std::cout << "mouseX: " << input->mouseX << "\n" << "mouseY: " << input->mouseY << "\n";
-			// std::cout << "rot: " << p->rotation << "\n";
+			glm::vec2 temp = glm::inverse(Rendering::getInstance().getCamera()->getViewMatrix()) * 
+				glm::vec4((input->mouseX / input->winWidth) * 2.0f - 1.0f, ((input->winHeight - input->mouseY) / input->winHeight) * 2.0f - 1.0f, 0.0f, 1.0f);
+			p->rotation = ::atan2f(temp.x - p->position.x , p->position.y - temp.y);
 		}
 	}
 }
