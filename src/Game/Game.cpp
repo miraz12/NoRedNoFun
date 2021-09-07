@@ -5,17 +5,7 @@
 
 #include <algorithm>
 
-#include "../ECS/Entity.h"
-
-#include "../ECS/Components/PositionComponent.h"
-#include "../ECS/Components/MovementComponent.h"
-#include "../ECS/Components/InputComponent.h"
-#include "../ECS/Components/CollisionComponent.h"
-#include "../ECS/Components/HealthComponent.h"
-#include "../ECS/Components/DamageComponent.h"
-#include "../ECS/Components/GraphicsComponent.h"
-#include "../ECS/Components/WeaponComponent.h"
-
+#include "../Engine/ECS/Entity.hpp"
 #include "../Engine/MapLoader/MapLoader.hpp"
 
 void botMove(unsigned int key, BotInterface* bot)

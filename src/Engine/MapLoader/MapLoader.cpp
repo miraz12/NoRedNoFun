@@ -25,7 +25,7 @@ void MapLoader::draw() {
 }
 
 bool MapLoader::allowMovement(int x, int y) {
-    if (x < 0 || x >= m_width || y < 0 || y >= m_height) {
+    if (x < 0 || static_cast<unsigned int>(x) >= m_width || y < 0 || static_cast<unsigned int>(y) >= m_height) {
         return false;
     }
 
