@@ -16,13 +16,15 @@ class BotInterface {
 public:
 	virtual void print() = 0;
 	virtual void update(float dt) = 0;
-	virtual void output(void (*f)(unsigned int key)) = 0;
+	virtual void output(void (*f)(unsigned int key, BotInterface* bot)) = 0;
+
+	unsigned int m_id = 0;
 };
 
 // ----DLL functions----
 #ifdef _WIN32
-extern "C" BOT_API BotInterface * newInterface();
+extern "C" BOT_API BotInterface * newInterface(unsigned int id);
 #elif __linux__
-extern "C" BotInterface * newInterface();
+extern "C" BotInterface * newInterface(unsigned int id);
 #endif
 // ---------------------

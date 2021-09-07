@@ -4,9 +4,8 @@ cmake_minimum_required(VERSION 3.10)
 project(NoRedNoFun)
 
 # Generate compile_commands.json for LSP
-if (UNIX)
-	set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-endif(UNIX)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 # Add source files
 file(GLOB_RECURSE SOURCE_FILES 
 	${CMAKE_SOURCE_DIR}/src/*.c
@@ -24,7 +23,7 @@ add_subdirectory(Bot_dev)
 
 # Creaty executable
 add_executable(${PROJECT_NAME} ${HEADER_FILES} ${SOURCE_FILES})
-
+set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON CMAKE_CXX_EXTENSIONS OFF)
 # Link libraries
 target_link_libraries(${PROJECT_NAME} exts myBot)
 

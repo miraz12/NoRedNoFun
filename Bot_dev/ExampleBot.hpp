@@ -4,24 +4,25 @@
 class ExampleBot : public BotInterface {
     public:
     ExampleBot() = default;
+    ExampleBot(unsigned int id) { m_id = id; };
     ~ExampleBot() = default;
 
     void update(float dt) override;
     void print() override; 
     
-	void output(void (*f)(unsigned int key)) override {outPutFunc = f;};
+	void output(void (*f)(unsigned int key, BotInterface* bot)) override {outPutFunc = f;};
     
 private:
-	void (*outPutFunc)(unsigned int);
+	void (*outPutFunc)(unsigned int, BotInterface*);
 };
 
 #ifdef _WIN32
-BOT_API BotInterface* newInterface() {
-	return new ExampleBot(); //Client needs to delete this
+BOT_API BotInterface* newInterface(unsigned int id) {
+	return new ExampleBot(id); //Client needs to delete this
 }
 #elif __linux__
-BotInterface* newInterface() {
-	return new ExampleBot(); //Client needs to delete this
+BotInterface* newInterface(unsigned int id) {
+	return new ExampleBot(id); //Client needs to delete this
 }
 #endif
 
