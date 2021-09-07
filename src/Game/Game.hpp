@@ -1,7 +1,5 @@
 #pragma once
 
-#include <GLFW/glfw3.h>
-
 #include "../Engine/Objects/Quad.hpp"
 #include "Bots/BotLoader.h"
 #include "../ECS/ECSManager.h"
