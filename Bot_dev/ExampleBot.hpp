@@ -10,7 +10,7 @@ class ExampleBot : public BotInterface {
     void update(float dt) override;
     void print() override; 
     
-	void output(void (*f)(unsigned int key, BotInterface* bot)) override {outPutFunc = f;};
+	void actionOutput(void (*f)(unsigned int key, BotInterface* bot)) override {outPutFunc = f;};
     
 private:
 	void (*outPutFunc)(unsigned int, BotInterface*);

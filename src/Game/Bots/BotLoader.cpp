@@ -1,10 +1,11 @@
 #include "BotLoader.h"
-
+#include "../../ECS/ECSManager.h"
+#include "BotActions.hpp"
 #include <iostream>
 #include <filesystem>
 namespace fs = std::filesystem;
 
-BotLoader::BotLoader() {
+BotLoader::BotLoader(GLFWwindow* window) : win(window) {
 	std::string botPath = "resources/Bots";
 	for(const auto & entry : fs::directory_iterator(botPath)) {
 		std::string fileName{entry.path().filename().string()};
@@ -49,7 +50,9 @@ void BotLoader::loadDLL(std::string botName) {
 			std::cout << "Failed to load function \"newInterface\" from bot \"" << newBot->m_botName.c_str() << "\".\n";
 			newBot->m_loaded = false;
 		}
-		newBot->bot = newInterface(m_bots.size());
+		ECSManager::getInstance().createBotEntity(newBot, win);
+		newBot->bot = newInterface(newBot->m_id);
+		setupBotActions(newBot);
 
 	}
 	else {
@@ -78,4 +81,9 @@ void BotLoader::reloadDLL() {
 
 bool BotLoader::isLoaded() const {
 	return true; // TODO ???
+}
+
+void BotLoader::setupBotActions(botInstance* botIns) {
+	botIns->bot->print();
+	botIns->bot->actionOutput(BotActions::botMove);
 }

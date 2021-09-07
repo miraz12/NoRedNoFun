@@ -6,11 +6,13 @@
 #include "Systems/HealthSystem.h"
 #include "Systems/GraphicsSystem.h"
 #include "Systems/WeaponSystem.h"
+#include "../Game/Bots/BotLoader.h"
 
 #include <map>
 #include <string>
 #include <memory>
 #include <iostream>
+#include <GLFW/glfw3.h>
 
 class ECSManager
 {
@@ -42,6 +44,12 @@ public:
 
 	//Removes  componenet from entity and then the entity from all concerned systems
 	void removeComponent(Entity& entity, ComponentTypeEnum component);
+
+	// Add and setup a new bot
+	void createBotEntity(BotLoader::botInstance* bot, GLFWwindow* window);
+
+	// Create a controllable entity at position x,y
+	void createPlayerEntity(float x, float y, GLFWwindow* window);
 
 	//Returns entity by ID, or NULL if it does not exist
 	static Entity* getEntity(int entityID);

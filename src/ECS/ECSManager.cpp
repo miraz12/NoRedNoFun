@@ -1,4 +1,13 @@
 #include "ECSManager.h"
+#include "Components/PositionComponent.h"
+#include "Components/MovementComponent.h"
+#include "Components/InputComponent.h"
+#include "Components/CollisionComponent.h"
+#include "Components/HealthComponent.h"
+#include "Components/DamageComponent.h"
+#include "Components/GraphicsComponent.h"
+#include "Components/WeaponComponent.h"
+
 
 std::vector<Entity*> ECSManager::m_entities;
 
@@ -139,4 +148,35 @@ void ECSManager::removeComponents()
 		}
 	}
 	m_removeComponents.clear();
+}
+
+
+void ECSManager::createBotEntity(BotLoader::botInstance* bot, GLFWwindow* window) {
+
+	Entity &botEntity = createEntity();
+	bot->m_id = botEntity.getID();
+
+	// Add componments to player
+	addComponent(botEntity, new PositionComponent());
+	addComponent(botEntity, new MovementComponent());
+	addComponent(botEntity, new CollisionComponent());
+	addComponent(botEntity, new InputComponent(window));
+	addComponent(botEntity, new HealthComponent());
+	addComponent(botEntity, new GraphicsComponent());
+}
+
+
+void ECSManager::createPlayerEntity(float x, float y, GLFWwindow* window) {
+
+	Entity& playerEntity2 = createEntity();
+	// Add components to player
+	addComponent(playerEntity2, new PositionComponent(x, y));
+	addComponent(playerEntity2, new MovementComponent());
+	addComponent(playerEntity2, new InputComponent(window));
+	addComponent(playerEntity2, new CollisionComponent());
+	addComponent(playerEntity2, new HealthComponent());
+	addComponent(playerEntity2, new DamageComponent());
+	addComponent(playerEntity2, new GraphicsComponent());
+	addComponent(playerEntity2, new WeaponComponent());
+
 }

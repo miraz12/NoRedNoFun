@@ -4,7 +4,7 @@
 #elif __linux__
 #include <dlfcn.h>
 #endif
-#include <glm/glm.hpp>
+#include <GLFW/glfw3.h>
 #include <vector>
 
 #include "../../../resources/Bots/BotInterface.hpp"
@@ -20,12 +20,14 @@ public:
 
 struct botInstance {
 	BotInterface* bot;
+	unsigned int m_id;
 	void* m_handle;
 	bool m_loaded{false};
 	std::string m_botName;
 	};
 
-	BotLoader();
+	BotLoader() = delete;
+	BotLoader(GLFWwindow* window);
 	virtual ~BotLoader();
 
 	// ----DLL functions----
@@ -40,4 +42,8 @@ struct botInstance {
 	void loadDLL(std::string botName);
 	void unloadDLL();
 	void reloadDLL();
+private:
+	GLFWwindow* win;
+	void setupBotActions(botInstance* botIns);
+
 };

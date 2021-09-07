@@ -27,7 +27,7 @@ void botMove(unsigned int key, BotInterface* bot)
 }
 
 Game::Game(GLFWwindow* window):
-	m_botLoader(),
+	m_botLoader(window),
 	m_ECSManager(&ECSManager::getInstance())
 {
 	Rendering::getInstance().getMapLoader()->getModelMatrix() = glm::translate(glm::mat4(1.0f),
@@ -43,31 +43,8 @@ Game::Game(GLFWwindow* window):
 	Rendering::getInstance().getCamera()->setPosition(0.5f * (float)Rendering::getInstance().getMapLoader()->getWidth(), 
 		0.5f * (float)Rendering::getInstance().getMapLoader()->getHeight());
 	
-	for(BotLoader::botInstance* b : m_botLoader.m_bots) { // TODO Mayby do this in bot loader?
-		b->bot->print();
-		b->bot->output(botMove);
-		Entity &botEntity = m_ECSManager->createEntity();
-		// Add componments to player
-		m_ECSManager->addComponent(botEntity, new PositionComponent());
-		m_ECSManager->addComponent(botEntity, new MovementComponent());
-		m_ECSManager->addComponent(botEntity, new CollisionComponent());
-		m_ECSManager->addComponent(botEntity, new InputComponent(window));
-		m_ECSManager->addComponent(botEntity, new HealthComponent());
-		m_ECSManager->addComponent(botEntity, new GraphicsComponent());
-	}
-
-	// Test player 2 to make sure multiple quads work
-	Entity& playerEntity2 = m_ECSManager->createEntity();
-	// Add components to player 2
-	m_ECSManager->addComponent(playerEntity2, new PositionComponent(7.0f, 4.0f));
-	m_ECSManager->addComponent(playerEntity2, new MovementComponent());
-	m_ECSManager->addComponent(playerEntity2, new InputComponent(window));
-	m_ECSManager->addComponent(playerEntity2, new CollisionComponent());
-	m_ECSManager->addComponent(playerEntity2, new HealthComponent());
-	m_ECSManager->addComponent(playerEntity2, new DamageComponent());
-	m_ECSManager->addComponent(playerEntity2, new GraphicsComponent());
-	m_ECSManager->addComponent(playerEntity2, new WeaponComponent());
-}	
+	m_ECSManager->createPlayerEntity(7.f, 4.f, window);
+	}	
 
 void Game::update(float dt) {
 	m_ECSManager->update(dt);
