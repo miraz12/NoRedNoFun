@@ -5,6 +5,7 @@
 #include "Systems/CollisionSystem.h"
 #include "Systems/HealthSystem.h"
 #include "Systems/GraphicsSystem.h"
+#include "Systems/WeaponSystem.h"
 
 #include <map>
 #include <string>

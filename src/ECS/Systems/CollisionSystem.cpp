@@ -43,13 +43,15 @@ void CollisionSystem::update(float /*dt*/) {
 			glm::vec2 intersectionPoint(0.0f);
 
 			if (SAT::getIntersection(c->shape, c2->shape, tempIntersectionAxis, tempIntersectionDepth, intersectionPoint)) {
-				if (glm::length2(tempIntersectionAxis) > 0.0001f) {
-					p->position += glm::vec3(tempIntersectionAxis, 0.0f)  * tempIntersectionDepth;
-					glm::vec3 normalizedIntersectionAxis = {glm::normalize(tempIntersectionAxis), 0.0f};
-					m->velocity -= normalizedIntersectionAxis * glm::dot(normalizedIntersectionAxis, m->velocity);
+				if (c2->effectMovement) {
+					if (glm::length2(tempIntersectionAxis) > 0.0001f) {
+						p->position += glm::vec3(tempIntersectionAxis, 0.0f)  * tempIntersectionDepth;
+						glm::vec3 normalizedIntersectionAxis = {glm::normalize(tempIntersectionAxis), 0.0f};
+						m->velocity -= normalizedIntersectionAxis * glm::dot(normalizedIntersectionAxis, m->velocity);
 
-					// Update shape
-					c->shape.setTransformMatrix(p->calculateMatrix());
+						// Update shape
+						c->shape.setTransformMatrix(p->calculateMatrix());
+					}
 				}
 				c->currentCollisionEntities.emplace_back(e2); // Save collision
 			}
@@ -98,6 +100,7 @@ void CollisionSystem::collideWithMap(Entity *e) {
 						// Update shape
 						c->shape.setTransformMatrix(p->calculateMatrix());
 					}
+					c->currentCollisionEntities.emplace_back(nullptr);
 				}
 			}
 		}

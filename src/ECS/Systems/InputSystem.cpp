@@ -3,12 +3,7 @@
 #include "../Components/MovementComponent.h"
 #include "../ECSManager.h"
 
-#include "../Components/PositionComponent.h"
-#include "../Components/DamageComponent.h"
-#include "../Components/HealthComponent.h"
-#include "../Components/CollisionComponent.h"
-#include "../Components/GraphicsComponent.h"
-
+#include "../Components/WeaponComponent.h"
 
 InputSystem::InputSystem(ECSManager *ECSManager) 
 	: System(ECSManager, ComponentTypeEnum::INPUT, ComponentTypeEnum::MOVEMENT){
@@ -43,15 +38,10 @@ void InputSystem::update(float /*dt*/){
 		}
 		if (input->keys[GLFW_KEY_SPACE] == GLFW_PRESS) {
 			// m_manager->removeComponent(*e, ComponentTypeEnum::COLLISION);
-			Entity &projectileEntity = m_manager->createEntity();
-			// Add componments to player
-			m_manager->addComponent(projectileEntity, new PositionComponent(15.0f, 15.0f));
-			MovementComponent* tempMove = new MovementComponent(0.0f, -2.0f);
-			tempMove->drag = 0.0f;
-			m_manager->addComponent(projectileEntity, tempMove);
-			// m_manager->addComponent(projectileEntity, new CollisionComponent());
-			m_manager->addComponent(projectileEntity, new HealthComponent());
-			m_manager->addComponent(projectileEntity, new GraphicsComponent());
+			WeaponComponent* weaponComp = static_cast<WeaponComponent*>(e->getComponent(ComponentTypeEnum::WEAPON));
+			if (weaponComp) {
+				weaponComp->fire = true;
+			}
 		}
 		movement->accelerationDirection.x = direction.x;
 		movement->accelerationDirection.y = direction.y;

@@ -1,6 +1,7 @@
 #include "CollisionComponent.h"
 
-CollisionComponent::CollisionComponent() {
+CollisionComponent::CollisionComponent() :
+	effectMovement(true) {
 	shape.addNormal(glm::vec2(1.0f, 0.0f));
 	shape.addNormal(glm::vec2(0.0f, 1.0f));
 

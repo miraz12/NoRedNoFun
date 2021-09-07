@@ -14,6 +14,7 @@
 #include "../ECS/Components/HealthComponent.h"
 #include "../ECS/Components/DamageComponent.h"
 #include "../ECS/Components/GraphicsComponent.h"
+#include "../ECS/Components/WeaponComponent.h"
 
 #include "../Engine/MapLoader/MapLoader.hpp"
 
@@ -59,13 +60,14 @@ Game::Game(GLFWwindow* window):
 	// Test player 2 to make sure multiple quads work
 	Entity& playerEntity2 = m_ECSManager->createEntity();
 	// Add components to player 2
-	m_ECSManager->addComponent(playerEntity2, new PositionComponent(4.0f, 2.0f));
+	m_ECSManager->addComponent(playerEntity2, new PositionComponent(7.0f, 4.0f));
 	m_ECSManager->addComponent(playerEntity2, new MovementComponent());
 	m_ECSManager->addComponent(playerEntity2, new InputComponent(window));
 	m_ECSManager->addComponent(playerEntity2, new CollisionComponent());
 	m_ECSManager->addComponent(playerEntity2, new HealthComponent());
 	m_ECSManager->addComponent(playerEntity2, new DamageComponent());
 	m_ECSManager->addComponent(playerEntity2, new GraphicsComponent());
+	m_ECSManager->addComponent(playerEntity2, new WeaponComponent());
 }	
 
 Game::~Game() {
@@ -75,5 +77,5 @@ Game::~Game() {
 
 void Game::update(float dt) {
 	m_ECSManager->update(dt);
-	m_botInterface->update();
+	m_botInterface->update(dt);
 }

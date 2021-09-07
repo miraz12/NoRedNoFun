@@ -1,17 +1,17 @@
 #include "ExampleBot.hpp"
 
 unsigned int currKey = 3; // Example logic remove
-unsigned int iter = 0;
-void ExampleBot::update() {
+float timer = 0.0f;
+void ExampleBot::update(float dt) {
     outPutFunc(currKey);
-	iter++;
-	if (iter > 30) {
+	timer += dt;
+	if (timer > 1) {
 		if(currKey != 3) {
 			currKey++;
 		} else {
 			currKey = 0;
 		}
-		iter = 0;
+		timer = 0.0f;
 	}
 }
 void ExampleBot::print() {
