@@ -129,7 +129,7 @@ void ECSManager::removeEntities()
 		}
 
 		//delete in manager
-		for (int j = 0; j < m_entities.size(); j++) {
+		for (unsigned int j = 0; j < m_entities.size(); j++) {
 			if (m_entities[j]->getID() == i) {
 				delete m_entities[j];
 				m_entities.erase(m_entities.begin() + j);

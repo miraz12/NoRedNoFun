@@ -31,7 +31,8 @@ void InputComponent::updateInput(unsigned int key) {
 	default:
 		break;
 	}
-};
+}
+
 void InputComponent::calculateInput() {
 	if(!manualInput) {
 		keys[GLFW_KEY_W] = glfwGetKey(m_window, GLFW_KEY_W);

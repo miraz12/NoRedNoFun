@@ -13,7 +13,7 @@
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
-void errorCallback(int /*error*/, const char* description) { printf("Error: %s\n", description); };
+void errorCallback(int /*error*/, const char* description) { printf("Error: %s\n", description); }
 
 GLFWwindow* window;
 

@@ -6,7 +6,7 @@ Entity::Entity(int ID)
 
 //Dont know if this is the correct way to free components
 Entity::~Entity() {
-    for (int i = 0; i < m_components.size(); i++) {
+    for (unsigned int i = 0; i < m_components.size(); i++) {
         delete m_components[i];
     }
     m_components.clear();
@@ -36,7 +36,7 @@ bool Entity::hasComponent(ComponentTypeEnum type){
 
 void Entity::removeComponent(ComponentTypeEnum removeComponent)
 {
-    for (int i = 0; i < m_components.size(); i++) {
+    for (unsigned int i = 0; i < m_components.size(); i++) {
         if (m_components[i]->getComponentType() == removeComponent) {
             delete m_components[i];
             m_components.erase(m_components.begin() + i);

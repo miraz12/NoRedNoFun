@@ -15,7 +15,7 @@
 	bool System::entityHasCorrectComponents(Entity* entity) {
 
 		//assumes entities has at most one of each type of component
-		for (int i = 0; i < m_requiredComponents.size(); ++i) {
+		for (unsigned int i = 0; i < m_requiredComponents.size(); ++i) {
 
 			if (!entity->hasComponent(m_requiredComponents[i])) {
 				return false; //Component does not exist!

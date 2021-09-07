@@ -56,5 +56,5 @@ unsigned int InstancedShaderProgram::getUniformLocation(std::string uniformName)
 		return m_uniformBindings[uniformName];
 	}
 
-	return NULL;
+	return static_cast<unsigned int>(NULL);
 }

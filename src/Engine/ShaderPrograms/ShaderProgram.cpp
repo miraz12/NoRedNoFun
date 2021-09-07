@@ -8,11 +8,11 @@
 
 ShaderProgram::ShaderProgram(std::string vertexShaderPath, std::string fragmentShaderPath) {
     loadShaders(vertexShaderPath, fragmentShaderPath);
-};
+}
 
 ShaderProgram::~ShaderProgram() {
     glDeleteProgram(p_shaderProgram);
-};
+}
 
 void ShaderProgram::loadShaders(std::string vertexShaderPath, std::string fragmentShaderPath) {
     // vertex shader
