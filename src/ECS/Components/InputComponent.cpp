@@ -2,7 +2,7 @@
 
 
 InputComponent::InputComponent(GLFWwindow* window)
-	: keys(), mouseX(0.0), mouseY(0.0), m_window(window){
+	: keys(), mouseX(150.0), mouseY(650.0), m_window(window){
 
 	glfwGetWindowSize(m_window, &winWidth, &winHeight);
 	m_componentType = ComponentTypeEnum::INPUT;
