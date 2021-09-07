@@ -20,7 +20,6 @@ void MovementSystem::update(float dt)
 		if (glm::length2(m->accelerationDirection) > 0.0001f) {
 			normalizedAccelerationDirection = glm::normalize(m->accelerationDirection);
 			accelerating = true;
-			p->rotation = ::atan2f(m->accelerationDirection.x, -m->accelerationDirection.y);
 		}
 
 		if (glm::length2(m->accelerationDirection) > 1.0f) {

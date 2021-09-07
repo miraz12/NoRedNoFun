@@ -15,6 +15,10 @@ Camera::~Camera() {
 
 }
 
+glm::mat4& Camera::getViewMatrix() {
+    return m_viewMatrix;
+}
+
 void Camera::setPosition(float positionX, float positionY) {
     m_position[0] = positionX;
     m_position[1] = positionY;

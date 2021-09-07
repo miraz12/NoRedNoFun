@@ -8,6 +8,8 @@ public:
     Camera();
     ~Camera();
 
+    glm::mat4& getViewMatrix();
+
     void setPosition(float positionX, float positionY); // Set position of camera (2D)
     void setZoom(float zoomAmount);
     void setRotation(float rotation); // Set rotation clockwise

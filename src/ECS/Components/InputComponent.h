@@ -10,6 +10,11 @@ class InputComponent: public Component
 {
 public:
 	int keys[1024];
+	double mouseX;
+	double mouseY;
+
+	int winWidth;
+	int winHeight;
 
 	InputComponent(GLFWwindow* window);
 
