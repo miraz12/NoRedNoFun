@@ -6,10 +6,11 @@
 namespace fs = std::filesystem;
 
 BotLoader::BotLoader(GLFWwindow* window) : win(window) {
+system("echo -n '1. Current Directory is '; pwd");
 	std::string botPath = "resources/Bots";
 	for(const auto & entry : fs::directory_iterator(botPath)) {
-		std::string fileName{entry.path().filename().string()};
 
+		std::string fileName{entry.path().filename().string()};
 #ifdef _WIN32
 		if(fileName.find(".dll") != std::string::npos) {
 #elif __linux__
@@ -31,10 +32,11 @@ void BotLoader::loadDLL(std::string botName) {
 	botInstance* newBot = new botInstance();
 	m_bots.push_back(newBot);
 
+	std::cout << "Loading bot: " << botName << std::endl;
 #ifdef _WIN32
 	newBot->m_handle = LoadLibrary(("resources/Bots/" + botName).c_str());
 #elif __linux__
-	newBot->m_handle = dlopen(("resources/Bots/lib" + botName).c_str(), RTLD_LAZY);
+	newBot->m_handle = dlopen(("resources/Bots/" + botName).c_str(), RTLD_LAZY);
 #endif
 	if (newBot->m_handle != NULL) {
 		// Function pointers
@@ -50,13 +52,15 @@ void BotLoader::loadDLL(std::string botName) {
 			std::cout << "Failed to load function \"newInterface\" from bot \"" << newBot->m_botName.c_str() << "\".\n";
 			newBot->m_loaded = false;
 		}
+
 		ECSManager::getInstance().createBotEntity(newBot, win);
+		
 		newBot->bot = newInterface(newBot->m_id);
 		setupBotActions(newBot);
 
 	}
 	else {
-		std::cout << "Failed to load bot \"" << newBot->m_botName.c_str() << "\".\n";
+		std::cout << "Failed to load bot \"" << "resources/Bots/" << botName << "\".\n";
 		newBot->m_loaded = false;
 	}
 }
