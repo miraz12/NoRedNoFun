@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../Engine/Objects/Quad.hpp"
-#include "../Engine/Bots/BotLoader.hpp"
-#include "../Engine/ECS/ECSManager.hpp"
+#include "Engine/Objects/Quad.hpp"
+#include "Engine/Bots/BotLoader.hpp"
+#include "Engine/ECS/ECSManager.hpp"
 
 class Game {
 public:

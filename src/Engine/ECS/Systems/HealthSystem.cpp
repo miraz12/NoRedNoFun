@@ -1,7 +1,7 @@
 #include "HealthSystem.hpp"
-#include "../ECSManager.hpp"
+#include "ECS/ECSManager.hpp"
 
-#include "../Components/CollisionComponent.hpp"
+#include "ECS/Components/CollisionComponent.hpp"
 
 HealthSystem::HealthSystem(ECSManager* ECSManager) : System(ECSManager, ComponentTypeEnum::HEALTH) {
 }

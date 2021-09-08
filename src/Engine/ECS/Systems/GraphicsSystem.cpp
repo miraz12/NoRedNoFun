@@ -1,8 +1,8 @@
 #include "GraphicsSystem.hpp"
-#include "../Components/PositionComponent.hpp"
-#include "../Components/GraphicsComponent.hpp"
+#include "ECS/Components/PositionComponent.hpp"
+#include "ECS/Components/GraphicsComponent.hpp"
 
-#include "../../Rendering.hpp"
+#include "Rendering.hpp"
 
 GraphicsSystem::GraphicsSystem(ECSManager * ECSManager) 
 	: System(ECSManager, ComponentTypeEnum::POSITION, ComponentTypeEnum::GRAPHICS){

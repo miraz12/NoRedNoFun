@@ -1,5 +1,5 @@
 #include "BotLoader.hpp"
-#include "../ECS/ECSManager.hpp"
+#include "ECS/ECSManager.hpp"
 #include "BotActions.hpp"
 #include <iostream>
 #include <filesystem>

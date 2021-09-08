@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 
 #include "GraphicsObject.hpp"
-#include "../ShaderPrograms/ShaderProgram.hpp"
+#include "ShaderPrograms/ShaderProgram.hpp"
 
 LowPolyLiquid::LowPolyLiquid(ShaderProgram& shaderProgram):
     GraphicsObject(shaderProgram),

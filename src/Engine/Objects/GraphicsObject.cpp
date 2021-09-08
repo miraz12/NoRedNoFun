@@ -1,6 +1,6 @@
 #include "GraphicsObject.hpp"
 
-#include "../ShaderPrograms/ShaderProgram.hpp"
+#include "ShaderPrograms/ShaderProgram.hpp"
 
 #include <glad/glad.h>
 

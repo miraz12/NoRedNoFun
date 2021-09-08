@@ -8,8 +8,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include "../Engine/Rendering.hpp"
-#include "../Game/Game.hpp"
+#include "Rendering.hpp"
+#include "Game/Game.hpp"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);

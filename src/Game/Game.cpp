@@ -1,12 +1,12 @@
 #define NOMINMAX
 #include "Game.hpp"
 
-#include "../Engine/Rendering.hpp"
+#include "Engine/Rendering.hpp"
 
 #include <algorithm>
 
-#include "../Engine/ECS/Entity.hpp"
-#include "../Engine/MapLoader/MapLoader.hpp"
+#include "Engine/ECS/Entity.hpp"
+#include "Engine/MapLoader/MapLoader.hpp"
 
 void botMove(unsigned int key, BotInterface* bot)
 {

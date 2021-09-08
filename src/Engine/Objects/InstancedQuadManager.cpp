@@ -3,7 +3,7 @@
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 
-#include "../ShaderPrograms/ShaderProgram.hpp"
+#include "ShaderPrograms/ShaderProgram.hpp"
 
 
 InstancedQuadManager::InstancedQuadManager(ShaderProgram &shaderProgram):

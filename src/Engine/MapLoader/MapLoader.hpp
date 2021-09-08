@@ -1,8 +1,8 @@
 #pragma once
-#include "../Objects/Quad.hpp"
-#include "../Textures/Texture.hpp"
-#include "../Objects/GraphicsObject.hpp"
-#include "../ShaderPrograms/SimpleShaderProgram.hpp"
+#include "Objects/Quad.hpp"
+#include "Textures/Texture.hpp"
+#include "Objects/GraphicsObject.hpp"
+#include "ShaderPrograms/SimpleShaderProgram.hpp"
 
 #include <glm/glm.hpp>
 

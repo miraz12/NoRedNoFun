@@ -1,4 +1,4 @@
-#include "../ECS/ECSManager.hpp"
+#include "ECS/ECSManager.hpp"
 namespace BotActions {
 
 void botMove(unsigned int key, BotInterface* bot)

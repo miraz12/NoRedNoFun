@@ -1,6 +1,6 @@
 #include "MovementSystem.hpp"
-#include "../Components/PositionComponent.hpp"
-#include "../Components/MovementComponent.hpp"
+#include "ECS/Components/PositionComponent.hpp"
+#include "ECS/Components/MovementComponent.hpp"
 
 MovementSystem::MovementSystem(ECSManager * ECSManager) 
 	: System(ECSManager, ComponentTypeEnum::POSITION, ComponentTypeEnum::MOVEMENT){

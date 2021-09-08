@@ -1,5 +1,5 @@
 #include "MovementComponent.hpp"
-#include "../../MapLoader/MapLoader.hpp"
+#include "MapLoader/MapLoader.hpp"
 
 MovementComponent::MovementComponent() :
 	accelerationDirection(0.0f),

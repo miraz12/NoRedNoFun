@@ -1,9 +1,9 @@
 #include "CollisionSystem.hpp"
-#include "../../Rendering.hpp"
-#include "../../Physics/SAT.hpp"
-#include "../Components/PositionComponent.hpp"
-#include "../Components/MovementComponent.hpp"
-#include "../Components/CollisionComponent.hpp"
+#include "Rendering.hpp"
+#include "Physics/SAT.hpp"
+#include "ECS/Components/PositionComponent.hpp"
+#include "ECS/Components/MovementComponent.hpp"
+#include "ECS/Components/CollisionComponent.hpp"
 
 
 

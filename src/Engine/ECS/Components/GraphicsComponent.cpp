@@ -1,7 +1,7 @@
 #include "GraphicsComponent.hpp"
-#include "../../Rendering.hpp"
+#include "Rendering.hpp"
 
-#include "../../Objects/InstancedQuadManager.hpp"
+#include "Objects/InstancedQuadManager.hpp"
 
 GraphicsComponent::GraphicsComponent() {
 	quad = Rendering::getInstance().getNewQuad();

@@ -1,12 +1,12 @@
 #include "InputSystem.hpp"
-#include "../Components/InputComponent.hpp"
-#include "../Components/MovementComponent.hpp"
-#include "../ECSManager.hpp"
+#include "ECS/Components/InputComponent.hpp"
+#include "ECS/Components/MovementComponent.hpp"
+#include "ECS/ECSManager.hpp"
 
-#include "../Components/WeaponComponent.hpp"
-#include "../Components/PositionComponent.hpp"
+#include "ECS/Components/WeaponComponent.hpp"
+#include "ECS/Components/PositionComponent.hpp"
 
-#include "../../Rendering.hpp"
+#include "Rendering.hpp"
 
 InputSystem::InputSystem(ECSManager *ECSManager) 
 	: System(ECSManager, ComponentTypeEnum::INPUT, ComponentTypeEnum::MOVEMENT){

@@ -1,11 +1,11 @@
 #include "WeaponSystem.hpp"
-#include "../Components/PositionComponent.hpp"
-#include "../Components/WeaponComponent.hpp"
-#include "../Components/GraphicsComponent.hpp"
-#include "../Components/CollisionComponent.hpp"
-#include "../Components/DamageComponent.hpp"
+#include "ECS/Components/PositionComponent.hpp"
+#include "ECS/Components/WeaponComponent.hpp"
+#include "ECS/Components/GraphicsComponent.hpp"
+#include "ECS/Components/CollisionComponent.hpp"
+#include "ECS/Components/DamageComponent.hpp"
 
-#include "../ECSManager.hpp"
+#include "ECS/ECSManager.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtx/rotate_vector.hpp>

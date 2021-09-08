@@ -21,7 +21,7 @@ add_subdirectory(Bot_dev)
 
 # Add source files as libraries
 add_library(Engine ${ENGINE_FILES})
-target_include_directories(Engine SYSTEM PUBLIC ${CMAKE_SOURCE_DIR}/src/Engine/)
+target_include_directories(Engine SYSTEM PUBLIC ${CMAKE_SOURCE_DIR}/src/Engine ${CMAKE_SOURCE_DIR}/src/)
 target_link_libraries(Engine PUBLIC exts)
 target_compile_options(Engine PRIVATE 
 						$<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>:
@@ -33,7 +33,7 @@ target_compile_definitions(Engine PUBLIC GLM_FORCE_SILENT_WARNINGS=1)
 
 # Add source files as libraries
 add_library(Game ${GAME_FILES})
-target_include_directories(Game SYSTEM PUBLIC ${CMAKE_SOURCE_DIR}/src/Game/)
+target_include_directories(Game SYSTEM PUBLIC ${CMAKE_SOURCE_DIR}/src/Game ${CMAKE_SOURCE_DIR}/src/)
 target_link_libraries(Game PUBLIC exts)
 target_compile_options(Game PRIVATE 
 						$<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>:
