@@ -1,10 +1,14 @@
 #include "ECS/ECSManager.hpp"
 #include "ECS/Components/WeaponComponent.hpp"
+#include "ECS/Components/PositionComponent.hpp"
+#include "Rendering.hpp"
+#include "Window.hpp"
+
 namespace BotActions {
 
 void botMove(unsigned int key, BotInterface* bot)
 {
-	Entity *e = ECSManager::getEntity(bot->m_id);
+	Entity* e = ECSManager::getEntity(bot->m_id);
 	if (e) {
 		MovementComponent* movement = static_cast<MovementComponent*>(e->getComponent(ComponentTypeEnum::MOVEMENT));
 		//movementInput
@@ -32,7 +36,7 @@ void botMove(unsigned int key, BotInterface* bot)
 }
 
 void botFire(BotInterface* bot) {
-	Entity *e = ECSManager::getEntity(bot->m_id);
+	Entity* e = ECSManager::getEntity(bot->m_id);
 	if (e) {
 		WeaponComponent* weaponComp = static_cast<WeaponComponent*>(e->getComponent(ComponentTypeEnum::WEAPON));
 		if (weaponComp) {
@@ -40,4 +44,16 @@ void botFire(BotInterface* bot) {
 		}
 	}
 }
+
+void botLookAt(int x, int y, BotInterface* bot){
+	Entity* e = ECSManager::getEntity(bot->m_id);
+	if (e) {
+		PositionComponent* p = static_cast<PositionComponent*>(e->getComponent(ComponentTypeEnum::POSITION));
+		if (p) {
+			glm::vec4((x / SCR_WIDTH) * 2.0f - 1.0f, ((SCR_HEIGHT - y) / SCR_HEIGHT) * 2.0f - 1.0f, 0.0f, 1.0f);
+			p->rotation = ::atan2f(static_cast<float>(x + SCR_WIDTH), static_cast<float>(y + SCR_HEIGHT));
+		}
+	}
+}
+
 }

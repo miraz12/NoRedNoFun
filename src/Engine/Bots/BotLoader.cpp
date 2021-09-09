@@ -91,4 +91,5 @@ void BotLoader::setupBotActions(botInstance* botIns) {
 	botIns->bot->print();
 	botIns->bot->actionMove(BotActions::botMove);
 	botIns->bot->actionFire(BotActions::botFire);
+	botIns->bot->actionLookAt(BotActions::botLookAt);
 }

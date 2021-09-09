@@ -25,6 +25,8 @@ bool Window::open() {
    glfwWindowHint(GLFW_SAMPLES, 4);
 
    glfwSetErrorCallback(errorCallback);
+   SCR_WIDTH = 800;
+   SCR_HEIGHT = 800;
    window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
    if (window == NULL)
    {
@@ -121,5 +123,7 @@ void processInput(GLFWwindow *theWindow)
 
 void framebuffer_size_callback(GLFWwindow* /*window*/, int width, int height)
 {
-     glViewport(0, 0, width, height);
+   SCR_WIDTH = width;
+   SCR_HEIGHT = height;
+   glViewport(0, 0, width, height);
 }

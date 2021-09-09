@@ -5,6 +5,7 @@ float timer = 0.0f;
 void ExampleBot::update(float dt) {
     moveFunc(currKey, this);
 	fireFunc(this);
+	lookFunc(0, 0, this);
 	timer += dt;
 	if (timer > 1.0f) {
 		if(currKey != 3) {

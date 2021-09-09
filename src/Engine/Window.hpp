@@ -1,5 +1,8 @@
 #pragma once
 
+static unsigned int SCR_WIDTH = 800;
+static unsigned int SCR_HEIGHT = 800;
+
 class Window {
 public:
     Window() = default;
@@ -9,10 +12,8 @@ public:
     bool open();
     bool gameLoop();
 
+	
 private:
-
-    const unsigned int SCR_WIDTH = 800;
-    const unsigned int SCR_HEIGHT = 800;     
 	double currentTime;
 	double previousTime;
 	double dt = 0.0;
