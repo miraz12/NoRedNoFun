@@ -2,6 +2,8 @@
 #include <vector>
 #include "Components/Component.hpp"
 
+#include <string>
+
 class Entity
 {
 public:
