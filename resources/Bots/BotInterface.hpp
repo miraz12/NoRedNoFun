@@ -16,7 +16,8 @@ class BotInterface {
 public:
 	virtual void print() = 0;
 	virtual void update(float dt) = 0;
-	virtual void actionOutput(void (*f)(unsigned int key, BotInterface* bot)) = 0;
+	virtual void actionMove(void (*f)(unsigned int key, BotInterface* bot)) = 0;
+	virtual void actionFire(void (*f)(BotInterface* bot)) = 0;
 
 	unsigned int m_id = 0;
 };

@@ -10,10 +10,12 @@ class ExampleBot : public BotInterface {
     void update(float dt) override;
     void print() override; 
     
-	void actionOutput(void (*f)(unsigned int key, BotInterface* bot)) override {outPutFunc = f;};
+	void actionMove(void (*f)(unsigned int key, BotInterface* bot)) override {moveFunc = f;};
+	void actionFire(void (*f)(BotInterface* bot)) override {fireFunc = f;};
     
 private:
-	void (*outPutFunc)(unsigned int, BotInterface*);
+	void (*moveFunc)(unsigned int, BotInterface*);
+	void (*fireFunc)(BotInterface*);
 };
 
 #ifdef _WIN32

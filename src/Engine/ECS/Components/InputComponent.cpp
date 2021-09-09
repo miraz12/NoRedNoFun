@@ -8,31 +8,6 @@ InputComponent::InputComponent(GLFWwindow* window)
 	m_componentType = ComponentTypeEnum::INPUT;
 }
 
-void InputComponent::updateInput(unsigned int key) {
-	manualInput = true;
-	keys[GLFW_KEY_W] = 0;
-	keys[GLFW_KEY_A] = 0;
-	keys[GLFW_KEY_S] = 0;
-	keys[GLFW_KEY_D] = 0;
-	switch (key)
-	{
-	case 0:
-		keys[GLFW_KEY_W] = 1;
-		break;
-	case 1: 
-		keys[GLFW_KEY_A] = 1;
-		break;
-	case 2: 
-		keys[GLFW_KEY_S] = 1;
-		break;
-	case 3:
-		keys[GLFW_KEY_D] = 1;
-		break;
-	default:
-		break;
-	}
-}
-
 void InputComponent::calculateInput() {
 	if(!manualInput) {
 		keys[GLFW_KEY_W] = glfwGetKey(m_window, GLFW_KEY_W);

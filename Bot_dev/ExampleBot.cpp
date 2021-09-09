@@ -3,7 +3,8 @@
 unsigned int currKey = 3; // Example logic remove
 float timer = 0.0f;
 void ExampleBot::update(float dt) {
-    outPutFunc(currKey, this);
+    moveFunc(currKey, this);
+	fireFunc(this);
 	timer += dt;
 	if (timer > 1.0f) {
 		if(currKey != 3) {

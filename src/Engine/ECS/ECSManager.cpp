@@ -83,7 +83,6 @@ Entity* ECSManager::getEntity(int entityID)
 	return nullptr;
 }
 
-
 //PRIVATE
 
 void ECSManager::addEntities()
@@ -151,7 +150,7 @@ void ECSManager::removeComponents()
 }
 
 
-void ECSManager::createBotEntity(BotLoader::botInstance* bot, GLFWwindow* window) {
+void ECSManager::createBotEntity(BotLoader::botInstance* bot, GLFWwindow* /*window*/) {
 
 	Entity &botEntity = createEntity();
 	bot->m_id = botEntity.getID();
@@ -160,9 +159,9 @@ void ECSManager::createBotEntity(BotLoader::botInstance* bot, GLFWwindow* window
 	addComponent(botEntity, new PositionComponent());
 	addComponent(botEntity, new MovementComponent());
 	addComponent(botEntity, new CollisionComponent());
-	addComponent(botEntity, new InputComponent(window));
 	addComponent(botEntity, new HealthComponent());
 	addComponent(botEntity, new GraphicsComponent());
+	addComponent(botEntity, new WeaponComponent());
 }
 
 

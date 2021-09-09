@@ -89,5 +89,6 @@ bool BotLoader::isLoaded() const {
 
 void BotLoader::setupBotActions(botInstance* botIns) {
 	botIns->bot->print();
-	botIns->bot->actionOutput(BotActions::botMove);
+	botIns->bot->actionMove(BotActions::botMove);
+	botIns->bot->actionFire(BotActions::botFire);
 }

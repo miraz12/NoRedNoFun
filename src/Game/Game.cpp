@@ -8,14 +8,6 @@
 #include "Engine/ECS/Entity.hpp"
 #include "Engine/MapLoader/MapLoader.hpp"
 
-void botMove(unsigned int key, BotInterface* bot)
-{
-	Entity *e = ECSManager::getEntity(bot->m_id);
-	if (e) {
-		static_cast<InputComponent*>(e->getComponent(ComponentTypeEnum::INPUT))->updateInput(key);
-	}
-}
-
 Game::Game(GLFWwindow* window):
 	m_botLoader(window),
 	m_ECSManager(&ECSManager::getInstance())
