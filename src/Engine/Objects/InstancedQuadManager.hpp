@@ -5,7 +5,7 @@
 
 #include "GraphicsObject.hpp"
 #include "Quad.hpp"
-#include "Textures/Texture.hpp"
+#include "../Textures/Texture.hpp"
 
 class ShaderProgram;
 
