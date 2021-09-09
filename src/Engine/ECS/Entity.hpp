@@ -27,8 +27,12 @@ public:
 	void setName(std::string name) { m_name = name; };
 	std::string getName() { return m_name; };
 
+	void makePlayable() { m_playable = true; }
+	bool isPlayable() { return m_playable; }
+
 private:
 	int m_ID;
+	bool m_playable{false};
 	std::string m_name{"none"};
 	std::vector<Component*> m_components;
 };
