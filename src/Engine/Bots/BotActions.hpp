@@ -21,7 +21,7 @@ void botMove(unsigned int key, BotInterface* bot)
 				direction.y += -1.0f;
 				break;
 			case 2: 
-			direction.x += -1.0f;
+				direction.x += -1.0f;
 				break;
 			case 3:
 				direction.x += 1.0f;
@@ -50,8 +50,7 @@ void botLookAt(int x, int y, BotInterface* bot){
 	if (e) {
 		PositionComponent* p = static_cast<PositionComponent*>(e->getComponent(ComponentTypeEnum::POSITION));
 		if (p) {
-			glm::vec4((x / SCR_WIDTH) * 2.0f - 1.0f, ((SCR_HEIGHT - y) / SCR_HEIGHT) * 2.0f - 1.0f, 0.0f, 1.0f);
-			p->rotation = ::atan2f(static_cast<float>(x + SCR_WIDTH), static_cast<float>(y + SCR_HEIGHT));
+			p->rotation = ::atan2f(static_cast<float>(x - p->position.x), static_cast<float>(p->position.y - y));
 		}
 	}
 }

@@ -154,6 +154,7 @@ void ECSManager::createBotEntity(BotLoader::botInstance* bot, GLFWwindow* /*wind
 
 	Entity &botEntity = createEntity();
 	bot->m_id = botEntity.getID();
+	botEntity.setName(bot->m_botName);
 
 	// Add componments to player
 	addComponent(botEntity, new PositionComponent());

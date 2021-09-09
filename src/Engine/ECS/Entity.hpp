@@ -23,9 +23,13 @@ public:
 
 	//Removes component
 	void removeComponent(ComponentTypeEnum removeComponent);
+	
+	void setName(std::string name) { m_name = name; };
+	std::string getName() { return m_name; };
 
 private:
 	int m_ID;
+	std::string m_name{"none"};
 	std::vector<Component*> m_components;
 };
 

@@ -53,8 +53,8 @@ void BotLoader::loadDLL(std::string botName) {
 			newBot->m_loaded = false;
 		}
 
+		newBot->m_botName = botName;
 		ECSManager::getInstance().createBotEntity(newBot, win);
-		
 		newBot->bot = newInterface(newBot->m_id);
 		setupBotActions(newBot);
 
