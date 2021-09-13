@@ -169,15 +169,17 @@ void ECSManager::createBotEntity(BotLoader::botInstance* bot, GLFWwindow* /*wind
 
 void ECSManager::createPlayerEntity(float x, float y, GLFWwindow* window) {
 
-	Entity& playerEntity2 = createEntity();
+	Entity& playerEntity = createEntity();
+	playerEntity.setName("Player");
+	playerEntity.makePlayable();
 	// Add components to player
-	addComponent(playerEntity2, new PositionComponent(x, y));
-	addComponent(playerEntity2, new MovementComponent());
-	addComponent(playerEntity2, new InputComponent(window));
-	addComponent(playerEntity2, new CollisionComponent());
-	addComponent(playerEntity2, new HealthComponent());
-	addComponent(playerEntity2, new DamageComponent());
-	addComponent(playerEntity2, new GraphicsComponent());
-	addComponent(playerEntity2, new WeaponComponent());
+	addComponent(playerEntity, new PositionComponent(x, y));
+	addComponent(playerEntity, new MovementComponent());
+	addComponent(playerEntity, new InputComponent(window));
+	addComponent(playerEntity, new CollisionComponent());
+	addComponent(playerEntity, new HealthComponent());
+	addComponent(playerEntity, new DamageComponent());
+	addComponent(playerEntity, new GraphicsComponent());
+	addComponent(playerEntity, new WeaponComponent());
 
 }
