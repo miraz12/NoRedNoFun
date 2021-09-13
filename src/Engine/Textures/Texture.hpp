@@ -18,8 +18,9 @@ private:
 	unsigned int m_width;
 	unsigned int m_height;
 
-	unsigned char m_missingTextureData[16] = {
+	unsigned char m_missingTextureData[24] = {
 		255, 255, 255, 255, 0, 0, 0, 255,
-		0, 0, 0, 255, 255, 255, 255, 255
+		0, 0, 0, 255, 255, 255, 255, 255,
+		0, 255, 0, 255, 255, 0, 0, 255
 	};
 };

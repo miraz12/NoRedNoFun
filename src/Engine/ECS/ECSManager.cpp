@@ -7,6 +7,7 @@
 #include "Components/DamageComponent.hpp"
 #include "Components/GraphicsComponent.hpp"
 #include "Components/WeaponComponent.hpp"
+#include "Rendering.hpp"
 
 
 std::vector<Entity*> ECSManager::m_entities;
@@ -161,8 +162,15 @@ void ECSManager::createBotEntity(BotLoader::botInstance* bot, GLFWwindow* /*wind
 	addComponent(botEntity, new PositionComponent());
 	addComponent(botEntity, new MovementComponent());
 	addComponent(botEntity, new CollisionComponent());
-	addComponent(botEntity, new HealthComponent());
-	addComponent(botEntity, new GraphicsComponent());
+	HealthComponent* healthComp = new HealthComponent();
+	healthComp->healthVisualizerQuad = Rendering::getInstance().getNewQuad();
+	healthComp->healthVisualizerQuad->setNrOfSprites(2, 4);
+	healthComp->healthVisualizerQuad->setCurrentSprite(0, 3);
+	addComponent(botEntity, healthComp);
+	GraphicsComponent* graphComp = new GraphicsComponent();
+	graphComp->quad->setNrOfSprites(1.0f, 1.5f);
+	graphComp->quad->setCurrentSprite(0.0f, 0.0f);
+	addComponent(botEntity, graphComp);
 	addComponent(botEntity, new WeaponComponent());
 }
 
@@ -177,9 +185,16 @@ void ECSManager::createPlayerEntity(float x, float y, GLFWwindow* window) {
 	addComponent(playerEntity, new MovementComponent());
 	addComponent(playerEntity, new InputComponent(window));
 	addComponent(playerEntity, new CollisionComponent());
-	addComponent(playerEntity, new HealthComponent());
+	HealthComponent* healthComp = new HealthComponent();
+	healthComp->healthVisualizerQuad = Rendering::getInstance().getNewQuad();
+	healthComp->healthVisualizerQuad->setNrOfSprites(2, 4);
+	healthComp->healthVisualizerQuad->setCurrentSprite(0, 3);
+	addComponent(playerEntity, healthComp);
 	addComponent(playerEntity, new DamageComponent());
-	addComponent(playerEntity, new GraphicsComponent());
+	GraphicsComponent* graphComp = new GraphicsComponent();
+	graphComp->quad->setNrOfSprites(1.0f, 1.5f);
+	graphComp->quad->setCurrentSprite(0.0f, 0.0f);
+	addComponent(playerEntity, graphComp);
 	addComponent(playerEntity, new WeaponComponent());
 
 }

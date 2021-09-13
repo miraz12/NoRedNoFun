@@ -2,6 +2,7 @@
 #include "ECS/ECSManager.hpp"
 
 #include "ECS/Components/CollisionComponent.hpp"
+#include "ECS/Components/PositionComponent.hpp"
 
 HealthSystem::HealthSystem(ECSManager* ECSManager) : System(ECSManager, ComponentTypeEnum::HEALTH) {
 }
@@ -40,5 +41,19 @@ void HealthSystem::update(float dt) {
             }
             m_manager->removeEntity(e->getID());
         }
+        else {
+            healthComp->health = std::min(healthComp->health, healthComp->maxHealth);
+
+            PositionComponent *p = static_cast<PositionComponent *>(e->getComponent(ComponentTypeEnum::POSITION));
+            if (healthComp->healthVisualizerQuad && p) {
+                healthComp->healthVisualizerQuad->setCurrentSprite(
+                    (float)(healthComp->maxHealth - healthComp->health) / (float)std::max(healthComp->maxHealth, 1),
+                    healthComp->healthVisualizerQuad->getCurrentSprite().y);
+                
+                glm::mat4 &modelMatrix = healthComp->healthVisualizerQuad->getModelMatrix();
+                modelMatrix = glm::translate(glm::mat4(1.0f), p->position + glm::vec3(0.0f, 0.5f, -0.3f));
+                modelMatrix = glm::scale(modelMatrix, glm::vec3(1.0f, 0.4f, 1.0f));
+            }
+        } 
     }
 }
