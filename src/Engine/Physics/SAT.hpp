@@ -107,10 +107,9 @@ namespace SAT {
             intersectionPoint = (shapeAVertices[minAIndex] + shapeBVertices[maxBIndex]) * 0.5f; 
         }
     }
-
-    inline bool getIntersection(Shape &shapeA, Shape &shapeB, glm::vec2 &intersectionAxis, float &intersectionDepth, glm::vec2 &intersectionPoint) {
+	
+	inline bool getIntersection(Shape &shapeA, Shape &shapeB, glm::vec2 &intersectionAxis, float &intersectionDepth) {
         intersectionDepth = INFINITY;
-        std::vector<glm::vec2> closestIntersections;
 
         auto shapeAVertices = shapeA.getTransformedVertices();
         auto shapeBVertices = shapeB.getTransformedVertices();
@@ -130,7 +129,46 @@ namespace SAT {
             }
         }
 
-        const std::vector<glm::vec2> &shapeBNormals = shapeB.getTransformedNormals();
+        auto shapeBNormals = shapeB.getTransformedNormals();
+        for (unsigned int i = 0; i < shapeBNormals.size(); i++) {
+            bool reverse = false;
+            float overlap = getOverlap(shapeBNormals[i], shapeAVertices, shapeBVertices, reverse);
+
+            if (overlap < 0.0f) {
+                return false;
+            }
+
+            if (overlap < intersectionDepth) {
+                intersectionDepth = overlap;
+                intersectionAxis = shapeBNormals[i] - shapeBNormals[i] * 2.0f * (float) reverse;
+            }
+        }
+
+        return true;
+    }
+
+    inline bool getIntersection(Shape &shapeA, Shape &shapeB, glm::vec2 &intersectionAxis, float &intersectionDepth, glm::vec2 &intersectionPoint) {
+        intersectionDepth = INFINITY;
+
+        auto shapeAVertices = shapeA.getTransformedVertices();
+        auto shapeBVertices = shapeB.getTransformedVertices();
+
+        auto shapeANormals = shapeA.getTransformedNormals();
+        for (unsigned int i = 0; i < shapeANormals.size(); i++) {
+            bool reverse = false;
+            float overlap = getOverlap(shapeANormals[i], shapeAVertices, shapeBVertices, reverse);
+
+            if (overlap < 0.0f) {
+                return false;
+            }
+
+            if (overlap < intersectionDepth) {
+                intersectionDepth = overlap;
+                intersectionAxis = shapeANormals[i] - shapeANormals[i] * 2.0f * (float) reverse;
+            }
+        }
+
+        auto shapeBNormals = shapeB.getTransformedNormals();
         for (unsigned int i = 0; i < shapeBNormals.size(); i++) {
             bool reverse = false;
             float overlap = getOverlap(shapeBNormals[i], shapeAVertices, shapeBVertices, reverse);
