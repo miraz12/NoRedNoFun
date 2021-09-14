@@ -43,7 +43,10 @@ void WeaponSystem::update(float dt)
             CollisionComponent* projCollision = new CollisionComponent();
             projCollision->effectMovement = false;
 			m_manager->addComponent(projectileEntity, projCollision);
-			m_manager->addComponent(projectileEntity, new GraphicsComponent());
+            GraphicsComponent* graphComp = new GraphicsComponent();
+            graphComp->quad->setNrOfSprites(1.0f, 1.5f);
+            graphComp->quad->setCurrentSprite(0.0f, 0.0f);
+			m_manager->addComponent(projectileEntity, graphComp);
             m_manager->addComponent(projectileEntity, new DamageComponent());
             HealthComponent* projHealth = new HealthComponent();
             projHealth->health = 1;
