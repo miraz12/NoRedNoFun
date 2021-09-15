@@ -4,6 +4,8 @@
 #include "ECS/Components/CollisionComponent.hpp"
 #include "ECS/Components/PositionComponent.hpp"
 
+#include <algorithm>
+
 HealthSystem::HealthSystem(ECSManager* ECSManager) : System(ECSManager, ComponentTypeEnum::HEALTH) {
 }
 

@@ -7,7 +7,7 @@ class ExampleBot : public BotInterface {
     ExampleBot(unsigned int id) { m_id = id; };
     ~ExampleBot() = default;
 
-    void update(float dt) override;
+    void update(float* dt) override;
     void print() override; 
     
 	void actionMove(void (*f)(unsigned int key, BotInterface* bot)) override {moveFunc = f;};

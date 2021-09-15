@@ -10,8 +10,7 @@
 
 Game::Game(GLFWwindow* window):
 	m_botLoader(window),
-	m_ECSManager(&ECSManager::getInstance())
-{
+	m_ECSManager(&ECSManager::getInstance()) {
 	Rendering::getInstance().getMapLoader()->getModelMatrix() = glm::translate(glm::mat4(1.0f),
 		glm::vec3(0.5f * (float) Rendering::getInstance().getMapLoader()->getWidth(), 
 		0.5f * (float)Rendering::getInstance().getMapLoader()->getHeight(), 
@@ -26,11 +25,26 @@ Game::Game(GLFWwindow* window):
 		0.5f * (float)Rendering::getInstance().getMapLoader()->getHeight());
 	
 	m_ECSManager->createPlayerEntity(7.f, 4.f, window);
-	}	
+
+	for(unsigned int i = 0; i < m_botLoader.m_bots.size(); i++) {
+		BotInterface* b = m_botLoader.m_bots[i]->bot;
+		std::function<void(float*)> func = [&b](float* dRef) {
+			while (true) {
+				b->update(dRef);
+			}
+		};
+		std::thread t(func, &m_dtRef);
+		botThreads.push_back(std::move(t));
+	}
+}	
+
+Game::~Game() {
+	for (auto &&t : botThreads)	{
+		t.join();
+	}
+}
 
 void Game::update(float dt) {
 	m_ECSManager->update(dt);
-	for(BotLoader::botInstance* b : m_botLoader.m_bots) {
-		b->bot->update(dt);
-	}
+	m_dtRef = dt;
 }

@@ -30,29 +30,30 @@ void botMove(unsigned int key, BotInterface* bot)
 			default:
 				break;
 		}
-		movement->accelerationDirection.x = direction.x;
-		movement->accelerationDirection.y = direction.y;
+		movement->accelerationDirection.x.store(direction.x, std::memory_order_relaxed);
+		movement->accelerationDirection.y.store(direction.y, std::memory_order_relaxed);
+
 	}
 }
 
 void botFire(BotInterface* bot) {
-	Entity* e = ECSManager::getEntity(bot->m_id);
-	if (e) {
-		WeaponComponent* weaponComp = static_cast<WeaponComponent*>(e->getComponent(ComponentTypeEnum::WEAPON));
-		if (weaponComp) {
-			weaponComp->fire = true;
-		}
-	}
+//	Entity* e = ECSManager::getEntity(bot->m_id);
+//	if (e) {
+//		WeaponComponent* weaponComp = static_cast<WeaponComponent*>(e->getComponent(ComponentTypeEnum::WEAPON));
+//		if (weaponComp) {
+//			weaponComp->fire = true;
+//		}
+//	}
 }
 
 void botLookAt(int x, int y, BotInterface* bot){
-	Entity* e = ECSManager::getEntity(bot->m_id);
-	if (e) {
-		PositionComponent* p = static_cast<PositionComponent*>(e->getComponent(ComponentTypeEnum::POSITION));
-		if (p) {
-			p->rotation = ::atan2f(static_cast<float>(x - p->position.x), static_cast<float>(p->position.y - y));
-		}
-	}
+	//Entity* e = ECSManager::getEntity(bot->m_id);
+	//if (e) {
+	//	PositionComponent* p = static_cast<PositionComponent*>(e->getComponent(ComponentTypeEnum::POSITION));
+	//	if (p) {
+	//		p->rotation = ::atan2f(static_cast<float>(x - p->position.x), static_cast<float>(p->position.y - y));
+	//	}
+	//}
 }
 
 }

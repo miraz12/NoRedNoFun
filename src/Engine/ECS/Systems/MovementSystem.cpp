@@ -16,18 +16,21 @@ void MovementSystem::update(float dt)
 		glm::vec3 normalizedAccelerationDirection(0.0f);
 		bool accelerating = false;
 
+		float x = m->accelerationDirection.x.load();
+		float y = m->accelerationDirection.y.load();
+		glm::vec3 accDir(x, y, 0.0f);
 
-		if (glm::length2(m->accelerationDirection) > 0.0001f) {
-			normalizedAccelerationDirection = glm::normalize(m->accelerationDirection);
+		if (glm::length2(accDir) > 0.0001f) {
+			normalizedAccelerationDirection = glm::normalize(accDir);
 			accelerating = true;
 		}
 
-		if (glm::length2(m->accelerationDirection) > 1.0f) {
-			m->accelerationDirection = normalizedAccelerationDirection;
+		if (glm::length2(accDir) > 1.0f) {
+			accDir = normalizedAccelerationDirection;
 		}
 
 		glm::vec3 oldVelocity = m->velocity;
-		m->velocity += m->accelerationDirection * (m->acceleration * dt);
+		m->velocity += accDir * (m->acceleration * dt);
 
 		// Apply drag
 		if (glm::length2(m->velocity) > 0.0001f) {
@@ -47,6 +50,6 @@ void MovementSystem::update(float dt)
 
 		p->position += (oldVelocity + m->velocity) * 0.5f * dt; // This works for any update rate
 
-		m->accelerationDirection = { 0.0f, 0.0f, 0.0f };
+		accDir = { 0.0f, 0.0f, 0.0f };
 	}
 }
