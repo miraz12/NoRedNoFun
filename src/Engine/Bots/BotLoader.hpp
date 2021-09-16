@@ -6,6 +6,7 @@
 #endif
 #include <GLFW/glfw3.h>
 #include <vector>
+#include <string>
 
 #include "../../../resources/Bots/BotInterface.hpp"
 
@@ -14,6 +15,7 @@ typedef BotInterface* (__cdecl* NewInterface)(unsigned int);
 #elif __linux__
 typedef BotInterface* (*NewInterface)(unsigned int);
 #endif
+
 
 class BotLoader {
 public:
