@@ -301,13 +301,13 @@ namespace SAT {
 		return true;
 	}
 
-    inline float getRaycastIntersection(const glm::vec2& rayStart, const glm::vec2& rayDir, Shape* shape, const float maxDist) {
+    inline float getRaycastIntersection(const glm::vec2& rayStart, const glm::vec2& rayDir, Shape& shape, const float maxDist) {
         float timeFirst = 0.f;
 		float timeLast = INFINITY;
 
-		const std::vector<glm::vec2>& s1Norms = shape->getTransformedNormals();
+		const std::vector<glm::vec2>& s1Norms = shape.getTransformedNormals();
 		for (const auto& it : s1Norms) {
-			if (!getRaycastOverlap(it, shape->getTransformedVertices(), rayStart, glm::normalize(rayDir), timeFirst, timeLast, maxDist)) {
+			if (!getRaycastOverlap(it, shape.getTransformedVertices(), rayStart, glm::normalize(rayDir), timeFirst, timeLast, maxDist)) {
 				return -1.0f;
 			}
 		}

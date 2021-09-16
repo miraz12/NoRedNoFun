@@ -7,6 +7,7 @@
 #include "Components/DamageComponent.hpp"
 #include "Components/GraphicsComponent.hpp"
 #include "Components/WeaponComponent.hpp"
+#include "Components/SeeingComponent.hpp"
 #include "Rendering.hpp"
 
 
@@ -19,7 +20,8 @@ ECSManager::ECSManager()
 		{"COLLISION", std::make_shared<CollisionSystem>(CollisionSystem(this))},
 		{"HEALTH", std::make_shared<HealthSystem>(HealthSystem(this))},
 		{"GRAPHICS", std::make_shared<GraphicsSystem>(GraphicsSystem(this))},
-		{"WEAPON", std::make_shared<WeaponSystem>(WeaponSystem(this))}},
+		{"WEAPON", std::make_shared<WeaponSystem>(WeaponSystem(this))},
+		{"SEEING", std::make_shared<SeeingSystem>(SeeingSystem(this))}},
 		m_addEntities(), m_addComponents(), m_removeEntities(), m_removeComponents()
 {
 }
@@ -35,6 +37,7 @@ void ECSManager::update(float dt)
 	m_systems["INPUT"]->update(dt);
 	m_systems["MOVEMENT"]->update(dt);
 	m_systems["COLLISION"]->update(dt);
+	m_systems["SEEING"]->update(dt);
 	m_systems["HEALTH"]->update(dt);
 	m_systems["GRAPHICS"]->update(dt);
 	m_systems["WEAPON"]->update(dt);
@@ -196,5 +199,6 @@ const int ECSManager::createPlayerEntity(float x, float y, GLFWwindow* window) {
 	graphComp->quad->setCurrentSprite(0.0f, 0.0f);
 	addComponent(playerEntity, graphComp);
 	addComponent(playerEntity, new WeaponComponent());
+	addComponent(playerEntity, new SeeingComponent());
 	return playerEntity.getID();
 }

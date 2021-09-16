@@ -14,7 +14,8 @@ enum class ComponentTypeEnum {
 	HEALTH,
 	DAMAGE,
 	GRAPHICS,
-	WEAPON
+	WEAPON,
+	SEEING
 };
 
 //Basic component interface which all other components implement

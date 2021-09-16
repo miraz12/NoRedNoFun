@@ -6,6 +6,7 @@
 #include "Systems/HealthSystem.hpp"
 #include "Systems/GraphicsSystem.hpp"
 #include "Systems/WeaponSystem.hpp"
+#include "Systems/SeeingSystem.hpp"
 #include "../Bots/BotLoader.hpp"
 
 #include <map>

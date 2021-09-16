@@ -1,7 +1,7 @@
 #include "Entity.hpp"
 
 Entity::Entity(int ID)
-: m_ID(ID), m_components(){
+: m_ID(ID), m_playable(false), m_name("none"), m_components(){
 }
 
 //Dont know if this is the correct way to free components

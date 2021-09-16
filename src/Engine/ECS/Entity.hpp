@@ -34,8 +34,8 @@ public:
 
 private:
 	int m_ID;
-	bool m_playable{false};
-	std::string m_name{"none"};
+	bool m_playable;
+	std::string m_name;
 	std::vector<Component*> m_components;
 };
 
