@@ -21,7 +21,7 @@ add_subdirectory(src/Game)
 add_executable(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/src/main.cpp)
 
 # Link libraries
-target_link_libraries(${PROJECT_NAME} PUBLIC Engine Game)
+target_link_libraries(${PROJECT_NAME} PUBLIC Engine Game myBot)
 if(UNIX)
 target_link_libraries(${PROJECT_NAME} PUBLIC stdc++fs)
 endif(UNIX)
