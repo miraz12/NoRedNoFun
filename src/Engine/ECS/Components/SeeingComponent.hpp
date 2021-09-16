@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Component.hpp"
+#include "../../../resources/Bots/BotInterface.hpp"
 
 #include <glm/glm.hpp>
 #include <vector>
@@ -10,12 +11,6 @@ class Entity;
 class SeeingComponent : public Component
 {
 public:
-    struct VisualEntity {
-        float distance;
-        glm::vec2 rayDir;
-        Entity* entityHit;
-    };
-
     float fov;
     unsigned int nrOfRays;
     float viewDistance;

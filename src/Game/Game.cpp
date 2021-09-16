@@ -8,6 +8,8 @@
 #include "Engine/ECS/Entity.hpp"
 #include "Engine/MapLoader/MapLoader.hpp"
 
+#include "Engine/ECS/Components/SeeingComponent.hpp"
+
 Game::Game(GLFWwindow* window):
 	m_botLoader(window),
 	m_ECSManager(&ECSManager::getInstance())
@@ -31,6 +33,8 @@ Game::Game(GLFWwindow* window):
 void Game::update(float dt) {
 	m_ECSManager->update(dt);
 	for(BotLoader::botInstance* b : m_botLoader.m_bots) {
-		b->bot->update(dt);
+		Entity* e = m_ECSManager->getEntity(b->m_id);
+		SeeingComponent* seeingComp = static_cast<SeeingComponent*>(e->getComponent(ComponentTypeEnum::SEEING));
+		b->bot->update(dt , &seeingComp->visualEntities);
 	}
 }

@@ -2,11 +2,12 @@
 
 unsigned int currKey = 3; // Example logic remove
 float timer = 0.0f;
-void ExampleBot::update(float dt) {
+void ExampleBot::update(float dt, std::vector<VisualEntity>* eyes) {
     moveFunc(currKey, this);
 	fireFunc(this);
 	lookFunc(0, 0, this);
 	timer += dt;
+//	printf("Number of collisions: %d\n", (*eyes).size());
 	if (timer > 1.0f) {
 		if(currKey != 3) {
 			currKey++;
