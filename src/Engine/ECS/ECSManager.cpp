@@ -175,7 +175,7 @@ void ECSManager::createBotEntity(BotLoader::botInstance* bot, GLFWwindow* /*wind
 }
 
 
-void ECSManager::createPlayerEntity(float x, float y, GLFWwindow* window) {
+const int ECSManager::createPlayerEntity(float x, float y, GLFWwindow* window) {
 
 	Entity& playerEntity = createEntity();
 	playerEntity.setName("Player");
@@ -196,5 +196,5 @@ void ECSManager::createPlayerEntity(float x, float y, GLFWwindow* window) {
 	graphComp->quad->setCurrentSprite(0.0f, 0.0f);
 	addComponent(playerEntity, graphComp);
 	addComponent(playerEntity, new WeaponComponent());
-
+	return playerEntity.getID();
 }

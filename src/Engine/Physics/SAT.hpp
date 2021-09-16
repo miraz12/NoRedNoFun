@@ -234,4 +234,85 @@ namespace SAT {
         return true;
     }
 
+    inline bool getRaycastOverlap(const glm::vec2& testVec, const std::vector<glm::vec2>& vertices, const glm::vec2& rayStart, const glm::vec2& rayDir, float& timeFirst, float& timeLast, const float timeMax) {
+		float min1 = INFINITY, min2 = INFINITY;
+		float max1 = -INFINITY, max2 = -INFINITY;
+
+		float tempDot;
+
+		for (const auto& vert : vertices) {
+			tempDot = dot(vert, testVec);
+
+			if (tempDot < min1) {
+				min1 = tempDot;
+			}
+			if (tempDot > max1) {
+				max1 = tempDot;
+			}
+		}
+
+        tempDot = dot(rayStart, testVec);
+
+        if (tempDot < min2) {
+            min2 = tempDot;
+        }
+        if (tempDot > max2) {
+            max2 = tempDot;
+        }
+
+		float T;
+		float speed = dot(testVec, rayDir);
+
+		if (max2 < min1) { // Interval (2) initially on left of interval (1)
+			if (speed <= 0.f) { return false; } // Intervals moving apart
+
+			T = (min1 - max2) / speed;
+			if (T > timeFirst) { timeFirst = T; }
+			if (timeFirst > timeMax) { return false; } // Early exit
+
+			T = (max1 - min2) / speed;
+			if (T < timeLast) { timeLast = T; }
+			if (timeFirst > timeLast) { return false; } // Early exit
+		}
+		else  if (max1 < min2) { // Interval (2) initially on right of interval (1)
+			if (speed >= 0.f) { return false; } // Intervals moving apart
+
+			T = (max1 - min2) / speed;
+			if (T > timeFirst) { timeFirst = T; }
+			if (timeFirst > timeMax) { return false; } // Early exit
+
+			T = (min1 - max2) / speed;
+			if (T < timeLast) { timeLast = T; }
+			if (timeFirst > timeLast) { return false; } // Early exit
+		}
+		else { // Interval (1) and interval (2) overlap
+			if (speed > 0.f) {
+				T = (max1 - min2) / speed;
+				if (T < timeLast) { timeLast = T; }
+				if (timeFirst > timeLast) { return false; } // Early exit
+			}
+			else if (speed < 0.f) {
+				T = (min1 - max2) / speed;
+				if (T < timeLast) { timeLast = T; }
+				if (timeFirst > timeLast) { return false; } // Early exit
+			}
+		}
+
+		return true;
+	}
+
+    inline float getRaycastIntersection(const glm::vec2& rayStart, const glm::vec2& rayDir, Shape* shape, const float maxDist) {
+        float timeFirst = 0.f;
+		float timeLast = INFINITY;
+
+		const std::vector<glm::vec2>& s1Norms = shape->getTransformedNormals();
+		for (const auto& it : s1Norms) {
+			if (!getRaycastOverlap(it, shape->getTransformedVertices(), rayStart, glm::normalize(rayDir), timeFirst, timeLast, maxDist)) {
+				return -1.0f;
+			}
+		}
+
+		return timeFirst;
+    }
+
 }

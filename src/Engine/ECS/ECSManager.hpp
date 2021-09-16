@@ -49,7 +49,7 @@ public:
 	void createBotEntity(BotLoader::botInstance* bot, GLFWwindow* window);
 
 	// Create a controllable entity at position x,y
-	void createPlayerEntity(float x, float y, GLFWwindow* window);
+	const int createPlayerEntity(float x, float y, GLFWwindow* window);
 
 	//Returns entity by ID, or NULL if it does not exist
 	static Entity* getEntity(int entityID);
