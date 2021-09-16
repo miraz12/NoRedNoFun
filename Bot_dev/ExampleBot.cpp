@@ -7,7 +7,7 @@ void ExampleBot::update(float* dt) {
 		moveFunc(currKey, this);
 		//fireFunc(this);
 		//lookFunc(0, 0, this);
-		timer += 0.01f;
+		timer += 0.0001f;
 		if (timer > 1.0f) {
 			if(currKey != 3) {
 				currKey++;

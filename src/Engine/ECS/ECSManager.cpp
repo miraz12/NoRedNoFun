@@ -7,6 +7,7 @@
 #include "Components/DamageComponent.hpp"
 #include "Components/GraphicsComponent.hpp"
 #include "Components/WeaponComponent.hpp"
+#include "Components/BotComponent.hpp"
 #include "Rendering.hpp"
 
 
@@ -19,7 +20,8 @@ ECSManager::ECSManager()
 		{"COLLISION", std::make_shared<CollisionSystem>(CollisionSystem(this))},
 		{"HEALTH", std::make_shared<HealthSystem>(HealthSystem(this))},
 		{"GRAPHICS", std::make_shared<GraphicsSystem>(GraphicsSystem(this))},
-		{"WEAPON", std::make_shared<WeaponSystem>(WeaponSystem(this))}},
+		{"WEAPON", std::make_shared<WeaponSystem>(WeaponSystem(this))},
+		{"BOT", std::make_shared<BotSystem>(BotSystem(this))}},
 		m_addEntities(), m_addComponents(), m_removeEntities(), m_removeComponents()
 {
 }
@@ -38,6 +40,7 @@ void ECSManager::update(float dt)
 	m_systems["HEALTH"]->update(dt);
 	m_systems["GRAPHICS"]->update(dt);
 	m_systems["WEAPON"]->update(dt);
+	m_systems["BOT"]->update(dt);
 
 	//for all entities, remove/add components
 	//remove/add entities from systems
@@ -172,6 +175,7 @@ void ECSManager::createBotEntity(BotLoader::botInstance* bot, GLFWwindow* /*wind
 	graphComp->quad->setCurrentSprite(0.0f, 0.0f);
 	addComponent(botEntity, graphComp);
 	addComponent(botEntity, new WeaponComponent());
+	addComponent(botEntity, new BotComponent());
 }
 
 

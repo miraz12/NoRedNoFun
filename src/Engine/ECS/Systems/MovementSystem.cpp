@@ -16,8 +16,8 @@ void MovementSystem::update(float dt)
 		glm::vec3 normalizedAccelerationDirection(0.0f);
 		bool accelerating = false;
 
-		float x = m->accelerationDirection.x.load();
-		float y = m->accelerationDirection.y.load();
+		float x = m->accelerationDirection.x;
+		float y = m->accelerationDirection.y;
 		glm::vec3 accDir(x, y, 0.0f);
 
 		if (glm::length2(accDir) > 0.0001f) {

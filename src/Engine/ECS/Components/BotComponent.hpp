@@ -10,11 +10,12 @@ enum aType{
 	lookAt
 };
 struct payload {
+	payload() = default;
 	unsigned int key;
 	unsigned int x, y;
 };
 struct action {
-	aType type;
+	aType type{};
 	payload data;
 };
 
@@ -25,9 +26,9 @@ std::vector<action> actions;
 
 public: 
 
-    BotComponent() = default;
+    BotComponent();
 
-    addAction(action);
-
+    void addAction(action a);
+	std::vector<action>& getActions();
     
-}
+};

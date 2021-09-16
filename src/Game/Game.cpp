@@ -4,6 +4,7 @@
 #include "Engine/Rendering.hpp"
 
 #include <algorithm>
+#include <functional>
 
 #include "Engine/ECS/Entity.hpp"
 #include "Engine/MapLoader/MapLoader.hpp"
@@ -28,12 +29,10 @@ Game::Game(GLFWwindow* window):
 
 	for(unsigned int i = 0; i < m_botLoader.m_bots.size(); i++) {
 		BotInterface* b = m_botLoader.m_bots[i]->bot;
-		std::function<void(float*)> func = [&b](float* dRef) {
-			while (true) {
+		std::function<void(BotInterface*, float*)> func = [](BotInterface* b, float* dRef) {
 				b->update(dRef);
-			}
 		};
-		std::thread t(func, &m_dtRef);
+		std::thread t(std::move(func), b, &m_dtRef);
 		botThreads.push_back(std::move(t));
 	}
 }	
