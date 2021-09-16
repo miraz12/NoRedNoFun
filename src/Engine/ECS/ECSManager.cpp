@@ -175,6 +175,7 @@ void ECSManager::createBotEntity(BotLoader::botInstance* bot, GLFWwindow* /*wind
 	graphComp->quad->setCurrentSprite(0.0f, 0.0f);
 	addComponent(botEntity, graphComp);
 	addComponent(botEntity, new WeaponComponent());
+	addComponent(botEntity, new SeeingComponent());
 }
 
 

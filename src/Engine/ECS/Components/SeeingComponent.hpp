@@ -17,7 +17,8 @@ public:
     };
 
     float fov;
-    unsigned int nrOfRays; 
+    unsigned int nrOfRays;
+    float viewDistance;
 	std::vector<VisualEntity> visualEntities; //List of entities that can be seen right now
 
 	SeeingComponent();

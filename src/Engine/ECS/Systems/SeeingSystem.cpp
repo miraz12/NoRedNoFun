@@ -30,7 +30,7 @@ void SeeingSystem::update(float /*dt*/) {
             seeingComp->visualEntities.emplace_back();
             seeingComp->visualEntities.back().rayDir = glm::rotate(glm::vec2(0.0f, -1.0f), 
                 posComp->rotation - glm::radians(seeingComp->fov) * 0.5f + ((float) i + 0.5f) * rayRotationIncrease);
-            seeingComp->visualEntities.back().distance = INFINITY;
+            seeingComp->visualEntities.back().distance = seeingComp->viewDistance;
             seeingComp->visualEntities.back().entityHit = nullptr;
 
             for (auto& e2 : m_entities) {
