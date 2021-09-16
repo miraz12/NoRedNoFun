@@ -34,7 +34,9 @@ void Game::update(float dt) {
 	m_ECSManager->update(dt);
 	for(BotLoader::botInstance* b : m_botLoader.m_bots) {
 		Entity* e = m_ECSManager->getEntity(b->m_id);
-		SeeingComponent* seeingComp = static_cast<SeeingComponent*>(e->getComponent(ComponentTypeEnum::SEEING));
-		b->bot->update(dt , &seeingComp->visualEntities);
+		if (e) {
+			SeeingComponent* seeingComp = static_cast<SeeingComponent*>(e->getComponent(ComponentTypeEnum::SEEING));
+			b->bot->update(dt, &seeingComp->visualEntities);
+		}
 	}
 }
