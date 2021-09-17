@@ -13,11 +13,12 @@ class ExampleBot : public BotInterface {
 	void actionMove(void (*f)(unsigned int key, BotInterface* bot)) override {moveFunc = f;};
 	void actionFire(void (*f)(BotInterface* bot)) override {fireFunc = f;};
 	void actionLookAt(void (*f)(int x, int y, BotInterface* bot)) override { lookFunc = f;};
-    
+	void actionLookInDirection(void (*f)(float x, float y, BotInterface* bot)) override { lookInDirectionFunc = f;};
 private:
 	void (*moveFunc)(unsigned int, BotInterface*);
 	void (*fireFunc)(BotInterface*);
 	void (*lookFunc)(int, int, BotInterface*);
+	void (*lookInDirectionFunc)(float, float, BotInterface*);
 };
 
 #ifdef _WIN32

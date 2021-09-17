@@ -55,4 +55,14 @@ void botLookAt(int x, int y, BotInterface* bot){
 	}
 }
 
+void botLookInDirection(float x, float y, BotInterface* bot) {
+	Entity* e = ECSManager::getEntity(bot->m_id);
+	if (e) {
+		PositionComponent* p = static_cast<PositionComponent*>(e->getComponent(ComponentTypeEnum::POSITION));
+		if (p) {
+			p->rotation = ::atan2f(x, -y);
+		}
+	}
+}
+
 }

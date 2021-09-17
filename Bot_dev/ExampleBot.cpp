@@ -5,7 +5,7 @@ float timer = 0.0f;
 void ExampleBot::update(float dt, std::vector<VisualEntity>* eyes) {
     moveFunc(currKey, this);
 	fireFunc(this);
-	lookFunc(0, 0, this);
+	lookInDirectionFunc(-1.0f, 0.0f, this);
 	timer += dt;
 //	printf("Number of collisions: %d\n", (*eyes).size());
 	if (timer > 1.0f) {

@@ -27,6 +27,7 @@ public:
 	virtual void actionMove(void (*f)(unsigned int key, BotInterface* bot)) = 0;
 	virtual void actionFire(void (*f)(BotInterface* bot)) = 0;
 	virtual void actionLookAt(void (*f)(int x, int y, BotInterface* bot)) = 0;
+	virtual void actionLookInDirection(void (*f)(float x, float y, BotInterface* bot)) = 0;
 
 	unsigned int m_id = 0;
 };
