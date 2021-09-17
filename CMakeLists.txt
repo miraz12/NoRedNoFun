@@ -27,7 +27,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC stdc++fs)
 endif(UNIX)
 
 # Make executale dependant on libs
-add_dependencies(${PROJECT_NAME} Engine Game myBot)
+add_dependencies(${PROJECT_NAME} Engine Game)
 
 # Copy resource folder to binary folder
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
