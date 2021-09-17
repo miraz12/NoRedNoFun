@@ -33,7 +33,7 @@ add_dependencies(${PROJECT_NAME} Engine Game myBot)
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${CMAKE_SOURCE_DIR}/resources"
-        $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources)
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources DEPENDS myBot)
 
 # Tell MSVC to run debug binary from folder with debug binary
 if (MSVC)
