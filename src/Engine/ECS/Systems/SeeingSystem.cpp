@@ -24,12 +24,17 @@ void SeeingSystem::update(float /*dt*/) {
 
         seeingComp->visualEntities.clear();
 
-		// Check raycasts towards other entities
         float rayRotationIncrease = glm::radians(seeingComp->fov) / seeingComp->nrOfRays;
         for (unsigned int i = 0; i < seeingComp->nrOfRays; i++) {
+            seeingComp->visualEntities.emplace_back();
             glm::vec2 rayDir = glm::rotate(glm::vec2(0.0f, -1.0f), 
                 posComp->rotation - glm::radians(seeingComp->fov) * 0.5f + ((float) i + 0.5f) * rayRotationIncrease);
+            seeingComp->visualEntities.back().directionX = rayDir.x;
+            seeingComp->visualEntities.back().directionY = rayDir.y;
+            seeingComp->visualEntities.back().distance = seeingComp->viewDistance;
+            seeingComp->visualEntities.back().entityHit = -1;
 
+		    // Check raycasts towards other entities
             for (auto& e2 : m_entities) {
                 if (e->getID() == e2->getID()) {
                     continue;
@@ -37,12 +42,16 @@ void SeeingSystem::update(float /*dt*/) {
 
                 CollisionComponent* c2 = static_cast<CollisionComponent*>(e2->getComponent(ComponentTypeEnum::COLLISION));
                 float hitDistance = SAT::getRaycastIntersection(posComp->position, 
-                    rayDir, c2->shape, seeingComp->viewDistance);
-                if (hitDistance >= 0.0f && hitDistance <  seeingComp->viewDistance) {
-                    seeingComp->visualEntities.emplace_back();
+                    rayDir, c2->shape, seeingComp->visualEntities.back().distance);
+                if (hitDistance >= 0.0f && hitDistance < seeingComp->visualEntities.back().distance) {
                     seeingComp->visualEntities.back().distance = hitDistance;
                     seeingComp->visualEntities.back().entityHit = e2->getID();
                 }
+            }
+
+            if (seeingComp->visualEntities.back().entityHit == -1) {
+                // Ray did not hit anything, remove it
+                seeingComp->visualEntities.pop_back();
             }
         }
 	}
