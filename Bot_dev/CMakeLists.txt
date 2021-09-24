@@ -18,6 +18,7 @@ set(SOURCE_FILES
 set(HEADER_FILES 
 	"../resources/Bots/BotInterface.hpp"
 	"framework.hpp"
+	"ExampleBot.hpp"
 	)
 
 # Add source to this project's executable.

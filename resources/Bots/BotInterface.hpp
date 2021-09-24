@@ -29,7 +29,7 @@ public:
 	virtual void actionLookAt(void (*f)(int x, int y, BotInterface* bot)) = 0;
 	virtual void actionLookInDirection(void (*f)(float x, float y, BotInterface* bot)) = 0;
 
-	unsigned int m_id = 0;
+	unsigned int m_id{0};
 };
 
 // ----DLL functions----
