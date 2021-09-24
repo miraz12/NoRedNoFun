@@ -6,7 +6,6 @@
 namespace fs = std::filesystem;
 
 BotLoader::BotLoader(GLFWwindow* window) : win(window) {
-system("echo -n '1. Current Directory is '; pwd");
 	std::string botPath = "resources/Bots";
 	for(const auto & entry : fs::directory_iterator(botPath)) {
 
