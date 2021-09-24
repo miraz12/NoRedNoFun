@@ -14,6 +14,9 @@ public:
 
 	
 private:
+
+	void renderImgui();
+
 	double currentTime;
 	double previousTime;
 	double dt = 0.0;
