@@ -24,6 +24,10 @@ ECSManager::ECSManager()
 		{"SEEING", std::make_shared<SeeingSystem>(SeeingSystem(this))}},
 		m_addEntities(), m_addComponents(), m_removeEntities(), m_removeComponents()
 {
+	m_startingPositions.push_back(glm::vec2(2, 2));
+	m_startingPositions.push_back(glm::vec2(28, 2));
+	m_startingPositions.push_back(glm::vec2(2, 28));
+	m_startingPositions.push_back(glm::vec2(28, 28));
 }
 
 ECSManager::~ECSManager()
@@ -162,7 +166,9 @@ void ECSManager::createBotEntity(BotLoader::botInstance* bot, GLFWwindow* /*wind
 	botEntity.makePlayable();
 
 	// Add componments to player
-	addComponent(botEntity, new PositionComponent());
+	glm::vec2 startPos = m_startingPositions.back();
+	m_startingPositions.pop_back();
+	addComponent(botEntity, new PositionComponent(startPos.x, startPos.y));
 	addComponent(botEntity, new MovementComponent());
 	addComponent(botEntity, new CollisionComponent());
 	HealthComponent* healthComp = new HealthComponent();

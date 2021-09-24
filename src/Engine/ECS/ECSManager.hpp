@@ -78,6 +78,7 @@ private:
 		ComponentTypeEnum cmp;
 	};
 	std::vector<removeComponent_t> m_removeComponents;
+	std::vector<glm::vec2> m_startingPositions;
 
 	void addEntities();
 	void addComponents();
