@@ -27,7 +27,7 @@ Game::Game(GLFWwindow* window):
 	Rendering::getInstance().getCamera()->setPosition(0.5f * (float)Rendering::getInstance().getMapLoader()->getWidth(), 
 		0.5f * (float)Rendering::getInstance().getMapLoader()->getHeight());
 	
-	m_ECSManager->createPlayerEntity(7.f, 4.f, window);
+	//m_ECSManager->createPlayerEntity(7.f, 4.f, window);
 	}	
 
 void Game::update(float dt) {
