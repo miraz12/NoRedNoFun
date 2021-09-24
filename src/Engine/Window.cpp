@@ -6,6 +6,9 @@
 
 #include <iostream>
 #include <glad/glad.h>
+#include <backends/imgui_impl_glfw.h>
+#include <backends/imgui_impl_opengl3.h>
+
 #include <GLFW/glfw3.h>
 
 #include "Rendering.hpp"
@@ -38,6 +41,19 @@ bool Window::open() {
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
    glfwSwapInterval(0);
 
+
+   //Setup IMGUI
+   IMGUI_CHECKVERSION();
+   ImGui::CreateContext();
+   ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+   // Setup Dear ImGui style
+   ImGui::StyleColorsDark();
+
+   // Setup Platform/Renderer backends
+   ImGui_ImplGlfw_InitForOpenGL(window, true);
+   ImGui_ImplOpenGL3_Init("#version 130");
+
    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
    {
        std::cout << "Failed to initialize GLAD" << std::endl;
@@ -58,7 +74,13 @@ bool Window::gameLoop() {
    while (!glfwWindowShouldClose(window)) {
       // input
       // -----
+      glfwPollEvents();
       processInput(window);
+
+     // Start the Dear ImGui frame
+     // ImGui_ImplOpenGL3_NewFrame();
+     // ImGui_ImplGlfw_NewFrame();
+     // ImGui::NewFrame();
 
       // Update
       // -----
@@ -107,7 +129,6 @@ bool Window::gameLoop() {
       Rendering::getInstance().draw();
 
       glfwSwapBuffers(window);
-      glfwPollEvents();
    }
 
    glfwTerminate();
