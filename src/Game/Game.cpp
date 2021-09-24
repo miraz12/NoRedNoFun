@@ -25,7 +25,7 @@ Game::Game(GLFWwindow* window):
 	Rendering::getInstance().getCamera()->setPosition(0.5f * (float)Rendering::getInstance().getMapLoader()->getWidth(), 
 		0.5f * (float)Rendering::getInstance().getMapLoader()->getHeight());
 	
-	m_ECSManager->createPlayerEntity(7.f, 4.f, window);
+//	m_ECSManager->createPlayerEntity(7.f, 4.f, window);
 
 	for(unsigned int i = 0; i < m_botLoader.m_bots.size(); i++) {
 		BotInterface* b = m_botLoader.m_bots[i]->bot;
