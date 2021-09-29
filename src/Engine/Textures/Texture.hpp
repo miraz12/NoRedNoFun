@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 class Texture {
 public:
     Texture(unsigned int textureIndex);
@@ -11,6 +13,7 @@ public:
     virtual void setTextureData(unsigned char* data, unsigned int width, unsigned int height);
 	virtual bool updateTextureSubData(unsigned char* data, unsigned int xOffset, unsigned int yOffset, unsigned int width, unsigned int height);
     virtual void bind();
+	virtual void loadFromFile(std::string path);
 private:
     unsigned int m_texture;
 	unsigned int m_textureIndex;

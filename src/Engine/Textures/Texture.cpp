@@ -3,6 +3,9 @@
 #include <iostream>
 #include <glad/glad.h>
 
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
+
 Texture::Texture(unsigned int textureIndex) {
 	m_textureIndex = textureIndex;
 
@@ -57,4 +60,11 @@ bool Texture::updateTextureSubData(unsigned char* data, unsigned int xOffset, un
 void Texture::bind() {
 	glActiveTexture(GL_TEXTURE0 + m_textureIndex);
     glBindTexture(GL_TEXTURE_2D, m_texture);
+}
+
+void Texture::loadFromFile(std::string path) {
+	int width, height, channels;
+
+	unsigned char* data = stbi_load(path.c_str(), &width, &height, &channels, 0);
+	setTextureData(data, width, height);
 }
