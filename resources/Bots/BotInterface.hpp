@@ -13,11 +13,17 @@
 	#endif
 #endif
 
+enum EntityType {
+	UNKNOWN,
+	WEAPON
+};
+
 struct VisualEntity {
     float distance{0.0f};
 	float directionX{1.0f};
 	float directionY{1.0f};
     int entityHit{-1};
+	EntityType type{EntityType::UNKNOWN};
 };
 
 class BotInterface {

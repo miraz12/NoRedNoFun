@@ -33,6 +33,10 @@ void SeeingSystem::update(float /*dt*/) {
             seeingComp->visualEntities.back().directionY = rayDir.y;
             seeingComp->visualEntities.back().distance = seeingComp->viewDistance;
             seeingComp->visualEntities.back().entityHit = -1;
+            if(e->hasComponent(ComponentTypeEnum::WEAPON)) {
+                seeingComp->visualEntities.back().type = EntityType::WEAPON;
+
+            }
 
 		    // Check raycasts towards other entities
             for (auto& e2 : m_entities) {
