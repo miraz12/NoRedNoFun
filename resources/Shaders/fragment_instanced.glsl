@@ -1,11 +1,15 @@
-#version 460 core
+#version 440
+
+#define numTextures 15 
+
 precision highp float;
 
 // in vec4 color;
 in vec2 texCoords;
+in flat int textureId;
 
-// If uniforms change, also update SimpleShaderProgram to match
-layout(location = 1) uniform sampler2D texture0;
+// If uniforms change, also update InstancedShaderProgram to match
+layout(location = 1) uniform sampler2D textures[numTextures];
 
 out vec4 FragColor;
 
@@ -18,7 +22,12 @@ mat4 thresholdMatrix = mat4(
 
 void main()
 {
-	FragColor = texture(texture0, texCoords);
+    FragColor = vec4(0.0, 1.0, 0.0, 1.0);
+    
+    if (textureId < numTextures) {
+        FragColor = texture(textures[textureId], texCoords);
+    }
+
 
     // Screen-door transparancy
     float threshold = thresholdMatrix[int(floor(mod(gl_FragCoord.x, 4)))][int(floor(mod(gl_FragCoord.y, 4)))] / 17;
