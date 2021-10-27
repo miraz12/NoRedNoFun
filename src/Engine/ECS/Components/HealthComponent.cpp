@@ -12,6 +12,13 @@ HealthComponent::HealthComponent() :
 	m_componentType = ComponentTypeEnum::HEALTH;
 }
 
+HealthComponent::HealthComponent(int health) :
+	HealthComponent() {
+	maxHealth = health;
+	health = health;
+
+}
+
 HealthComponent::~HealthComponent() {
 	if (healthVisualizerQuad) {
 		Rendering::getInstance().getQuadManager()->returnQuad(healthVisualizerQuad);

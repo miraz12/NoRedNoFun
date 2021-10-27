@@ -14,6 +14,7 @@ public:
 	virtual bool updateTextureSubData(unsigned char* data, unsigned int xOffset, unsigned int yOffset, unsigned int width, unsigned int height);
     virtual void bind();
 	virtual void loadFromFile(std::string path);
+	virtual void setTexParameters(unsigned int, unsigned int);
 private:
     unsigned int m_texture;
 	unsigned int m_textureIndex;

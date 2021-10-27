@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 
-class ShaderProgram;
+#include "../ShaderPrograms/ShaderProgram.hpp"
 
 class GraphicsObject {
 public:

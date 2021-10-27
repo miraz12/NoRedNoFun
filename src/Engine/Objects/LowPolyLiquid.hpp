@@ -4,8 +4,6 @@
 
 #include "GraphicsObject.hpp"
 
-class ShaderProgram;
-
 class LowPolyLiquid : public GraphicsObject {
 public:
     LowPolyLiquid(ShaderProgram &shaderProgram);

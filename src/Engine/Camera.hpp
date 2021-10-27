@@ -14,12 +14,16 @@ public:
     void setZoom(float zoomAmount);
     void setRotation(float rotation); // Set rotation clockwise
 
+    glm::vec2& getPosition() { return m_position; };
+
+    void setAspectRatio(float ratio);
     void bindViewMatrix(unsigned int uniformLocation);
 private:
     glm::mat4 m_viewMatrix;
     bool m_matrixNeedsUpdate;
 
-    float m_position[2];
+    glm::vec2 m_position;
     float m_zoom;
     float m_rotation;
+    float m_ratio;
 };

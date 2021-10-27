@@ -8,6 +8,8 @@
 #include "Systems/WeaponSystem.hpp"
 #include "Systems/SeeingSystem.hpp"
 #include "../Bots/BotLoader.hpp"
+#include "Systems/CameraSystem.hpp"
+#include "Systems/AnimationSystem.hpp"
 
 #include <map>
 #include <string>
@@ -28,8 +30,15 @@ public:
 
 	~ECSManager();
 
+	void initializeSystems();
+
 	//Runs through all systems
 	void update(float dt);
+
+	//resets ECS
+	void reset();
+
+	void updateRenderingSystems(float dt);
 
 	//creates and returns a new entity
 	Entity& createEntity();

@@ -4,15 +4,18 @@
 
 #include <vector>
 
+struct InstanceData;
+
 class Quad: public SpriteMap {
 public:
-    Quad(std::vector<glm::mat4>* matrices, unsigned int matrixIndex);
+    Quad(std::vector<InstanceData>* matrices, unsigned int quadIndex);
     virtual ~Quad();
 
 	glm::mat4& getModelMatrix();
-    unsigned int getMatrixIndex();
+    unsigned int getQuadIndex();
+    void setTextureIndex(unsigned int index);
 
 private:
-    std::vector<glm::mat4>* m_matrices;
-    unsigned int m_matrixIndex;
+    std::vector<InstanceData>* m_quadData;
+    unsigned int m_quadIndex;
 };

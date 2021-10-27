@@ -5,8 +5,14 @@
 #include "MapLoader/MapLoader.hpp"
 #include "ShaderPrograms/SimpleShaderProgram.hpp"
 #include "ShaderPrograms/InstancedShaderProgram.hpp"
+#include "ShaderPrograms/QuadShaderProgram.hpp"
+#include "ShaderPrograms/Effects/CrtEffect.hpp"
+#include "Objects/ScreenQuad.hpp"
 #include "Objects/InstancedQuadManager.hpp"
 #include "Objects/LowPolyLiquid.hpp"
+#include "Objects/BlurObject.hpp"
+
+#include <array>
 
 class Rendering {
 public:
@@ -20,13 +26,17 @@ public:
 
     ~Rendering() = default;
 
+    void reset();
 	Quad* getNewQuad();
     InstancedQuadManager* getQuadManager();
 	Camera* getCamera();
     MapLoader* getMapLoader();
 
+    
 	void update(float dt);
     void draw();
+    void init(unsigned int width, unsigned int height);
+    void reInit(unsigned int width, unsigned int height);
 private:
     Rendering();
 
@@ -39,5 +49,18 @@ private:
     LowPolyLiquid m_lowPolyLiquid;
 
     MapLoader m_mapLoader;
+    QuadShaderProgram m_screenShaderProgram;
+    ScreenQuad m_screenQuad;
+
+    CrtEffect m_crtEffect;
+    ScreenQuad m_quadCrt;
+
+    // Framebuffer variables
+    std::array<unsigned int, 2> m_fbos;
+    std::array<unsigned int, 2> m_colTexs;
+    std::array<unsigned int, 2> m_rbos;
+
+    unsigned int m_width, m_height;
+    unsigned int quadVAO, quadVBO;
     void initGL();
 };

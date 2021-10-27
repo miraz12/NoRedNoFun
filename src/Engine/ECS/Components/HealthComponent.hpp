@@ -8,6 +8,7 @@ class HealthComponent : public Component
 
 public:
 	HealthComponent();
+	HealthComponent(int health);
 	virtual ~HealthComponent();
 	int maxHealth;
 	int health;

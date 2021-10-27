@@ -72,6 +72,16 @@ void ShaderProgram::use() {
 
 void ShaderProgram::setupInstancedVertexAttributePointers() {}
 
+unsigned int ShaderProgram::getUniformLocation(std::string uniformName) {
+	if (m_uniformBindings.find(uniformName) == m_uniformBindings.end()) {
+		std::cout << "No uniform with name " << uniformName << "\n";
+	}
+	else {
+		return m_uniformBindings[uniformName];
+	}
+    return 0;
+}
+
 void ShaderProgram::readFile(std::string filePath, std::string* result) {
     std::string line;
     std::ifstream theFile(filePath);

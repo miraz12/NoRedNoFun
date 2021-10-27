@@ -7,12 +7,17 @@
 class Game {
 public:
 	Game(GLFWwindow* window);
-	~Game() = default;
+	~Game();
 	
 	void update(float dt);
+	void reset();
 private:
-	BotLoader m_botLoader;
+	void init();
+	void setupEntities();
+
+	GLFWwindow* m_window;
 	ECSManager* m_ECSManager;
+	BotLoader m_botLoader;
 
 };
 

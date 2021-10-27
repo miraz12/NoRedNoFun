@@ -9,6 +9,7 @@ public:
 	int keys[1024];
 	double mouseX;
 	double mouseY;
+	bool rotateTowardsMouse;
 
 	int winWidth;
 	int winHeight;

@@ -10,6 +10,7 @@ public:
 	Entity(int ID);
 
 	~Entity();
+	Entity(const Entity&) = delete;
 
 	const int getID();
 

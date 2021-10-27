@@ -4,11 +4,11 @@
 #include <glm/ext.hpp>
 #include <vector>
 
-class InstancedQuadManager;
+struct InstanceData;
 
 class SpriteMap {
 public:
-	SpriteMap(std::vector<glm::mat4>* matrices, unsigned int matrixIndex);
+	SpriteMap(std::vector<InstanceData>* quadData, unsigned int quadIndex);
 	virtual ~SpriteMap();
 
 	virtual const glm::vec2& getNrOfSprites();
@@ -21,8 +21,8 @@ public:
 private:
 	void updateTextureMatrix();
 
-	std::vector<glm::mat4>* m_matrices;
-	unsigned int m_matrixIndex;
+	std::vector<InstanceData>* m_quadData;
+	unsigned int m_quadIndex;
 
 	glm::vec2 m_nrOfSprites;
 	glm::vec2 m_currentSprite;

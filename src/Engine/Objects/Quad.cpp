@@ -3,10 +3,12 @@
 #include <glad/glad.h>
 #include <cstdlib>
 
-Quad::Quad(std::vector<glm::mat4>* matrices, unsigned int matrixIndex) :
-    SpriteMap(matrices, matrixIndex + 1),
-    m_matrices(matrices),
-    m_matrixIndex(matrixIndex) {
+#include "Engine/Objects/InstancedQuadManager.hpp"
+
+Quad::Quad(std::vector<InstanceData> *quadData, unsigned int quadIndex) :
+    SpriteMap(quadData, quadIndex),
+    m_quadData(quadData),
+    m_quadIndex(quadIndex) {
 
 }
 
@@ -15,9 +17,13 @@ Quad::~Quad() {
 }
 
 glm::mat4& Quad::getModelMatrix() {
-	return m_matrices->at(m_matrixIndex);
+	return m_quadData->at(m_quadIndex).modelMatrix;
 }
 
-unsigned int Quad::getMatrixIndex() {
-    return m_matrixIndex;
+unsigned int Quad::getQuadIndex() {
+    return m_quadIndex;
+}
+
+void Quad::setTextureIndex(unsigned int index) {
+    m_quadData->at(m_quadIndex).textureIndex = index;
 }

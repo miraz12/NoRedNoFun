@@ -8,22 +8,16 @@
 #include "Components/GraphicsComponent.hpp"
 #include "Components/WeaponComponent.hpp"
 #include "Components/SeeingComponent.hpp"
+#include "Components/CameraFocusComponent.hpp"
 #include "Rendering.hpp"
 
 
 std::vector<Entity*> ECSManager::m_entities;
 
 ECSManager::ECSManager()
-	:m_idCounter(1), m_systems{
-		{"INPUT", std::make_shared<InputSystem>(InputSystem(this))},
-		{"MOVEMENT", std::make_shared<MovementSystem>(MovementSystem(this))},
-		{"COLLISION", std::make_shared<CollisionSystem>(CollisionSystem(this))},
-		{"HEALTH", std::make_shared<HealthSystem>(HealthSystem(this))},
-		{"GRAPHICS", std::make_shared<GraphicsSystem>(GraphicsSystem(this))},
-		{"WEAPON", std::make_shared<WeaponSystem>(WeaponSystem(this))},
-		{"SEEING", std::make_shared<SeeingSystem>(SeeingSystem(this))}},
-		m_addEntities(), m_addComponents(), m_removeEntities(), m_removeComponents()
+	:m_idCounter(1), m_addEntities(), m_addComponents(), m_removeEntities(), m_removeComponents()
 {
+	initializeSystems();
 	m_startingPositions.push_back(glm::vec2(2, 2));
 	m_startingPositions.push_back(glm::vec2(28, 2));
 	m_startingPositions.push_back(glm::vec2(2, 28));
@@ -33,11 +27,34 @@ ECSManager::ECSManager()
 ECSManager::~ECSManager()
 {
 	//Delete all entities and systems
+	for (auto& e : m_entities) {
+		delete e;
+	}
+}
+
+void ECSManager::initializeSystems() {
+	m_systems["INPUT"] = std::make_shared<InputSystem>(InputSystem(this));
+	m_systems["MOVEMENT"] = std::make_shared<MovementSystem>(MovementSystem(this));
+	m_systems["COLLISION"] = std::make_shared<CollisionSystem>(CollisionSystem(this));
+	m_systems["SEEING"] = std::make_shared<SeeingSystem>(SeeingSystem(this));
+	m_systems["HEALTH"] = std::make_shared<HealthSystem>(HealthSystem(this));
+	m_systems["GRAPHICS"] = std::make_shared<GraphicsSystem>(GraphicsSystem(this));
+	m_systems["WEAPON"] = std::make_shared<WeaponSystem>(WeaponSystem(this));
+	m_systems["CAMERAFOCUS"] = std::make_shared<CameraSystem>(CameraSystem(this));
+	m_systems["ANIMATION"] = std::make_shared<AnimationSystem>(AnimationSystem(this));
+
 }
 
 void ECSManager::update(float dt)
 {
-	//G� igenom alla systems och g�r update
+	//for all entities, remove/add components
+    //remove/add entities from systems
+	addEntities();
+	addComponents();
+	removeEntities();
+	removeComponents();
+
+	//update all systems
 	m_systems["INPUT"]->update(dt);
 	m_systems["MOVEMENT"]->update(dt);
 	m_systems["COLLISION"]->update(dt);
@@ -45,13 +62,23 @@ void ECSManager::update(float dt)
 	m_systems["HEALTH"]->update(dt);
 	m_systems["GRAPHICS"]->update(dt);
 	m_systems["WEAPON"]->update(dt);
+	m_systems["CAMERAFOCUS"]->update(dt);
+}
 
-	//for all entities, remove/add components
-	//remove/add entities from systems
-	addEntities();
-	addComponents();
-	removeEntities();
-	removeComponents();
+void ECSManager::updateRenderingSystems(float dt) {
+	m_systems["ANIMATION"]->update(dt);
+}
+
+void ECSManager::reset() {
+	//Delete all entities
+	for (auto& e : m_entities) {
+		delete e;
+	}
+	m_entities.clear();
+	m_idCounter = 0;
+
+	//re-init systems
+	initializeSystems();
 }
 
 Entity& ECSManager::createEntity()
@@ -175,6 +202,7 @@ void ECSManager::createBotEntity(BotLoader::botInstance* bot, GLFWwindow* /*wind
 	healthComp->healthVisualizerQuad = Rendering::getInstance().getNewQuad();
 	healthComp->healthVisualizerQuad->setNrOfSprites(2, 4);
 	healthComp->healthVisualizerQuad->setCurrentSprite(0, 3);
+	healthComp->healthVisualizerQuad->setTextureIndex(0);
 	addComponent(botEntity, healthComp);
 	GraphicsComponent* graphComp = new GraphicsComponent();
 	graphComp->quad->setNrOfSprites(1.0f, 1.5f);
@@ -199,6 +227,7 @@ const int ECSManager::createPlayerEntity(float x, float y, GLFWwindow* window) {
 	healthComp->healthVisualizerQuad = Rendering::getInstance().getNewQuad();
 	healthComp->healthVisualizerQuad->setNrOfSprites(2, 4);
 	healthComp->healthVisualizerQuad->setCurrentSprite(0, 3);
+	healthComp->healthVisualizerQuad->setTextureIndex(0);
 	addComponent(playerEntity, healthComp);
 	addComponent(playerEntity, new DamageComponent());
 	GraphicsComponent* graphComp = new GraphicsComponent();

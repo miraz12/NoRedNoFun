@@ -34,6 +34,9 @@ public:
 	//this function is called when the system should do its thing
 	virtual void update(float dt) = 0;
 
+	//Initialize system
+	virtual void initialize() {};
+
 protected:
 	ECSManager *m_manager;
 	std::vector<ComponentTypeEnum> m_requiredComponents;

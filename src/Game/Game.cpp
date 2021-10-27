@@ -14,7 +14,8 @@ Game::Game(GLFWwindow* window):
 	m_botLoader(window),
 	m_ECSManager(&ECSManager::getInstance())
 {
-	Rendering::getInstance().getQuadManager()->getTexture().loadFromFile("resources/Textures/instanced.png");
+
+	Rendering::getInstance().getQuadManager()->getTexture(0).loadFromFile("resources/Textures/instanced.png");
 	Rendering::getInstance().getMapLoader()->getModelMatrix() = glm::translate(glm::mat4(1.0f),
 		glm::vec3(0.5f * (float) Rendering::getInstance().getMapLoader()->getWidth(), 
 		0.5f * (float)Rendering::getInstance().getMapLoader()->getHeight(), 
@@ -28,7 +29,7 @@ Game::Game(GLFWwindow* window):
 	Rendering::getInstance().getCamera()->setPosition(0.5f * (float)Rendering::getInstance().getMapLoader()->getWidth(), 
 		0.5f * (float)Rendering::getInstance().getMapLoader()->getHeight());
 	
-	//m_ECSManager->createPlayerEntity(7.f, 4.f, window);
+	m_ECSManager->createPlayerEntity(7.f, 4.f, window);
 	}	
 
 void Game::update(float dt) {
@@ -40,4 +41,27 @@ void Game::update(float dt) {
 			b->bot->update(dt, &seeingComp->visualEntities);
 		}
 	}
+}
+
+void Game::reset() {
+	Rendering::getInstance().reset();
+	m_ECSManager->reset();
+
+	init();
+}	
+
+Game::~Game()
+{
+	m_ECSManager->reset();
+	//Rendering::getInstance().~Rendering();
+}
+
+void Game::init() {
+	Rendering::getInstance().getCamera()->setZoom(1.0f/15.f);
+	Rendering::getInstance().getCamera()->setPosition(0.5f * 15.f, 0.5f * 15.f);
+
+	setupEntities();
+}
+
+void Game::setupEntities() {
 }

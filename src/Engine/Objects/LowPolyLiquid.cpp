@@ -3,9 +3,6 @@
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 
-#include "GraphicsObject.hpp"
-#include "ShaderPrograms/ShaderProgram.hpp"
-
 LowPolyLiquid::LowPolyLiquid(ShaderProgram& shaderProgram):
     GraphicsObject(shaderProgram),
     m_currentColor({0.0f, 0.0f, 1.0f, 0.7f}) {

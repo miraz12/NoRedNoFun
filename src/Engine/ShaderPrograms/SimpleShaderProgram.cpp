@@ -36,13 +36,3 @@ void SimpleShaderProgram::setupVertexAttributePointers() {
     glEnableVertexAttribArray(2);
 }
 
-unsigned int SimpleShaderProgram::getUniformLocation(std::string uniformName) {
-	if (m_uniformBindings.find(uniformName) == m_uniformBindings.end()) {
-		std::cout << "No uniform with name " << uniformName << "\n";
-	}
-	else {
-		return m_uniformBindings[uniformName];
-	}
-
-    return 0;
-}
