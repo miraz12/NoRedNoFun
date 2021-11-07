@@ -56,9 +56,9 @@ void Rendering::init(unsigned int width, unsigned int height) {
     m_height = height;
 
     // Framebuffer
-    glGenFramebuffers(m_fbos.size(), m_fbos.data());
-    glGenTextures(m_colTexs.size(), m_colTexs.data());
-    glGenRenderbuffers(m_rbos.size(), m_rbos.data());
+    glGenFramebuffers(static_cast<int>(m_fbos.size()), m_fbos.data());
+    glGenTextures(static_cast<int>(m_colTexs.size()), m_colTexs.data());
+    glGenRenderbuffers(static_cast<int>(m_rbos.size()), m_rbos.data());
 
     for(unsigned int i = 0; i < m_fbos.size(); ++i) {
         glBindFramebuffer(GL_FRAMEBUFFER, m_fbos[i]);
@@ -86,8 +86,8 @@ void Rendering::reInit(unsigned int width, unsigned int height) {
     m_width = width; 
     m_height = height;
 
-    glDeleteFramebuffers(m_fbos.size(), m_fbos.data());
-    glGenFramebuffers(m_fbos.size(), m_fbos.data());
+    glDeleteFramebuffers(static_cast<int>(m_fbos.size()), m_fbos.data());
+    glGenFramebuffers(static_cast<int>(m_fbos.size()), m_fbos.data());
 
     for(unsigned int i = 0; i < m_fbos.size(); ++i) {
         glBindFramebuffer(GL_FRAMEBUFFER, m_fbos[i]);

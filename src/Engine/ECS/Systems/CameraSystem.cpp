@@ -8,7 +8,7 @@ CameraSystem::CameraSystem(ECSManager* ECSManager)
 
 }
 
-void CameraSystem::update(float dt) {
+void CameraSystem::update(float /*dt*/) {
 	//System should only have one entity
 	for (auto& e : m_entities) {
 		PositionComponent* posComp = static_cast<PositionComponent*>(e->getComponent(ComponentTypeEnum::POSITION));

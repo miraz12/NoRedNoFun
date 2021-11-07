@@ -38,7 +38,7 @@ void InstancedShaderProgram::setupInstancedVertexAttributePointers() {
 	unsigned int totalFloats = 4 * 4 * 2; // Mat4 * 2
 	unsigned int totalInts = 1;
 
-	size_t stride = totalFloats * sizeof(float) + totalInts * sizeof(int);
+	unsigned int stride = totalFloats * sizeof(float) + totalInts * sizeof(int);
 
 	// Model Matrix
 	for (unsigned int i = 0; i < 4; i++) {
