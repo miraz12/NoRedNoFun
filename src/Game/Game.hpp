@@ -16,8 +16,8 @@ private:
 	void setupEntities();
 
 	GLFWwindow* m_window;
-	ECSManager* m_ECSManager;
 	BotLoader m_botLoader;
+	ECSManager* m_ECSManager;
 
 };
 
