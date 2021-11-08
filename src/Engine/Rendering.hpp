@@ -48,12 +48,12 @@ private:
     SimpleShaderProgram m_simpleShaderProgram;
     LowPolyLiquid m_lowPolyLiquid;
 
-    MapLoader m_mapLoader;
     QuadShaderProgram m_screenShaderProgram;
     ScreenQuad m_screenQuad;
 
     CrtEffect m_crtEffect;
     ScreenQuad m_quadCrt;
+    MapLoader m_mapLoader;
 
     // Framebuffer variables
     std::array<unsigned int, 2> m_fbos;
