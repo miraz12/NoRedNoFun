@@ -40,8 +40,8 @@ public:
 
 // ----DLL functions----
 #ifdef _WIN32
-BOT_API BotInterface * newInterface(unsigned int id);
+extern "C" BOT_API BotInterface * newInterface(unsigned int id);
 #elif __linux__
-BotInterface * newInterface(unsigned int id);
+extern "C" BotInterface * newInterface(unsigned int id);
 #endif
 // ---------------------
