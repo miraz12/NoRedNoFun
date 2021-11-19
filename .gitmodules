@@ -10,6 +10,6 @@
 [submodule "exts/imgui"]
 	path = exts/imgui
 	url = https://github.com/ocornut/imgui.git
-[submodule ".\\exts\\openal-soft"]
-	path = .\\exts\\openal-soft
+[submodule "exts/openal-soft"]
+	path = exts/openal-soft
 	url = https://github.com/kcat/openal-soft.git
