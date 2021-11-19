@@ -1,4 +1,5 @@
 #include "MapLoader.hpp"
+#include <cstdlib>
 #include <glad/glad.h>
 #include <fstream>
 #include <iostream>
@@ -65,7 +66,7 @@ void MapLoader::parseMap() {
         }
     }
     m_texture.setTextureData(texData, m_width, m_height); 
-    delete texData;
+    free(texData);
 }
 
 void MapLoader::loadMap(std::string mapName) {

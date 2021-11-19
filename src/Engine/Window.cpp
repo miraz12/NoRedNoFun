@@ -1,8 +1,8 @@
 #include "Window.hpp"
-#include <errhandlingapi.h>
 
 #ifdef _WIN32
 #include <windows.h>
+#include <errhandlingapi.h>
 #endif
 
 #include <iostream>
@@ -135,7 +135,6 @@ bool Window::open() {
 
    int channel, sampleRate, bps, size;
    char* data = loadWAV("resources/Audio/mixkit-arcade-game-complete-or-approved-mission-205.wav", channel, sampleRate, bps, size);
-   data;
 
    unsigned int format;
    if(channel == 1) {
