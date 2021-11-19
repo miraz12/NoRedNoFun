@@ -137,6 +137,40 @@ bool Window::open() {
    char* data = loadWAV("resources/Audio/mixkit-arcade-game-complete-or-approved-mission-205.wav", channel, sampleRate, bps, size);
    data;
 
+   unsigned int format;
+   if(channel == 1) {
+      if (bps == 8) {
+         format = AL_FORMAT_MONO8;
+      } else {
+         format = AL_FORMAT_MONO16;
+      }
+   } else {
+      if (bps == 8) {
+         format = AL_FORMAT_STEREO8;
+      } else {
+         format = AL_FORMAT_STEREO16;
+      }
+   }
+
+   alBufferData(g_Buffers[0], format, data, size, sampleRate);
+   if ((error = alGetError()) != AL_NO_ERROR) {
+      alDeleteBuffers(1, g_Buffers);
+      return false;
+   }
+
+   ALuint source[1];
+   alGenSources(1, source);
+   if ((error = alGetError()) != AL_NO_ERROR) {
+      return false;
+   }
+
+   alSourcei(source[0], AL_BUFFER, g_Buffers[0]);
+   if ((error = alGetError()) != AL_NO_ERROR) {
+      return false;
+   }
+
+   alSourcePlay(source[0]);
+
    return true;
 }
 
