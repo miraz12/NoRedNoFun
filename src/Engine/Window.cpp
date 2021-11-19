@@ -1,15 +1,19 @@
 #include "Window.hpp"
+#include <errhandlingapi.h>
 
 #ifdef _WIN32
 #include <windows.h>
 #endif
 
 #include <iostream>
+#include <fstream>
 #include <glad/glad.h>
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
 
 #include <GLFW/glfw3.h>
+#include <AL/al.h>
+#include <AL/alc.h>
 
 #include "Rendering.hpp"
 #include "Game/Game.hpp"
@@ -19,6 +23,56 @@ void processInput(GLFWwindow *window);
 void errorCallback(int /*error*/, const char* description) { printf("Error: %s\n", description); }
 
 GLFWwindow* window;
+
+bool isBigEndian()
+{
+    int a = 1;
+    return !((char*)&a)[0];
+}
+
+int convertToInt(char* buffer, int len)
+{
+    int a = 0;
+    if (!isBigEndian())
+        for (int i = 0; i<len; i++)
+            ((char*)&a)[i] = buffer[i];
+    else
+        for (int i = 0; i<len; i++)
+            ((char*)&a)[3 - i] = buffer[i];
+    return a;
+}
+
+char* loadWAV(const char* fn, int& chan, int& samplerate, int& bps, int& size)
+{
+    char buffer[4];
+    std::ifstream in(fn, std::ios::binary);
+    in.read(buffer, 4);
+    if (strncmp(buffer, "RIFF", 4) != 0)
+    {
+        std::cout << "this is not a valid WAVE file" << std::endl;
+        return NULL;
+    }
+    in.read(buffer, 4);
+    in.read(buffer, 4);      //WAVE
+    in.read(buffer, 4);      //fmt
+    in.read(buffer, 4);      //16
+    in.read(buffer, 2);      //1
+    in.read(buffer, 2);
+    chan = convertToInt(buffer, 2);
+    in.read(buffer, 4);
+    samplerate = convertToInt(buffer, 4);
+    in.read(buffer, 4);
+    in.read(buffer, 2);
+    in.read(buffer, 2);
+    bps = convertToInt(buffer, 2);
+    in.read(buffer, 4);      //data
+    in.read(buffer, 4);
+    size = convertToInt(buffer, 4);
+    char* data = new char[size];
+    in.read(data, size);
+    return data;
+}
+
 
 bool Window::open() {
    glfwInit();
@@ -59,6 +113,29 @@ bool Window::open() {
        std::cout << "Failed to initialize GLAD" << std::endl;
        return false;
    }
+
+   ALCdevice* alDevice = alcOpenDevice(NULL);
+
+   if(alDevice){
+      ALCcontext* alContext = alcCreateContext(alDevice, NULL);
+      alcMakeContextCurrent(alContext);
+   }
+
+   alGetError();
+
+   ALuint g_Buffers[1];
+   alGenBuffers(1, g_Buffers);
+
+
+   ALenum error;
+   if((error = alGetError()) != AL_NO_ERROR ) {
+      std::cout << "OpenAL buffer error!" << std::endl;
+      return false;
+   }
+
+   int channel, sampleRate, bps, size;
+   char* data = loadWAV("resources/Audio/mixkit-arcade-game-complete-or-approved-mission-205.wav", channel, sampleRate, bps, size);
+   data;
 
    return true;
 }
