@@ -23,6 +23,9 @@ SET(GLFW_INSTALL OFF CACHE BOOL "Generate installation target")
 ADD_SUBDIRECTORY(glm)
 TARGET_INCLUDE_DIRECTORIES(exts SYSTEM INTERFACE glm/include)
 
+# OpenAL
+add_subdirectory(openal-soft)
+
 # IMGUI 
 ADD_LIBRARY(imgui STATIC  imgui/imgui.cpp 
                           imgui/imgui_demo.cpp
@@ -43,7 +46,7 @@ TARGET_INCLUDE_DIRECTORIES(imgui PUBLIC imgui glfw/include)
 TARGET_INCLUDE_DIRECTORIES(exts SYSTEM INTERFACE stb_image)
 
 if (WIN32)
-  TARGET_LINK_LIBRARIES(exts INTERFACE glfw opengl32 glad glm imgui)
+    TARGET_LINK_LIBRARIES(exts INTERFACE glfw opengl32 glad glm imgui OpenAL)
 elseif(UNIX)
-  TARGET_LINK_LIBRARIES(exts INTERFACE glfw GL glad glm dl imgui)
+  TARGET_LINK_LIBRARIES(exts INTERFACE glfw GL glad glm dl imgui openal-soft)
 endif()
