@@ -23,7 +23,7 @@ add_executable(${PROJECT_NAME} ${CMAKE_SOURCE_DIR}/src/main.cpp)
 # Link libraries
 target_link_libraries(${PROJECT_NAME} PUBLIC Engine Game)
 if(UNIX)
-target_link_libraries(${PROJECT_NAME} PUBLIC stdc++fs lstdc++fs)
+target_link_libraries(${PROJECT_NAME} PUBLIC stdc++fs stdc++fs)
 endif(UNIX)
 
 # Make executale dependant on libs
