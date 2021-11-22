@@ -10,14 +10,12 @@ endif(UNIX)
 
 # Add source files
 set(SOURCE_FILES 
-	"dllmain.cpp"
 	"ExampleBot.cpp"
 	)
 	
 # Add header files
 set(HEADER_FILES 
 	"../resources/Bots/BotInterface.hpp"
-	"framework.hpp"
 	"ExampleBot.hpp"
 	)
 
