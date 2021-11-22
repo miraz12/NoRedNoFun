@@ -4,9 +4,9 @@ ADD_LIBRARY(exts INTERFACE)
 find_package(OpenGL REQUIRED)
 
 # GLAD
-ADD_SUBDIRECTORY(glad)
-SET_TARGET_PROPERTIES(glad PROPERTIES FOLDER "exts/glad")
-TARGET_INCLUDE_DIRECTORIES(exts SYSTEM INTERFACE glad/include)
+add_library(glad STATIC glad/src/glad.c glad/include/glad/glad.h)
+TARGET_INCLUDE_DIRECTORIES(glad PUBLIC glad/include)
+
 
 # GLFW
 ADD_SUBDIRECTORY(glfw)

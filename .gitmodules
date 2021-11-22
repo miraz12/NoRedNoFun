@@ -1,9 +1,6 @@
 [submodule "exts/glfw"]
 	path = exts/glfw
 	url = https://github.com/glfw/glfw.git
-[submodule "exts/glad"]
-	path = exts/glad
-	url = https://github.com/Dav1dde/glad.git
 [submodule "exts/glm"]
 	path = exts/glm
 	url = https://github.com/g-truc/glm.git
