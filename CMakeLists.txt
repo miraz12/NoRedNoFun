@@ -29,6 +29,13 @@ endif(UNIX)
 # Make executale dependant on libs
 add_dependencies(${PROJECT_NAME} Engine Game)
 
+if(WIN32)
+  add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+    "$<TARGET_FILE:OpenAL>"
+    $<TARGET_FILE_DIR:${PROJECT_NAME}>)
+endif()
+
 # Copy resource folder to binary folder
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
