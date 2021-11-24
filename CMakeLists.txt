@@ -29,6 +29,7 @@ endif(UNIX)
 # Make executale dependant on libs
 add_dependencies(${PROJECT_NAME} Engine Game)
 
+if(NOT DEFINED IS_JENKINS)
 if(WIN32)
   add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy
@@ -41,6 +42,7 @@ add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${CMAKE_SOURCE_DIR}/resources"
         $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources DEPENDS myBot)
+endif()
 
 # Tell MSVC to run debug binary from folder with debug binary
 if (MSVC)
