@@ -229,11 +229,11 @@ bool Window::gameLoop() {
          game.update((float) updateTimer);
          updateTimer = 0.0f;
       }
-      Rendering::getInstance().update((float) dt);
+      //Rendering::getInstance().update((float) dt);
 
       // render
       // ------
-      Rendering::getInstance().draw();
+      //Rendering::getInstance().draw();
 
       ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
       glfwSwapBuffers(window);

@@ -14,20 +14,21 @@ Game::Game(GLFWwindow* window):
 	m_botLoader(window),
 	m_ECSManager(&ECSManager::getInstance())
 {
-	Rendering::getInstance().getQuadManager()->getTexture(0).loadFromFile("resources/Textures/instanced.png");
-	Rendering::getInstance().getQuadManager()->getTexture(1).loadFromFile("resources/Textures/HealthBar.png");
-	Rendering::getInstance().getMapLoader()->getModelMatrix() = glm::translate(glm::mat4(1.0f),
-		glm::vec3(0.5f * (float) Rendering::getInstance().getMapLoader()->getWidth(), 
-		0.5f * (float)Rendering::getInstance().getMapLoader()->getHeight(), 
+
+	m_ECSManager->getGraphicsSystem()->getQuadManager()->getTexture(0).loadFromFile("resources/Textures/instanced.png");
+	m_ECSManager->getGraphicsSystem()->getQuadManager()->getTexture(1).loadFromFile("resources/Textures/HealthBar.png");
+	m_ECSManager->getGraphicsSystem()->getMapLoader()->getModelMatrix() = glm::translate(glm::mat4(1.0f),
+		glm::vec3(0.5f * (float) m_ECSManager->getGraphicsSystem()->getMapLoader()->getWidth(), 
+		0.5f * (float)m_ECSManager->getGraphicsSystem()->getMapLoader()->getHeight(), 
 		0.1f));
-	Rendering::getInstance().getMapLoader()->getModelMatrix() = glm::scale(Rendering::getInstance().getMapLoader()->getModelMatrix(),
-		glm::vec3((float) Rendering::getInstance().getMapLoader()->getWidth(), 
-		(float)Rendering::getInstance().getMapLoader()->getHeight(), 
+	m_ECSManager->getGraphicsSystem()->getMapLoader()->getModelMatrix() = glm::scale(m_ECSManager->getGraphicsSystem()->getMapLoader()->getModelMatrix(),
+		glm::vec3((float) m_ECSManager->getGraphicsSystem()->getMapLoader()->getWidth(), 
+		(float)m_ECSManager->getGraphicsSystem()->getMapLoader()->getHeight(), 
 		1.0f)); // Scale map to make the tile size 1x1
-	Rendering::getInstance().getCamera()->setZoom(1.0f/(0.5f * (float) std::max(Rendering::getInstance().getMapLoader()->getWidth(), 
-		Rendering::getInstance().getMapLoader()->getHeight()))); // Zoom out so that the whole map is visible
-	Rendering::getInstance().getCamera()->setPosition(0.5f * (float)Rendering::getInstance().getMapLoader()->getWidth(), 
-		0.5f * (float)Rendering::getInstance().getMapLoader()->getHeight());
+	m_ECSManager->getGraphicsSystem()->getCamera()->setZoom(1.0f/(0.5f * (float) std::max(m_ECSManager->getGraphicsSystem()->getMapLoader()->getWidth(), 
+		m_ECSManager->getGraphicsSystem()->getMapLoader()->getHeight()))); // Zoom out so that the whole map is visible
+	m_ECSManager->getGraphicsSystem()->getCamera()->setPosition(0.5f * (float)m_ECSManager->getGraphicsSystem()->getMapLoader()->getWidth(), 
+		0.5f * (float)m_ECSManager->getGraphicsSystem()->getMapLoader()->getHeight());
 	
 	m_ECSManager->createPlayerEntity(7.f, 4.f, window);
 	}	

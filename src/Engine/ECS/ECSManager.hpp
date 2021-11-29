@@ -64,6 +64,9 @@ public:
 	//Returns entity by ID, or NULL if it does not exist
 	static Entity* getEntity(int entityID);
 
+	// Get rendering system
+	std::shared_ptr<GraphicsSystem> getGraphicsSystem() { return std::dynamic_pointer_cast<GraphicsSystem>(m_systems["GRAPHICS"]); };
+
 private:
 
 	ECSManager();

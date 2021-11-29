@@ -26,7 +26,7 @@ struct botInstance {
 	std::string m_botName;
 	};
 
-	BotLoader() = delete;
+	BotLoader() = default;
 	BotLoader(GLFWwindow* window);
 	virtual ~BotLoader();
 

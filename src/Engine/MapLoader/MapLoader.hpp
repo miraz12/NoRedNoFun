@@ -11,8 +11,8 @@ class MapLoader : protected GraphicsObject {
 public:
     MapLoader(ShaderProgram &shader, std::string mapName);
     ~MapLoader() = default;
-    MapLoader(MapLoader const&) = delete;
-    void operator=(MapLoader const&) = delete;
+    //MapLoader(MapLoader const&) = delete;
+    //void operator=(MapLoader const&) = delete;
 
 	glm::mat4& getModelMatrix();
     void draw();
