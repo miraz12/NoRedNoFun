@@ -1,6 +1,6 @@
 #include "HealthComponent.hpp"
 
-#include "Rendering.hpp"
+#include "ECS/ECSManager.hpp"
 
 HealthComponent::HealthComponent() : 
 	maxHealth(100),
@@ -21,6 +21,6 @@ HealthComponent::HealthComponent(int health) :
 
 HealthComponent::~HealthComponent() {
 	if (healthVisualizerQuad) {
-		Rendering::getInstance().getQuadManager()->returnQuad(healthVisualizerQuad);
+		ECSManager::getInstance().getGraphicsSystem()->getQuadManager()->returnQuad(healthVisualizerQuad);
 	}
 }

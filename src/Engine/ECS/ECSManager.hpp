@@ -65,7 +65,7 @@ public:
 	static Entity* getEntity(int entityID);
 
 	// Get rendering system
-	std::shared_ptr<GraphicsSystem> getGraphicsSystem() { return std::dynamic_pointer_cast<GraphicsSystem>(m_systems["GRAPHICS"]); };
+	GraphicsSystem* getGraphicsSystem() { return dynamic_cast<GraphicsSystem*>(m_systems["GRAPHICS"]); };
 
 private:
 
@@ -75,7 +75,7 @@ private:
 	static std::vector<Entity*> m_entities;
 
 	//Systems
-	std::map<std::string, std::shared_ptr<System>> m_systems;
+	std::map<std::string, System*> m_systems;
 
 	//Events
 	std::vector<Entity*> m_addEntities;

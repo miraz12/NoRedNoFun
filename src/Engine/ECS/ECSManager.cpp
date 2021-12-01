@@ -9,7 +9,6 @@
 #include "Components/WeaponComponent.hpp"
 #include "Components/SeeingComponent.hpp"
 #include "Components/CameraFocusComponent.hpp"
-#include "Rendering.hpp"
 
 
 std::vector<Entity*> ECSManager::m_entities;
@@ -30,19 +29,21 @@ ECSManager::~ECSManager()
 	for (auto& e : m_entities) {
 		delete e;
 	}
+	for (auto& s : m_systems) {
+		delete s.second;
+	}
 }
 
 void ECSManager::initializeSystems() {
-	m_systems["INPUT"] = std::make_shared<InputSystem>(InputSystem(this));
-	m_systems["MOVEMENT"] = std::make_shared<MovementSystem>(MovementSystem(this));
-	m_systems["COLLISION"] = std::make_shared<CollisionSystem>(CollisionSystem(this));
-	m_systems["SEEING"] = std::make_shared<SeeingSystem>(SeeingSystem(this));
-	m_systems["HEALTH"] = std::make_shared<HealthSystem>(HealthSystem(this));
-	m_systems["GRAPHICS"] = std::make_shared<GraphicsSystem>(GraphicsSystem(this));
-	m_systems["WEAPON"] = std::make_shared<WeaponSystem>(WeaponSystem(this));
-	m_systems["CAMERAFOCUS"] = std::make_shared<CameraSystem>(CameraSystem(this));
-	m_systems["ANIMATION"] = std::make_shared<AnimationSystem>(AnimationSystem(this));
-
+	m_systems["INPUT"] =       new InputSystem(this);
+	m_systems["MOVEMENT"] =    new MovementSystem(this);
+	m_systems["COLLISION"] =   new CollisionSystem(this);
+	m_systems["SEEING"] = 	   new SeeingSystem(this);
+	m_systems["HEALTH"] =      new HealthSystem(this);
+	m_systems["GRAPHICS"] =    new GraphicsSystem(this);
+	m_systems["WEAPON"] =      new WeaponSystem(this);
+	m_systems["CAMERAFOCUS"] = new CameraSystem(this);
+	m_systems["ANIMATION"] =   new AnimationSystem(this);
 }
 
 void ECSManager::update(float dt)
@@ -55,14 +56,9 @@ void ECSManager::update(float dt)
 	removeComponents();
 
 	//update all systems
-	m_systems["INPUT"]->update(dt);
-	m_systems["MOVEMENT"]->update(dt);
-	m_systems["COLLISION"]->update(dt);
-	m_systems["SEEING"]->update(dt);
-	m_systems["HEALTH"]->update(dt);
-	m_systems["GRAPHICS"]->update(dt);
-	m_systems["WEAPON"]->update(dt);
-	m_systems["CAMERAFOCUS"]->update(dt);
+	for (auto& s : m_systems) {
+		s.second->update(dt);
+	}
 }
 
 void ECSManager::updateRenderingSystems(float dt) {
@@ -199,7 +195,7 @@ void ECSManager::createBotEntity(BotLoader::botInstance* bot, GLFWwindow* /*wind
 	addComponent(botEntity, new MovementComponent());
 	addComponent(botEntity, new CollisionComponent());
 	HealthComponent* healthComp = new HealthComponent();
-	healthComp->healthVisualizerQuad = Rendering::getInstance().getNewQuad();
+	healthComp->healthVisualizerQuad = getGraphicsSystem()->getNewQuad();
 	healthComp->healthVisualizerQuad->setNrOfSprites(2.0f, 1.0f);
 	healthComp->healthVisualizerQuad->setCurrentSprite(0.0f, 0.0f);
 	healthComp->healthVisualizerQuad->setTextureIndex(1);
@@ -225,7 +221,7 @@ const int ECSManager::createPlayerEntity(float x, float y, GLFWwindow* window) {
 	addComponent(playerEntity, new InputComponent(window));
 	addComponent(playerEntity, new CollisionComponent());
 	HealthComponent* healthComp = new HealthComponent();
-	healthComp->healthVisualizerQuad = Rendering::getInstance().getNewQuad();
+	healthComp->healthVisualizerQuad = getGraphicsSystem()->getNewQuad();
 	healthComp->healthVisualizerQuad->setNrOfSprites(2.0f, 1.0f);
 	healthComp->healthVisualizerQuad->setCurrentSprite(0.0f, 0.0f);
 	healthComp->healthVisualizerQuad->setTextureIndex(1);

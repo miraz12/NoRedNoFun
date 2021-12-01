@@ -22,13 +22,11 @@ public:
     InstancedQuadManager* getQuadManager() { return &m_quadManager; }
 	Camera* getCamera() { return &m_camera; };
     MapLoader* getMapLoader() { return &m_mapLoader; }
+    void reset() { m_quadManager.reset(); };
 
 private:
 	void draw();
-    void init(unsigned int width, unsigned int height);
-
     void initGL();
-    void reInit(unsigned int width, unsigned int height);
 
     Camera m_camera;
     InstancedShaderProgram m_instancedShaderProgram;

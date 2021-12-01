@@ -15,7 +15,6 @@
 #include <AL/al.h>
 #include <AL/alc.h>
 
-#include "Rendering.hpp"
 #include "Game/Game.hpp"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -229,11 +228,6 @@ bool Window::gameLoop() {
          game.update((float) updateTimer);
          updateTimer = 0.0f;
       }
-      //Rendering::getInstance().update((float) dt);
-
-      // render
-      // ------
-      //Rendering::getInstance().draw();
 
       ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
       glfwSwapBuffers(window);

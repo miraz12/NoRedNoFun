@@ -14,8 +14,9 @@ public:
 	System(ECSManager* ECSManager, ComponentTypeEnum c1, ComponentTypeEnum c2);
 
 	System(ECSManager* ECSManager, ComponentTypeEnum c1, ComponentTypeEnum c2, ComponentTypeEnum c3);
-		
 
+	virtual ~System() = default;
+		
 	//Checks if entity has correct components
 	bool entityHasCorrectComponents(Entity* entity);
 

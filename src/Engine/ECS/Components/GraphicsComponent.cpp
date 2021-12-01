@@ -1,7 +1,7 @@
 #include "GraphicsComponent.hpp"
-#include "Rendering.hpp"
 
 #include "Objects/InstancedQuadManager.hpp"
+#include "ECS/ECSManager.hpp"
 
 GraphicsComponent::GraphicsComponent():
 	animate(false),
@@ -12,11 +12,11 @@ GraphicsComponent::GraphicsComponent():
 	updateTimer(0.0f),
 	movementMultiplier(0.0f),
 	advancements(0) {
-	quad = Rendering::getInstance().getNewQuad();
+	quad = ECSManager::getInstance().getGraphicsSystem()->getNewQuad();
 
 	m_componentType = ComponentTypeEnum::GRAPHICS;
 }
 
 GraphicsComponent::~GraphicsComponent() {
-	Rendering::getInstance().getQuadManager()->returnQuad(quad);
+	ECSManager::getInstance().getGraphicsSystem()->getQuadManager()->returnQuad(quad);
 }

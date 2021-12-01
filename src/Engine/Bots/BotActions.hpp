@@ -1,7 +1,6 @@
 #include "ECS/ECSManager.hpp"
 #include "ECS/Components/WeaponComponent.hpp"
 #include "ECS/Components/PositionComponent.hpp"
-#include "Rendering.hpp"
 #include "Window.hpp"
 
 namespace BotActions {
