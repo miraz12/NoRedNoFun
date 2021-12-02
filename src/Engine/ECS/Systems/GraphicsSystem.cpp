@@ -7,10 +7,10 @@
 #include <iostream>
 
 GraphicsSystem::GraphicsSystem(ECSManager * ECSManager) :
+    System(ECSManager, ComponentTypeEnum::POSITION, ComponentTypeEnum::GRAPHICS),
     m_quadManager(m_instancedShaderProgram),
     m_screenQuad(m_screenShaderProgram),
-    m_mapLoader(m_simpleShaderProgram, "resources/Maps/simple.map"),
-    System(ECSManager, ComponentTypeEnum::POSITION, ComponentTypeEnum::GRAPHICS){
+    m_mapLoader(m_simpleShaderProgram, "resources/Maps/simple.map") {
     initGL();
 }
 
