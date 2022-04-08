@@ -1,4 +1,4 @@
-#version 440
+#version 320 es
 precision highp float;
 
 in vec4 color;
@@ -17,6 +17,10 @@ mat4 thresholdMatrix = mat4(
     16.0, 8.0, 14.0, 6.0
     );
 
+float mod(float num, float modVal) {
+    return num - modVal * floor(num/modVal);
+}
+
 void main()
 {
     if (useTexture == 1) {
@@ -26,7 +30,7 @@ void main()
        FragColor = color;
     }
 
-    float threshold = thresholdMatrix[int(floor(mod(gl_FragCoord.x, 4)))][int(floor(mod(gl_FragCoord.y, 4)))] / 17;
+    float threshold = thresholdMatrix[int(floor(mod(gl_FragCoord.x, 4.0)))][int(floor(mod(gl_FragCoord.y, 4.0)))] / 17.0;
     if (threshold >= FragColor.a) {
         discard;
     }

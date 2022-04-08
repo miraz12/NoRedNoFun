@@ -1,4 +1,4 @@
-#version 440
+#version 320 es
 
 #define numTextures 15 
 
@@ -30,7 +30,7 @@ void main()
 
 
     // Screen-door transparancy
-    float threshold = thresholdMatrix[int(floor(mod(gl_FragCoord.x, 4)))][int(floor(mod(gl_FragCoord.y, 4)))] / 17;
+    float threshold = thresholdMatrix[int(floor(mod(gl_FragCoord.x, 4.0)))][int(floor(mod(gl_FragCoord.y, 4.0)))] / 17.0;
     if (threshold >= FragColor.a) {
         discard;
     }

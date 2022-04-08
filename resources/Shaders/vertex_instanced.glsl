@@ -1,4 +1,6 @@
-#version 440
+#version 320 es
+precision highp float;
+
 
 // If inputs change, also update SimpleShaderProgram::setupVertexAttributePointers to match
 layout (location = 0) in vec3 inPosition;
@@ -9,7 +11,7 @@ layout (location = 6) in mat4 textureMatrix;
 layout (location = 10) in int inTextureId;
 
 // If uniforms change, also update SimpleShaderProgram to match
-layout(location = 0) uniform mat4 viewMatrix = mat4(1.0); // Initialize as entity matrix for if no matrix is bound
+layout(location = 0) uniform mat4 viewMatrix;
 
 // out vec4 color;
 out vec2 texCoords;

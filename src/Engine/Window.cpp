@@ -12,8 +12,6 @@
 #include <backends/imgui_impl_opengl3.h>
 
 #include <GLFW/glfw3.h>
-#include <AL/al.h>
-#include <AL/alc.h>
 
 #include "Game/Game.hpp"
 
@@ -75,9 +73,10 @@ char* loadWAV(const char* fn, int& chan, int& samplerate, int& bps, int& size)
 
 bool Window::open() {
    glfwInit();
+   glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
    glfwWindowHint(GLFW_SAMPLES, 4);
 
    glfwSetErrorCallback(errorCallback);
@@ -105,69 +104,13 @@ bool Window::open() {
 
    // Setup Platform/Renderer backends
    ImGui_ImplGlfw_InitForOpenGL(window, true);
-   ImGui_ImplOpenGL3_Init("#version 130");
+   ImGui_ImplOpenGL3_Init("#version 320 es");
 
-   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+   if (!gladLoadGLES2Loader((GLADloadproc)glfwGetProcAddress))
    {
        std::cout << "Failed to initialize GLAD" << std::endl;
        return false;
    }
-
-   ALCdevice* alDevice = alcOpenDevice(NULL);
-
-   if(alDevice){
-      ALCcontext* alContext = alcCreateContext(alDevice, NULL);
-      alcMakeContextCurrent(alContext);
-   }
-
-   alGetError();
-
-   ALuint g_Buffers[1];
-   alGenBuffers(1, g_Buffers);
-
-
-   ALenum error;
-   if((error = alGetError()) != AL_NO_ERROR ) {
-      std::cout << "OpenAL buffer error!" << std::endl;
-      return false;
-   }
-
-   int channel, sampleRate, bps, size;
-   char* data = loadWAV("resources/Audio/mixkit-arcade-game-complete-or-approved-mission-205.wav", channel, sampleRate, bps, size);
-
-   unsigned int format;
-   if(channel == 1) {
-      if (bps == 8) {
-         format = AL_FORMAT_MONO8;
-      } else {
-         format = AL_FORMAT_MONO16;
-      }
-   } else {
-      if (bps == 8) {
-         format = AL_FORMAT_STEREO8;
-      } else {
-         format = AL_FORMAT_STEREO16;
-      }
-   }
-
-   alBufferData(g_Buffers[0], format, data, size, sampleRate);
-   if ((error = alGetError()) != AL_NO_ERROR) {
-      alDeleteBuffers(1, g_Buffers);
-      return false;
-   }
-
-   ALuint source[1];
-   alGenSources(1, source);
-   if ((error = alGetError()) != AL_NO_ERROR) {
-      return false;
-   }
-
-   alSourcei(source[0], AL_BUFFER, g_Buffers[0]);
-   if ((error = alGetError()) != AL_NO_ERROR) {
-      return false;
-   }
-
-   alSourcePlay(source[0]);
 
    return true;
 }

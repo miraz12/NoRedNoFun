@@ -50,5 +50,5 @@ void GraphicsSystem::initGL() {
 
 //     glEnable(GL_LINE_SMOOTH); // Line antialiasing
     glLineWidth(3.0f); // Sets line width of things like wireframe and draw lines
-    glPointSize(3.0f);
+    //glPointSize(3.0f);
 }

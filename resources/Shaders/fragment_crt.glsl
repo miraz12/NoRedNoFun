@@ -13,7 +13,8 @@
 // Please take and use, change, or whatever.
 //
 
-#version 440
+#version 320 es
+precision highp float;
 
 out vec4 fragColor;
 in vec2 texCoords;
