@@ -9,7 +9,6 @@
 #include "Engine/ECS/Components/SeeingComponent.hpp"
 
 Game::Game(GLFWwindow* window):
-	m_botLoader(window),
 	m_ECSManager(&ECSManager::getInstance())
 {
 	GraphicsSystem* gSys = m_ECSManager->getGraphicsSystem();
@@ -33,13 +32,6 @@ Game::Game(GLFWwindow* window):
 
 void Game::update(float dt) {
 	m_ECSManager->update(dt);
-	for(BotLoader::botInstance* b : m_botLoader.m_bots) {
-		Entity* e = m_ECSManager->getEntity(b->m_id);
-		if (e) {
-			SeeingComponent* seeingComp = static_cast<SeeingComponent*>(e->getComponent(ComponentTypeEnum::SEEING));
-			b->bot->update(dt, &seeingComp->visualEntities);
-		}
-	}
 }
 
 void Game::reset() {

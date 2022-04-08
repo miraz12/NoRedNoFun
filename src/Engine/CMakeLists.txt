@@ -9,12 +9,9 @@ file(GLOB_RECURSE ENGINE_FILES
 add_library(Engine ${ENGINE_FILES})
 target_include_directories(Engine SYSTEM PUBLIC ${CMAKE_SOURCE_DIR}/src/Engine ${CMAKE_SOURCE_DIR}/src/)
 target_link_libraries(Engine PUBLIC exts)
-if(UNIX)
-target_link_libraries(Engine PUBLIC stdc++fs stdc++fs)
-endif(UNIX)
 target_compile_options(Engine PRIVATE 
 						$<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>:
-     			       -Wall -pedantic -Werror>
+     			       -Wall -pedantic>
 						$<$<CXX_COMPILER_ID:MSVC>:
 						/W4;/WX;>)
 set_target_properties(Engine PROPERTIES CXX_STANDARD 17 CXX_STANDARD_REQUIRED ON CMAKE_CXX_EXTENSIONS OFF)

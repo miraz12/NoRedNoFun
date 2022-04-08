@@ -180,36 +180,6 @@ void ECSManager::removeComponents()
 	m_removeComponents.clear();
 }
 
-
-void ECSManager::createBotEntity(BotLoader::botInstance* bot, GLFWwindow* /*window*/) {
-
-	Entity &botEntity = createEntity();
-	bot->m_id = botEntity.getID();
-	botEntity.setName(bot->m_botName);
-	botEntity.makePlayable();
-
-	// Add componments to player
-	glm::vec2 startPos = m_startingPositions.back();
-	m_startingPositions.pop_back();
-	addComponent(botEntity, new PositionComponent(startPos.x, startPos.y));
-	addComponent(botEntity, new MovementComponent());
-	addComponent(botEntity, new CollisionComponent());
-	HealthComponent* healthComp = new HealthComponent();
-	healthComp->healthVisualizerQuad = getGraphicsSystem()->getNewQuad();
-	healthComp->healthVisualizerQuad->setNrOfSprites(2.0f, 1.0f);
-	healthComp->healthVisualizerQuad->setCurrentSprite(0.0f, 0.0f);
-	healthComp->healthVisualizerQuad->setTextureIndex(1);
-	addComponent(botEntity, healthComp);
-	GraphicsComponent* graphComp = new GraphicsComponent();
-	graphComp->quad->setNrOfSprites(1.0f, 1.0f);
-	graphComp->quad->setCurrentSprite(0.0f, 0.0f);
-	graphComp->quad->setTextureIndex(0);
-	addComponent(botEntity, graphComp);
-	addComponent(botEntity, new WeaponComponent());
-	addComponent(botEntity, new SeeingComponent());
-}
-
-
 const int ECSManager::createPlayerEntity(float x, float y, GLFWwindow* window) {
 
 	Entity& playerEntity = createEntity();

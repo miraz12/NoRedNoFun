@@ -15,7 +15,7 @@ HealthComponent::HealthComponent() :
 HealthComponent::HealthComponent(int health) :
 	HealthComponent() {
 	maxHealth = health;
-	health = health;
+	this->health = health;
 
 }
 

@@ -17,10 +17,6 @@ mat4 thresholdMatrix = mat4(
     16.0, 8.0, 14.0, 6.0
     );
 
-float mod(float num, float modVal) {
-    return num - modVal * floor(num/modVal);
-}
-
 void main()
 {
     if (useTexture == 1) {

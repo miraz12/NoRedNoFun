@@ -7,7 +7,6 @@
 #include "Systems/GraphicsSystem.hpp"
 #include "Systems/WeaponSystem.hpp"
 #include "Systems/SeeingSystem.hpp"
-#include "../Bots/BotLoader.hpp"
 #include "Systems/CameraSystem.hpp"
 #include "Systems/AnimationSystem.hpp"
 
@@ -54,9 +53,6 @@ public:
 
 	//Removes  componenet from entity and then the entity from all concerned systems
 	void removeComponent(Entity& entity, ComponentTypeEnum component);
-
-	// Add and setup a new bot
-	void createBotEntity(BotLoader::botInstance* bot, GLFWwindow* window);
 
 	// Create a controllable entity at position x,y
 	const int createPlayerEntity(float x, float y, GLFWwindow* window);

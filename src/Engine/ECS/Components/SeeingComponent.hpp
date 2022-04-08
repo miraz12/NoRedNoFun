@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Component.hpp"
-#include "../../../resources/Bots/BotInterface.hpp"
 
 #include <glm/glm.hpp>
 #include <vector>
@@ -14,7 +13,6 @@ public:
     float fov;
     unsigned int nrOfRays;
     float viewDistance;
-	std::vector<VisualEntity> visualEntities; //List of entities that can be seen right now
 
 	SeeingComponent();
 };

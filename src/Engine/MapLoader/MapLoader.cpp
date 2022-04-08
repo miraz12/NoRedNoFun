@@ -52,9 +52,9 @@ void MapLoader::parseMap() {
     for (size_t i = 0; i < m_width*m_height; i++) {
         switch (m_mapData[i]) {
         case tileType::ground:
-            texData[i*4]   = 200;
-            texData[i*4+1] = 200;
-            texData[i*4+2] = 200;
+            texData[i*4]   = 0;
+            texData[i*4+1] = 0;
+            texData[i*4+2] = 0;
             texData[i*4+3] = 255;
             break;
         case tileType::wall:
